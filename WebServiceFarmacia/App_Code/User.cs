@@ -10,9 +10,9 @@ public class User
     {
         
     }
-    public String username;
-    public int type;
-    public String password;
+    public string username = null;
+    public int type = 0;
+    public string password = null;
 
     /*public void setUsername(string username)
     {

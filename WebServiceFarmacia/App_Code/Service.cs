@@ -18,23 +18,28 @@ namespace WebServiceFarmacia
     public class Service : System.Web.Services.WebService
     {
         public DataBaseAccess dbAcces = new DataBaseAccess();
-
         public Service()
         {
         }
-       
-        [WebMethod]
+       /* [WebMethod]
         public void GetAllEmployees()
         {
             List<Employee> listEmployees = dbAcces.getEmployees();
             string json = JsonConvert.SerializeObject(listEmployees);
             Context.Response.Write(json);
-        }
+        }*/
+
         [WebMethod]
         public void authenticateUser(string userName , string password)
         {
             User user = dbAcces.getUserAuthentication(userName,password);
             string json = JsonConvert.SerializeObject(user);
+            Context.Response.Write(json);
+        }
+        [WebMethod]
+        public void getClients()
+        {
+            string json = JsonConvert.SerializeObject(dbAcces.getClients());
             Context.Response.Write(json);
         }
 

@@ -5,7 +5,7 @@ USE FARMATICA;
 --* : Significa cambio con respecto al modelo anterior.
 
 CREATE TABLE CLIENTE(
-	IdCliente INT,				 -- *
+	IdCliente INT,				 
 	Cedula VARCHAR(11),
 	Nombre VARCHAR (15),
 	Apellido VARCHAR(15),
@@ -15,6 +15,12 @@ CREATE TABLE CLIENTE(
 
 	CONSTRAINT PK_CLIENTE
 		PRIMARY KEY (IdCliente)
+)
+
+CREATE TABLE USUARIOS(
+	NombreUsuario CHAR(15),
+	Passwrd Char(8),
+	Tipo INT
 )
 
 CREATE TABLE PADECIMIENTOS_POR_CLIENTE(

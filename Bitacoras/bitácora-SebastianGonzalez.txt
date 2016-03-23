@@ -1,0 +1,4 @@
+21/03/2016 3hrs Instalación de Visual Studio , SQL server 2012
+21/03/2016 5hrs Investigación de Angularjs y Bootstrap
+22/03/2015 12 hrs Implemnatación de un webservice básico y un cliente hecho con html y angular. Creación repositorio.
+23/03/2015 3hrs Se agregó funcionalidad al web service para hacer login en las aplicaciones

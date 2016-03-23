@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-//using System.Linq;
-using System.Web;
+﻿
 using System.Web.Services;
-using System.Configuration;
 using Newtonsoft.Json;
-using System.Data.SqlClient;
+
 
 
 namespace WebServiceFarmacia
@@ -36,12 +32,7 @@ namespace WebServiceFarmacia
             string json = JsonConvert.SerializeObject(user);
             Context.Response.Write(json);
         }
-        [WebMethod]
-        public void getClients()
-        {
-            string json = JsonConvert.SerializeObject(dbAcces.getClients());
-            Context.Response.Write(json);
-        }
+       
 
     }
 }

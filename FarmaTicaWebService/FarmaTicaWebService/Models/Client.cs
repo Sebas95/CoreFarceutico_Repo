@@ -16,7 +16,7 @@ namespace FarmaTicaWebService.Models
         public string Nombre;
         public string Apellido;
         public string Prioridad;
-        public DateTime FechaNacimiento;
+        public string FechaNacimiento;
         public string Residencia;
 
     }

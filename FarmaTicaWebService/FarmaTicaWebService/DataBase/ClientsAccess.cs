@@ -30,7 +30,7 @@ namespace FarmaTicaWebService.DataBase
                     cliente.Nombre = rdr["Nombre"].ToString();
                     cliente.Apellido = rdr["Apellido"].ToString();
                     cliente.Prioridad = rdr["Prioridad"].ToString();
-                    cliente.FechaNacimiento = rdr["FechaNacimiento"].ToString();
+                    cliente.FechaNacimiento =rdr["FechaNacimiento"].ToString();
                     cliente.Residencia = rdr["Residencia"].ToString();
                     listClientes.Add(cliente);
                 }
@@ -60,9 +60,9 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    " UPDATE CLIENTE SET Cedula = '"+client.Apellido+"', Nombre = '"+client.Nombre+"', Apellido = '"+client.Apellido+"'," 
+                    " UPDATE CLIENTE SET Cedula = '"+client.Cedula+"', Nombre = '"+client.Nombre+"', Apellido = '"+client.Apellido+"'," 
                     +" FechaNacimiento = '"+client.FechaNacimiento+"', Residencia = '"+client.Residencia+"',"
-                    +" Prioridad = '' WHERE IdCliente = "+ clientId +" ; "
+                    +" Prioridad = '"+client.Prioridad+"' WHERE IdCliente = "+ clientId +" ; "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();

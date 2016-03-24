@@ -13,19 +13,21 @@ namespace FarmaTicaWebService.Controllers
     {
         public ClientsAccess DataBaseAccess = new ClientsAccess();
 
-        public List<Client> getClients()
+        // GET api/Client
+        public List<Client> Get()
         {
             return DataBaseAccess.getClients();
         }
-
-        public Client postClient(Client newClient)
+        // POST api/Client
+        public Client Post(Client newClient)
         {
             DataBaseAccess.addClient(newClient);
             return newClient;
         }
-        public Client updateClient(int ClientId, Client cliente)
+        // PUT api/Client/5
+        public Client Put(int id, [FromBody]Client cliente)
         {
-            
+            DataBaseAccess.updateClient(id,cliente);
             return cliente;
         }
 

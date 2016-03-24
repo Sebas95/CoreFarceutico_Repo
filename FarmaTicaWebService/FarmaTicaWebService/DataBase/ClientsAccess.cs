@@ -38,7 +38,7 @@ namespace FarmaTicaWebService.DataBase
             return listClientes;
 
         }
-        public Client postClient(Client client)
+        public Client addClient(Client client)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
@@ -51,6 +51,22 @@ namespace FarmaTicaWebService.DataBase
                 con.Open();
                 cmd.ExecuteNonQuery();
                 
+            }
+            return client;
+        }
+        public Client updateClient(int clientId, Client client)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    " UPDATE CLIENTE SET Cedula = '"+client.Apellido+"', Nombre = '"+client.Nombre+"', Apellido = '"+client.Apellido+"'," 
+                    +" FechaNacimiento = '"+client.FechaNacimiento+"', Residencia = '"+client.Residencia+"',"
+                    +" Prioridad = '' WHERE IdCliente = "+ clientId +" ; "
+                    , con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+
             }
             return client;
         }

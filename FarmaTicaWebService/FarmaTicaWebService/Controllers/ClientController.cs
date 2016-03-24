@@ -11,17 +11,24 @@ namespace FarmaTicaWebService.Controllers
 {
     public class ClientController : ApiController
     {
-        public ClientsAccess ca = new ClientsAccess();
+        public ClientsAccess DataBaseAccess = new ClientsAccess();
 
         public List<Client> getClients()
         {
-            return ca.getClients();
+            return DataBaseAccess.getClients();
         }
+
         public Client postClient(Client newClient)
         {
-            ca.postClient(newClient);
+            DataBaseAccess.addClient(newClient);
             return newClient;
         }
+        public Client updateClient(int ClientId, Client cliente)
+        {
+            
+            return cliente;
+        }
+
       
     }
 }

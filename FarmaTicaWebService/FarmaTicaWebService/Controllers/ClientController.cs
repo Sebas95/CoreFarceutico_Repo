@@ -21,16 +21,22 @@ namespace FarmaTicaWebService.Controllers
         // POST api/Client
         public Client Post(Client newClient)
         {
-            DataBaseAccess.addClient(newClient);
-            return newClient;
+            return DataBaseAccess.addClient(newClient);
+            
         }
         // PUT api/Client/5
         public Client Put(int id, [FromBody]Client cliente)
         {
-            DataBaseAccess.updateClient(id,cliente);
-            return cliente;
+            return DataBaseAccess.updateClient(id,cliente);   
+        }
+        // DELETE api/Client/5
+        public void Delete(int id)
+        {
+            DataBaseAccess.deleteClient(id);
         }
 
-      
+        
+
+
     }
 }

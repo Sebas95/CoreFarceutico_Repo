@@ -1,3 +1,11 @@
+
+/*----------------------------------CREATE------------------------------------------------*/
+INSERT INTO CLIENTE (IdCliente, Cedula, Nombre,Apellido,Prioridad, FechaNacimiento, Residencia) 
+VALUES ('id','ced','nomb','apellido','A','date','residencia')
+INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES ('IDCLIENTE' , 'PADECIMIENTO');
+INSERT INTO TELEFONOS_POR_CLIENTE VALUES ('IDCLIENTE' , 'TELEFONO','desc');
+
+/*------------------------------------READ------------------------------------------------*/
 select  IdCliente, Cedula, Nombre , Apellido, Prioridad, FechaNacimiento , Residencia 
 from CLIENTE; 
 
@@ -6,31 +14,42 @@ from CLIENTE AS C join TELEFONOS_POR_CLIENTE AS T
 On C.IdCliente = T.IdCliente
 --WHERE C.IdCliente = ''
 ;
-
 SELECT C.Nombre , P.Descripcion  
 from CLIENTE AS C join PADECIMIENTOS_POR_CLIENTE AS P
 On C.IdCliente = P.IdCliente
 --WHERE C.IdCliente = ''
 ;
-/*---------------PARA updades------------------------------------------------*/
+/*------------------------------------UPDATE------------------------------------------------*/
 UPDATE CLIENTE 
 SET Cedula='' , Nombre='' , Apellido='', FechaNacimiento= '', Residencia='' , Prioridad = ''
 WHERE IdCliente= '' ;
 
 
-/*---------------PARA INSERCIONES------------------------------------------------*/
-INSERT INTO CLIENTE (IdCliente, Cedula, Nombre,Apellido,Prioridad, FechaNacimiento, Residencia) 
-VALUES ('id','ced','nomb','apellido','A','date','residencia')
-INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES ('IDCLIENTE' , 'PADECIMIENTO');
-INSERT INTO TELEFONOS_POR_CLIENTE VALUES ('IDCLIENTE' , 'TELEFONO','desc');
-
-/*---------------PARA ELIMINACIONES------------------------------------------------*/
+/*-------------------------------------DELETE-----------------------------------------------*/
 DELETE FROM CLIENTE
 WHERE IdCliente='';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*-----------------------------------Prueba---------------------------------------------------*/
-INSERT INTO CLIENTE (IdCliente, Cedula, Nombre,Apellido, FechaNacimiento, Residencia)  
-VALUES (32,'115090837','Sebastian','Gonzalez','1995-01-19','Tres Rios')
+INSERT INTO CLIENTE (IdCliente, Cedula, Nombre,Apellido,Prioridad, FechaNacimiento, Residencia) 
+VALUES (32,'115090837','Sebastian','Gonzalez','B','1995-01-19','Tres Rios')
 INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES (32 , 'PADECIMIENTO1');
 INSERT INTO TELEFONOS_POR_CLIENTE VALUES (32 , '89985104','cel');
 INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES (32 , 'PADECIMIENTO2');

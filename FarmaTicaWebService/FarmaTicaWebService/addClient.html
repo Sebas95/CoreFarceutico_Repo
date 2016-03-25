@@ -1,0 +1,30 @@
+﻿<form>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Nombre</label>
+        <input type="Nombre" class="form-control" id="tNombre" placeholder="Nombre" data-ng-model="Item.name">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Apellido</label>
+        <input type="Apellido" class="form-control" id="tApellido" placeholder="Apellido" data-ng-model="Item.apellido">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Cedula</label>
+        <input class="form-control" id="exampleInputPassword1" placeholder="Password" data-ng-model="Item.cedula">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Fecha Nacimiento</label>
+        <input class="form-control" id="exampleInputPassword1" placeholder="Password" data-ng-model="Item.fechaNacimiento">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Residencia</label>
+        <input class="form-control" id="exampleInputPassword1" placeholder="Password" data-ng-model="Item.residencia">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input class="form-control" id="exampleInputPassword1" placeholder="Password" data-ng-model="Item.name">
+    </div>
+    <li ng-repeat="item in DataList">{{item}}</li>
+    <p>{{dato}}</p>
+    <button type="Add" class="btn btn-secondary" data-ng-click="save()">Add</button>
+    <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
+</form>

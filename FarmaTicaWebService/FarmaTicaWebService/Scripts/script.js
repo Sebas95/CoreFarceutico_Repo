@@ -13,7 +13,7 @@
 
 
 var app = angular
-        .module("myModule", ['ngResource'])
+        .module("myModule", ['ngResource','ngRoute'])
         .factory('UserService', function ($resource) {
             return $resource('http://localhost:8080/api/Client', {});
         })

@@ -5,4 +5,5 @@
 23/03/2016 7 hrs investigación mejorasal web service
 24/03/2016 12 hrs implementación del módulo de clientes y doctores del web service
 25/03/2016 2 hrs solución de conexión de la página web del web service.
-25/03/2016 1hr Modificación en la base de datos (simplificación).
+25/03/2016 3hr Modificación en la base de datos (simplificación).
+25/03/2016 6hr Servicio web de medicamentos (simplificación).

@@ -1,7 +1,10 @@
 #################
 ## Eclipse
 #################
-
+*.txt
+*.cache
+*.dll
+*.config
 *.pydevproject
 .project
 .metadata

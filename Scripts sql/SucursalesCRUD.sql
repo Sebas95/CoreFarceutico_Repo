@@ -18,3 +18,4 @@ WHERE NoSucursal = '11' ;
 DELETE FROM SUCURSAL
 WHERE NoSucursal='11';
 
+select* from cliente;

@@ -47,4 +47,5 @@ DELETE  FROM MEDICAMENTO WHERE Codigo = 'CF';
 
 
 
+Select * from MEDICAMENTO_EN_SUCURSAL;
 Select * from MEDICAMENTO;

@@ -70,7 +70,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM DOCTOR WHERE NoDoctor = " + NoSucursal + " ; "
+                    "DELETE FROM SUCURSAL WHERE NoSucursal = '"+ NoSucursal +"'; "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();

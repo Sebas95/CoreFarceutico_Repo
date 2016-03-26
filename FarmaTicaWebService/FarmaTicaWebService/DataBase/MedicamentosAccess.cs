@@ -69,7 +69,7 @@ namespace FarmaTicaWebService.DataBase
             return medicamento;
         }
 
-        public void deleteMedicamento(int Codigo)
+        public void deleteMedicamento(string Codigo)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
@@ -80,6 +80,35 @@ namespace FarmaTicaWebService.DataBase
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
+
+        }
+
+        public List<SucursalPorMedicamento> getSucursales(string codigoMedicamento)
+        {
+            List <SucursalPorMedicamento > listSucursales = new List<SucursalPorMedicamento > ();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT  S.NoSucursal , S.Nombre  , S.Direccion , S.Telefono , MS.Cantidad"
+                    +" FROM MEDICAMENTO_EN_SUCURSAL AS MS JOIN SUCURSAL AS S"
+                    +" ON MS.NoSucursal = S.NoSucursal"
+                    +" WHERE MS.CodigoMedicamento = '"+codigoMedicamento+"'; "
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read()) //si existe en la base de datos
+                {
+                    SucursalPorMedicamento  sucursal = new SucursalPorMedicamento();
+                    sucursal.NoSucursal = rdr["NoSucursal"].ToString();
+                    sucursal.Nombre = rdr["Nombre"].ToString();
+                    sucursal.Direccion = rdr["Direccion"].ToString();
+                    sucursal.Telefono = rdr["Telefono"].ToString();
+                    sucursal.Cantidad = rdr["Cantidad"].ToString();
+                    listSucursales.Add(sucursal);
+                }
+            }
+            return listSucursales;
 
         }
 

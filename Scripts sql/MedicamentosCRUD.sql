@@ -21,6 +21,8 @@ VALUES ('AC', 11 , 34);
 INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad)
 VALUES ('AL', 22 , 100); 
 INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad)
+VALUES ('AL', 11 , 100);
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad)
 VALUES ('CF', 22 , 300); 
 
 /*-----------------------------------------READ-----------------------------------------------------*/

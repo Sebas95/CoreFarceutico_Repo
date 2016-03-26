@@ -13,6 +13,8 @@ namespace FarmaTicaWebService.Controllers
     {
         public MedicamentosAccess databaseAccess = new MedicamentosAccess();
 
+        /** Retorna toda la lista de medicamentos
+        */
         public List<Medicamento> Get()
         {
             return databaseAccess.getAllMedicamentos();
@@ -25,7 +27,7 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.updateMedicamento(id,medicamento);
         }
-        public void Delete(int id)
+        public void Delete(string id)
         {
             databaseAccess.deleteMedicamento(id);
         }

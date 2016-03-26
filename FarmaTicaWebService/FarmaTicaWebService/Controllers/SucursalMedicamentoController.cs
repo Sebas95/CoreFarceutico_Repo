@@ -10,5 +10,10 @@ namespace FarmaTicaWebService.Controllers
 {
     public class SucursalMedicamentoController : ApiController
     {
+        public MedicamentosAccess databaseAccess = new MedicamentosAccess();
+        public List<SucursalPorMedicamento> Get(string id)
+        {
+            return databaseAccess.getSucursales(id);
+        }
     }
 }

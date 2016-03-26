@@ -17,3 +17,5 @@ insert into doctor (NoDoctor,Cedula,Nombre,Apellido,FechaNacimiento,Residencia)
 values(1,'323453234','Alfred','Cen','1889-01-02','colorado');
 
 select* from DOCTOR;
+
+

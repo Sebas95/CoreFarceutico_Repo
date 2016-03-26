@@ -18,7 +18,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "select  IdCliente, Cedula, Nombre , Apellido, Prioridad, FechaNacimiento , Residencia from CLIENTE; ", con);
+                    "select  IdCliente, Cedula, Nombre , Apellido, Prioridad,CONVERT(VARCHAR(10),FechaNacimiento,120) as Fecha , Residencia from CLIENTE; ", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
@@ -29,7 +29,7 @@ namespace FarmaTicaWebService.DataBase
                     cliente.Nombre = rdr["Nombre"].ToString();
                     cliente.Apellido = rdr["Apellido"].ToString();
                     cliente.Prioridad = rdr["Prioridad"].ToString();
-                    cliente.FechaNacimiento =rdr["FechaNacimiento"].ToString();
+                    cliente.FechaNacimiento =rdr["Fecha"].ToString();
                     cliente.Residencia = rdr["Residencia"].ToString();
                     listClientes.Add(cliente);
                 }

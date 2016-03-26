@@ -167,6 +167,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataBase\ClientsAccess.cs" />
     <Compile Include="DataBase\DoctorsAccess.cs" />
+    <Compile Include="DataBase\MedicamentosAccess.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

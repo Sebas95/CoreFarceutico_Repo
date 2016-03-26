@@ -15,7 +15,7 @@ CREATE TABLE USUARIOS(
 )
 -- -------------------------------------------------------
 CREATE TABLE CLIENTE(
-	IdCliente INT,				 
+	IdCliente INT IDENTITY(1,1),				 
 	Cedula CHAR(11),
 	Nombre CHAR (15),
 	Apellido CHAR(15),

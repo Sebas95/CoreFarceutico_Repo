@@ -27,10 +27,10 @@ VALUES ('CF', 22 , 300);
 /*
  sucursal donde se crea, nombre, casa farmacéutica, requiere prescripción (Si/No), cantidad disponible.
 */
-SELECT MEDICAMENTO.Nombre as Nombre , Codigo , Prescripcion 
+SELECT MEDICAMENTO.Nombre as Nombre , Codigo , Prescripcion , CasaFarmaceutica, Costo
 FROM MEDICAMENTO ; 
 
-SELECT  MS.Cantidad , S.NoSucursal , S.Nombre AS NombreSucursal , S.Direccion , S.Telefono
+SELECT  S.NoSucursal , S.Nombre  , S.Direccion , S.Telefono , MS.Cantidad 
 FROM MEDICAMENTO_EN_SUCURSAL AS MS JOIN SUCURSAL AS S
 ON MS.NoSucursal = S.NoSucursal 
 WHERE MS.CodigoMedicamento = 'AL';

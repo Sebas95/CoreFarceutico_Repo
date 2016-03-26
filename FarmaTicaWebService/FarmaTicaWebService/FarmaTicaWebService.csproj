@@ -161,6 +161,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\PadecimientosController.cs" />
+    <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\SucursalMedicamentoController.cs" />
     <Compile Include="Controllers\TelefonosClientesController.cs" />
     <Compile Include="Controllers\UserController.cs" />

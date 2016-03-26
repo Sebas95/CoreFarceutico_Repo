@@ -111,6 +111,37 @@ namespace FarmaTicaWebService.DataBase
             return listSucursales;
 
         }
+         public SucursalPorMedicamento addSucursalPorMedicamento(string codigoMedicamento, SucursalPorMedicamento sucursal_por_medicamento)
+         {
+             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+             using (SqlConnection con = new SqlConnection(cs))
+             {
+                 SqlCommand cmd = new SqlCommand(
+                     "INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad) "+
+                     " VALUES('"+ codigoMedicamento+"', '"+sucursal_por_medicamento.NoSucursal+"', '"+sucursal_por_medicamento.Cantidad+"'); "
+                     , con);
+                 con.Open();
+                 cmd.ExecuteNonQuery();
+
+             }
+             return sucursal_por_medicamento;
+
+
+         }
+        //
+        public void deleteRemoveSucursalFromMedicamento(string codigoMedicamento, string NoSucursal)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "DELETE FROM  MEDICAMENTO_EN_SUCURSAL WHERE CodigoMedicamento = '"+codigoMedicamento+"' and NoSucursal = '"+NoSucursal+"' ; "
+                    , con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+        }
 
     }
 }

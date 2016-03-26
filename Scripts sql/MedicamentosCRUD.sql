@@ -1,5 +1,5 @@
 /*
- sucursal donde se crea, nombre, casa farmacéutica, requiere prescripción (Si/No), cantidad disponible.
+  nombre, casa farmacéutica, requiere prescripción (Si/No),  sucursal donde se crea, cantidad disponible.
 */
 
 USE FARMATICA;
@@ -26,7 +26,7 @@ VALUES ('CF', 22 , 300);
 
 /*-----------------------------------------READ-----------------------------------------------------*/
 /*
- sucursal donde se crea, nombre, casa farmacéutica, requiere prescripción (Si/No), cantidad disponible.
+  nombre, casa farmacéutica, requiere prescripción (Si/No),  sucursal donde se crea, cantidad disponible.
 */
 SELECT MEDICAMENTO.Nombre as Nombre , Codigo , Prescripcion , CasaFarmaceutica, Costo
 FROM MEDICAMENTO ; 
@@ -44,8 +44,13 @@ WHERE Codigo= '' ;
 
 /*-----------------------------------------DELETE-----------------------------------------------------*/
 DELETE  FROM MEDICAMENTO WHERE Codigo = 'CF';
+DELETE FROM  MEDICAMENTO_EN_SUCURSAL WHERE CodigoMedicamento = 'AL' and NoSucursal = '22' ; 
 
 
 
-Select * from MEDICAMENTO_EN_SUCURSAL;
+
+
+
+
+Select CodigoMedicamento, NoSucursal , Cantidad from MEDICAMENTO_EN_SUCURSAL;
 Select * from MEDICAMENTO;

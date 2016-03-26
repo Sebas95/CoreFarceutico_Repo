@@ -167,6 +167,7 @@
     <Compile Include="DataBase\ClientsAccess.cs" />
     <Compile Include="DataBase\DoctorsAccess.cs" />
     <Compile Include="DataBase\MedicamentosAccess.cs" />
+    <Compile Include="DataBase\SucursalAccess.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +175,7 @@
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Medicamento.cs" />
     <Compile Include="Models\Padecimiento.cs" />
+    <Compile Include="Models\Sucursal.cs" />
     <Compile Include="Models\SucursalPorMedicamento.cs" />
     <Compile Include="Models\TelefonoCliente.cs" />
     <Compile Include="Models\User.cs" />

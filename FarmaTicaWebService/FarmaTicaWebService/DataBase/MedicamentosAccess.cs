@@ -83,7 +83,7 @@ namespace FarmaTicaWebService.DataBase
 
         }
 
-        public List<SucursalPorMedicamento> getSucursales(string codigoMedicamento)
+        public List<SucursalPorMedicamento> getSucursalesPorMedicamento(string codigoMedicamento)
         {
             List <SucursalPorMedicamento > listSucursales = new List<SucursalPorMedicamento > ();
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

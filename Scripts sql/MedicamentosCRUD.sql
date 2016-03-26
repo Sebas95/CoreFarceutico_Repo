@@ -4,39 +4,46 @@
 
 USE FARMATICA;
 /*---------------------------------------CREATE-----------------------------------------------------*/
-INSERT INTO CASA_FARMACEUTICA (Identificador , Nombre) VALUES(1 ,'Bayern');
-INSERT INTO CASA_FARMACEUTICA (Identificador , Nombre) VALUES(2 ,'CCSS');
-INSERT INTO CASA_FARMACEUTICA (Identificador , Nombre) VALUES(3 ,'Novartis');
+
+INSERT INTO MEDICAMENTO (Nombre ,Prescripcion, Codigo , CasaFarmaceutica , Costo)
+VALUES('Acetaminofem', 0, 'AC','Bayern' , 1500);
+INSERT INTO MEDICAMENTO (Nombre ,Prescripcion, Codigo , CasaFarmaceutica , Costo)
+VALUES(  'Cataflam',1, 'CF','Novartis', 3500);
+INSERT INTO MEDICAMENTO (Nombre ,Prescripcion, Codigo , CasaFarmaceutica , Costo)
+VALUES(  'Alcohol',0, 'AL','CCSS', 3500);
+
 
 INSERT INTO SUCURSAL (NoSucursal , Nombre , Direccion , Telefono) VALUES (11,'Heredia' , 'San Pablo' ,'22654356');
 INSERT INTO SUCURSAL (NoSucursal , Nombre , Direccion , Telefono) VALUES (22,'San Jose', ' San jose Centro' ,'24346547');
 
-INSERT INTO MEDICAMENTO (Prescripcion, Codigo , Nombre , Costo)
-VALUES( 0, 'AC', 'Acetaminofem', 1500);
-INSERT INTO MEDICAMENTO (Prescripcion, Codigo , Nombre , Costo)
-VALUES( 1, 'CF', 'Cataflam', 3500);
-
-INSERT INTO MEDICAMENTOS_POR_CASA_FARMACEUTICA (CodigoMedicamento , Identificador_Casa) 
-VALUES ('AC' , 1); 
-INSERT INTO MEDICAMENTOS_POR_CASA_FARMACEUTICA (CodigoMedicamento , Identificador_Casa) 
-VALUES ('CF' , 3); 
-
-INSERT INTO MEDICAMENTO_EN_SUCURAL (CodigoMedicamento , NoSucursal, Cantidad)
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad)
 VALUES ('AC', 11 , 34); 
-
-INSERT INTO MEDICAMENTO_EN_SUCURAL (CodigoMedicamento , NoSucursal, Cantidad)
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad)
+VALUES ('AL', 22 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad)
 VALUES ('CF', 22 , 300); 
 
 /*-----------------------------------------READ-----------------------------------------------------*/
 /*
  sucursal donde se crea, nombre, casa farmacéutica, requiere prescripción (Si/No), cantidad disponible.
 */
-SELECT *
-FROM 
-((((MEDICAMENTO JOIN MEDICAMENTO_EN_SUCURAL ON MEDICAMENTO.Codigo = MEDICAMENTO_EN_SUCURAL.CodigoMedicamento )
-JOIN SUCURSAL ON MEDICAMENTO_EN_SUCURAL.NoSucursal = SUCURSAL.NoSucursal ) 
-JOIN MEDICAMENTOS_POR_CASA_FARMACEUTICA ON MEDICAMENTO.Codigo = MEDICAMENTOS_POR_CASA_FARMACEUTICA.CodigoMedicamento )
-JOIN CASA_FARMACEUTICA ON MEDICAMENTOS_POR_CASA_FARMACEUTICA.Identificador_Casa = CASA_FARMACEUTICA.Identificador )
+SELECT MEDICAMENTO.Nombre as Nombre , Codigo , Prescripcion 
+FROM MEDICAMENTO ; 
+
+SELECT  MS.Cantidad , S.NoSucursal , S.Nombre AS NombreSucursal , S.Direccion , S.Telefono
+FROM MEDICAMENTO_EN_SUCURSAL AS MS JOIN SUCURSAL AS S
+ON MS.NoSucursal = S.NoSucursal 
+WHERE MS.CodigoMedicamento = 'AL';
+/*-----------------------------------------UPDATE-----------------------------------------------------*/
+
+UPDATE MEDICAMENTO
+SET Nombre ='' ,Prescripcion = '', CasaFarmaceutica = '', Costo = '' 
+WHERE Codigo= '' ;
 
 
--- SUCURSAL, MEDICAMENTOS_POR_CASA_FARMACEUTICA , CASA_FARMACEUTICA;
+/*-----------------------------------------DELETE-----------------------------------------------------*/
+DELETE  FROM MEDICAMENTO WHERE Codigo = 'CF';
+
+
+
+Select * from MEDICAMENTO;

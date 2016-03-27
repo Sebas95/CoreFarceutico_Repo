@@ -9,7 +9,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'clientController'
     })
       .when('/Items/add', {
-          templateUrl: 'addClient.html',
+          templateUrl: 'editClient.html',
           controller: 'addController'
       })
       .when('/Items/:index', {
@@ -89,6 +89,19 @@ app.factory('doctorResource', function ($resource) {
     });
 });
 
+app.factory('telefonosResource', function ($resource) {
+    return $resource('http://localhost:8080/api/TelefonosClientes/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
 
 
 
@@ -221,61 +234,12 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
 
 }]);
 
-app.controller("editDoctorController", ["$scope", "$location", "$routeParams", "clientService", "doctorResource",
+app.controller("editDoctorController", ["$scope", "$location", "$routeParams", "clientService", "doctorResource", "telefonosResource",
 
 
-function ($scope, $location, $routeParams, clientService, doctorResource) {
-    $scope.Item = clientService.getClients()[parseInt($routeParams.index)];    
-    doctorResource.query().$promise.then(function (data) {        
-        $scope.Item = data[parseInt($routeParams.index)];        
-        //$scope.isArray = data instanceof Array;
-    });
-    /*$scope.save = function () {
-        clientService.editClient(parseInt($routeParams.index), {
-            name: $scope.Item.name, apellido: $scope.Item.apellido,
-            cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
-            residencia: $scope.Item.residencia
-        });
-        $location.path("/Items");
-    }*/
-
-
-
-    $scope.save = function () {
-        $scope.newClientUpdated = {
-            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
-            FechaNacimiento: $scope.Item.FechaNacimiento, Residencia: $scope.Item.Residencia
-        };
-        /*   $scope.newClientUpdated = {
-               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
-               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
-               Residencia: $scope.Item.Residencia
-           };*/
-        doctorResource.update({ id: $scope.Item.NoDoctor }, $scope.newClientUpdated);
-        $location.path(typeOfView);
-        //Notes.update({ id: $id }, note);
-    }
-
-    $scope.cancel = function () {
-        $location.path(typeOfView);
-    }
-
-    $scope.delete = function () {
-        doctorResource.delete({ id: $scope.Item.NoDoctor });
-        $location.path(typeOfView);
-    }
-
-}]);
-
-
-
-app.controller("editController", ["$scope", "$location", "$routeParams", "clientService", "JsonResource",
-
-
-function ($scope, $location, $routeParams, clientService, JsonResource) {
+function ($scope, $location, $routeParams, clientService, doctorResource, telefonosResource) {
     $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
-
-    JsonResource.query().$promise.then(function (data) {
+    doctorResource.query().$promise.then(function (data) {
         $scope.Item = data[parseInt($routeParams.index)];
         //$scope.isArray = data instanceof Array;
     });
@@ -291,10 +255,75 @@ function ($scope, $location, $routeParams, clientService, JsonResource) {
 
 
     $scope.save = function () {
+
+
+
+        $scope.newClientUpdated = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            FechaNacimiento: $scope.Item.FechaNacimiento, Residencia: $scope.Item.Residencia
+        };
+        /*   $scope.newClientUpdated = {
+               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+               Residencia: $scope.Item.Residencia
+           };*/
+        doctorResource.update({ id: $scope.Item.NoDoctor }, $scope.newClientUpdated);
+        $location.path(typeOfView);
+        //Notes.update({ id: $id }, note);
+    }
+
+
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+    $scope.delete = function () {
+        doctorResource.delete({ id: $scope.Item.NoDoctor });
+        $location.path(typeOfView);
+    }
+
+}]);
+
+
+
+app.controller("editController", ["$scope", "$location", "$routeParams", "clientService", "JsonResource", "telefonosResource",
+
+
+function ($scope, $location, $routeParams, clientService, JsonResource, telefonosResource) {
+    $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
+    $scope.telefonos = {};
+    JsonResource.query().$promise.then(function (data) {
+        $scope.Item = data[parseInt($routeParams.index)];
+        $scope.telefonos = telefonosResource.query({ id: $scope.Item.IdCliente });
+        //$scope.isArray = data instanceof Array;
+    });
+    /*$scope.save = function () {
+        clientService.editClient(parseInt($routeParams.index), {
+            name: $scope.Item.name, apellido: $scope.Item.apellido,
+            cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
+            residencia: $scope.Item.residencia
+        });
+        $location.path("/Items");
+    }*/
+
+    $scope.addPhone = function () {
+        alert($scope.Item.IdCliente);
+        $scope.newPhone = {
+            idCliente: $scope.Item.IdCliente, Telefono: $scope.newPhoneC, descripcion: $scope.descrp
+        };
+        telefonosResource.save($scope.newPhone);
+        $location.path(typeOfView);
+    }
+
+    $scope.save = function () {
         $scope.newClientUpdated = {
             Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
             Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
             Residencia: $scope.Item.Residencia
+        };
+        $scope.newTelefonoUpdated = {
+            idCliente: $scope.Item.Cedula, Telefono: selectedCar, descripcion: telefono.descripción
         };
         /*   $scope.newClientUpdated = {
                Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
@@ -303,6 +332,7 @@ function ($scope, $location, $routeParams, clientService, JsonResource) {
            };*/
         JsonResource.update({ id: $scope.Item.IdCliente }, $scope.newClientUpdated);
         $location.path(typeOfView);
+        telefonosResource.save($scope.newTelefonoUpdated);
         //Notes.update({ id: $id }, note);
     }
 
@@ -317,10 +347,10 @@ function ($scope, $location, $routeParams, clientService, JsonResource) {
 
 }]);
 
-app.controller("addController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "JsonResource",
+app.controller("addController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "telefonosResource",
 
 
-function ($scope, $http, $location, $routeParams, clientService, httpService, JsonResource) {
+function ($scope, $http, $location, $routeParams, clientService, httpService, JsonResource, telefonosResource) {
 
     $scope.typeOfHuman = "Clientes";
     $scope.save = function () {

@@ -23,6 +23,18 @@ app.factory('httpService', function ($resource) {
     return $resource('http://localhost:8080/api/Client', {});
 })
 
+app.factory('JsonResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Client', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        }
+    });
+});
+
 app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http) {
     var svc = {};
     var URI = 'http://localhost:8080/api/Client';
@@ -34,7 +46,6 @@ app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http
           { name: "Marco", apellido: "Biyyalovos", cedula: "69", fechaNacimiento: "12-99-8888", residencia: "en aquella" },
           { name: "Jose", apellido: "Villalibis", cedula: "70-1", fechaNacimiento: "26-123-3123", residencia: "en la que sigue" },
     ];
-
     svc.getClients = function () {
         return data;
     };
@@ -86,12 +97,16 @@ function ($scope, $location, $routeParams, clientService, httpService) {
 
 }]);
 
-app.controller("editController", ["$scope", "$location", "$routeParams", "clientService",
+app.controller("editController", ["$scope", "$location", "$routeParams", "clientService", "JsonResource",
 
 
-function ($scope, $location, $routeParams, clientService) {
+function ($scope, $location, $routeParams, clientService, JsonResource) {
     $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
 
+    JsonResource.query().$promise.then(function (data) {
+        $scope.Item = data[parseInt($routeParams.index)];
+        //$scope.isArray = data instanceof Array;
+    });
     $scope.save = function () {
         clientService.editClient(parseInt($routeParams.index), {
             name: $scope.Item.name, apellido: $scope.Item.apellido,
@@ -115,18 +130,21 @@ function ($scope, $http, $location, $routeParams, clientService, httpService) {
 
     $scope.save = function () {
         clientService.addClient({
-            name: $scope.Item.name, apellido: $scope.Item.apellido,
-            cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
-            residencia: $scope.Item.residencia
+            Nombre: $scope.Item.Nombre, Apellido: $scope.Item.apellido,
+            Cedula: $scope.Item.cedula, Prioridad: $scope.prioridad, FechaNacimiento: $scope.Item.fechaNacimiento,
+            Residencia: $scope.Item.residencia
         });
+        $scope.newClient = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+            Residencia: $scope.Item.Residencia
+        }
         clientService.getData();
-
+        var postVar = new httpService();
+        httpService.save($scope.newClient, function () { alert("entro a save"); });
         $scope.DataList = httpService.query();
-        //$scope.DataList = [{ name: "asdasd", apellido: "asdasdasdf" }];
-        //$scope.DataList = vm.mydata;
         $scope.dato = vm.mydata;
-        // alert($scope.DataList[0]);
-        // $location.path("/Items");
+        $location.path("/Items");
     }
 
     $scope.cancel = function () {

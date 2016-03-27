@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Receta</title>
+  <title>Pedido</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -12,10 +12,10 @@
 <body>
   <div class="container">
     <br/>
-    <form action="" class="">
+    <form action=""class="">
 
       <div class="form-group">
-        <label>Ingrese los datos de su receta </label>
+        <label for="nombre">Ingrese los datos de su receta </label>
       </div>
 
       <form>
@@ -28,13 +28,6 @@
           </div>
         </form>
 <br>
-      <div class="form-group">
-        <label for="archivo">Imágen</label>
-        <input type="file" id="archivo">
-        <p class="help-block">Máximo 5MB</p>
-        <button class="btn btn-primary">Enviar</button>
-      </div>
-
       <button type="Add" class="btn btn-secondary" data-ng-click="save()"> Guardar </button>
       <button type="Add" class="btn btn-secondary" data-ng-click="cancel()"> Cancelar </button>
       <button type="Add" class="btn btn-primary" data-ng-click="delete()"> Borrar </button>

@@ -4,7 +4,7 @@ USE FARMATICA;
 
 /*------------------------------CREATE-------------------------------------------*/
 INSERT INTO RECETA ( NoFactura , IdCliente , NoDoctor) 
-VALUES ('','','','');
+VALUES ('','','');
 
 /*------------------------------READ-------------------------------------------*/
 SELECT NoReceta , NoFactura , IdCliente , NoDoctor FROM RECETA;

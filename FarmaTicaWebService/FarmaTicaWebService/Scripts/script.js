@@ -24,16 +24,35 @@ app.factory('httpService', function ($resource) {
 })
 
 app.factory('JsonResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Client', {}, {
+    return $resource('http://localhost:8080/api/Client/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
                 return angular.fromJson(data);
             },
             isArray: true
-        }
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
     });
 });
+/*
+resource = $resource(
+    "http://foo.com/service/:type/:id",
+    {},
+    {
+        save: {
+            method: 'PUT',
+            transformRequest: function (data) {
+                delete data.type;
+                delete data.id;
+                return JSON.stringify(data);
+            },
+            params: { type: '@type', id: '@id' }
+        }
+    }
+);*/
+
 
 app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http) {
     var svc = {};
@@ -95,6 +114,11 @@ function ($scope, $location, $routeParams, clientService, httpService) {
         $location.path("/Items/" + index);
     }
 
+    $scope.refresh = function () {
+        $scope.data = httpService.query();
+        $location.path("/Items/" + index);
+    }
+
 }]);
 
 app.controller("editController", ["$scope", "$location", "$routeParams", "clientService", "JsonResource",
@@ -107,16 +131,39 @@ function ($scope, $location, $routeParams, clientService, JsonResource) {
         $scope.Item = data[parseInt($routeParams.index)];
         //$scope.isArray = data instanceof Array;
     });
-    $scope.save = function () {
+    /*$scope.save = function () {
         clientService.editClient(parseInt($routeParams.index), {
             name: $scope.Item.name, apellido: $scope.Item.apellido,
             cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
             residencia: $scope.Item.residencia
         });
         $location.path("/Items");
+    }*/
+
+
+
+    $scope.save = function () {
+        $scope.newClientUpdated = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+            Residencia: $scope.Item.Residencia
+        };
+        /*   $scope.newClientUpdated = {
+               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+               Residencia: $scope.Item.Residencia
+           };*/
+        JsonResource.update({ id: $scope.Item.IdCliente }, $scope.newClientUpdated);
+        $location.path("/Items");
+        //Notes.update({ id: $id }, note);
     }
 
     $scope.cancel = function () {
+        $location.path("/Items");
+    }
+
+    $scope.delete = function () {
+        JsonResource.delete({ id: $scope.Item.IdCliente });
         $location.path("/Items");
     }
 

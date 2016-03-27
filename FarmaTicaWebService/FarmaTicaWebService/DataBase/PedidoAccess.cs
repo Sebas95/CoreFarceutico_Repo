@@ -17,7 +17,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT NoFactura , HoraRecojo , NoSucursal , IdCliente, Estado FROM PEDIDO;", con);
+                    "SELECT NoFactura , HoraRecojo , NoSucursal , IdCliente, Estado , Empresa  FROM PEDIDO;", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
@@ -28,6 +28,7 @@ namespace FarmaTicaWebService.DataBase
                     pedido.NoSucursal = rdr["NoSucursal"].ToString();
                     pedido.IdCliente = rdr["IdCliente"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();
+                    pedido.Estado = rdr["Empresa"].ToString();
                     listPedidos.Add(pedido);
                 }
             }
@@ -40,8 +41,8 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado)" 
-                    +" VALUES('"+pedido.HoraRecojo+"', '"+pedido.NoSucursal+"', '"+pedido.IdCliente+"', '"+pedido.Estado+"'); "
+                    "INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado , Empresa)" 
+                    +" VALUES('"+pedido.HoraRecojo+"', '"+pedido.NoSucursal+"', '"+pedido.IdCliente+"', '"+pedido.Estado+"','"+pedido.Empresa+"'); "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -56,7 +57,8 @@ namespace FarmaTicaWebService.DataBase
             {
                 SqlCommand cmd = new SqlCommand(
                     "UPDATE PEDIDO  SET HoraRecojo = '"+pedido.HoraRecojo+"', NoSucursal = '"+pedido.NoSucursal+"', "
-                    +" IdCliente = '"+pedido.IdCliente+"', Estado = '"+pedido.Estado+"' WHERE NoFactura = '"+NoFactura+"' ; "
+                    +" IdCliente = '"+pedido.IdCliente+"', Estado = '"+pedido.Estado+"' , Empresa = '"+pedido.Empresa +"'" 
+                    +" WHERE NoFactura = '"+NoFactura+"' ; "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();

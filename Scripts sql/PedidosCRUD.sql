@@ -4,7 +4,7 @@ USE FARMATICA;
 
 /*------------------------------CREATE-------------------------------------------*/
 INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('','','','');
+VALUES ('','','','','');
 
 /*------------------------------READ-------------------------------------------*/
 SELECT NoFactura , HoraRecojo , NoSucursal , IdCliente, Estado , Empresa FROM PEDIDO;

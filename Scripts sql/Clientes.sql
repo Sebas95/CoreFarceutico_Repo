@@ -1,0 +1,17 @@
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (101130756, 'Uriel', 'Ventris', 'A', '05-06-1985', 'Cartago');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (205520827, 'Lazlo', 'Tiberius', 'A', '05-16-1978', 'Cartago');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (200780022, 'Almerz', 'Chanda', 'C', '05/16/1978', 'Alajuela');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (303310331, 'Miklas', 'Iacovone', 'C', '04-26-1981', 'Alajuela');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (205460748, 'Morten', 'Bauer', 'C', '03-14-1994', 'Alajuela');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (304890384, 'Isador', 'Akios', 'B', '06-25-1991', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (604960599, 'Mordecai', 'Toth', 'B', '08-30-1994',  'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (205910023, 'Davian', 'Thule', 'A', '09-05-1986', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (405280977, 'Indrick', 'Boreale', 'B', '10-06-1972', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (405800255, 'Firaveus', 'Carron', 'B', '11-13-1970', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (706880469, 'Vance', 'Stubbs', 'B', '06-12-1969', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (503250719, 'Doran', 'Farrier', 'D', '03-05-1991', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (400600391, 'Selena', 'Agna', 'A', '03-05-1991', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (206320726, 'Apollo', 'Diomedes', 'E', '02-14-1994', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (308640688, 'Elena', 'Derosa', 'C', '04-25-1986', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (501500551, 'Jonah', 'Orion', 'A', '02-29-1972', 'San José');
+INSERT INTO Cliente (Cedula,Nombre,Apellido,Prioridad,FechaNacimiento,Residencia) VALUES (405340107, 'Shilo', 'Darksun', 'C', '11-01-1970','Heredia');

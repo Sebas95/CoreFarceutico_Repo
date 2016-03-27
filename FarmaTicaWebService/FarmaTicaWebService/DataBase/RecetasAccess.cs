@@ -26,7 +26,7 @@ namespace FarmaTicaWebService.DataBase
                     receta.NoReceta = rdr["NoReceta"].ToString();
                     receta.NoFactura = rdr["NoFactura"].ToString(); ;
                     receta.IdCliente = rdr["IdCliente"].ToString(); ;
-                    receta.NoDoctor = rdr[" NoDoctor"].ToString(); ;
+                    receta.NoDoctor = rdr["NoDoctor"].ToString(); 
                     listRecetas.Add(receta);
                 }
             }

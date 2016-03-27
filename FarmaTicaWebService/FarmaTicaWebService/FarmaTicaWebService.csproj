@@ -165,6 +165,7 @@
     <Compile Include="Controllers\MedicamentosPorRecetaController.cs" />
     <Compile Include="Controllers\PadecimientosController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\MedicamentoEnSucursalController.cs" />
     <Compile Include="Controllers\TelefonosClientesController.cs" />

@@ -15,7 +15,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "select NoDoctor,Cedula,Nombre,Apellido,FechaNacimiento,Residencia from doctor ; ", con);
+                    "select NoDoctor,Cedula,Nombre,Apellido, CONVERT(VARCHAR(10),FechaNacimiento,120) as Fecha , Residencia from doctor ; ", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
@@ -25,7 +25,7 @@ namespace FarmaTicaWebService.DataBase
                     doctor.Cedula = rdr["Cedula"].ToString();
                     doctor.Nombre = rdr["Nombre"].ToString();
                     doctor.Apellido = rdr["Apellido"].ToString();
-                    doctor.FechaNacimiento = rdr["FechaNacimiento"].ToString();
+                    doctor.FechaNacimiento = rdr["Fecha"].ToString();
                     doctor.Residencia = rdr["Residencia"].ToString();
                     listDoctores.Add(doctor);
                 }

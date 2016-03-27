@@ -11,7 +11,7 @@ namespace FarmaTicaWebService.Controllers
 {
     public class MedicamentosPorPedidoController : ApiController
     {
-        public Medicamentos_por_pedidoAccess databaseAccess = new Medicamentos_por_pedidoAccess();
+        public MedicamentosPorPedidoAccess databaseAccess = new MedicamentosPorPedidoAccess();
 
         public List<Medicamento_por_pedido> Get()
         {

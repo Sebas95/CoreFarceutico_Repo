@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace FarmaTicaWebService.DataBase
 {
-    public class Medicamentos_por_pedidoAccess
+    public class MedicamentosPorPedidoAccess
     {
         public List<Medicamento_por_pedido> getMedicamentosPorPedido()
         {

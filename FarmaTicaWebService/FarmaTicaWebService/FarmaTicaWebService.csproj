@@ -172,7 +172,7 @@
     <Compile Include="DataBase\DoctorsAccess.cs" />
     <Compile Include="DataBase\MedicamentoPorRecetaAccess.cs" />
     <Compile Include="DataBase\MedicamentosAccess.cs" />
-    <Compile Include="DataBase\Medicamentos_por_pedidoAccess.cs" />
+    <Compile Include="DataBase\MedicamentosPorPedidoAccess.cs" />
     <Compile Include="DataBase\PedidoAccess.cs" />
     <Compile Include="DataBase\RecetasAccess.cs" />
     <Compile Include="DataBase\SucursalAccess.cs" />

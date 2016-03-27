@@ -3,11 +3,11 @@ USE FARMATICA;
 
 
 /*------------------------------CREATE-------------------------------------------*/
-INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento  ) 
+INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento, Cantidad  ) 
 VALUES ('','');
 
 /*------------------------------READ-------------------------------------------*/
-SELECT NoFactura ,CodigoMedicamento FROM MEDICAMENTOS_POR_PEDIDO;
+SELECT NoFactura ,CodigoMedicamento, Cantidad FROM MEDICAMENTOS_POR_PEDIDO;
 
 /*------------------------------UPDATE-------------------------------------------*/
 

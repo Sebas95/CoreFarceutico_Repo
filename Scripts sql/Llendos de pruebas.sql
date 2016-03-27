@@ -40,22 +40,22 @@ VALUES ('CF', 22 , 300);
 
 
 
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado) 
-VALUES (convert(varchar(10),getdate(),108),'22','2','R');
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado) 
-VALUES (convert(varchar(10),getdate(),108),'22','2','R');
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado) 
-VALUES ('20:18:01','11','1','P');
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado) 
-VALUES ('23:10:01','11','1','P');
+INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES (convert(varchar(10),getdate(),108),'22','2','R','F');
+INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES (convert(varchar(10),getdate(),108),'22','2','R','P');
+INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES ('20:18:01','11','1','R','F');
+INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES ('23:10:01','11','1','R','F');
 
 
-INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento) 
-VALUES ('3', 'CF' );
-INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento ) 
-VALUES ( '3' , 'AC' );
-INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento ) 
-VALUES ( '2' , 'AL' );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ('3', 'CF' ,23);
+INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ( '3' , 'AC',2 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ( '2' , 'AL',1 );
 
 
 INSERT INTO RECETA ( NoFactura , IdCliente , NoDoctor) 
@@ -64,12 +64,13 @@ INSERT INTO RECETA ( NoFactura , IdCliente , NoDoctor)
 VALUES ('3','2','1');
 
 
-INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta) 
-VALUES('CF','1') ;
-INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta) 
-VALUES('CF','2') ;
-INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta) 
-VALUES('AC','2') ;
+INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta , Cantidad) 
+VALUES('CF','1',3) ;
+INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta , Cantidad) 
+VALUES('CF','2',2) ;
+INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta, Cantidad) 
+VALUES('AC','2',29) ;
+
 
 SELECT * FROM CLIENTE;
 select * from TELEFONOS_POR_CLIENTE; 
@@ -83,4 +84,4 @@ select * from MEDICAMENTOS_POR_PEDIDO;
 select * from RECETA; 
 select * from MEDICAMENTOS_POR_RECETA; 
 
-select * from USUARIOS;
+select * from EMPLEADO;

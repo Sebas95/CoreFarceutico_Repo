@@ -9,10 +9,15 @@ USE FARMATICA;
 
 --* ---------------------------: Significa cambio con respecto al modelo anterior.
 CREATE TABLE EMPLEADO(
+	IdEmpleado INT IDENTITY(1,1),
 	Nombre CHAR(15),
+	Cedula CHAR(11),
 	Passwrd Char(8),
 	Rol CHAR(1),
 	Empresa CHAR(1)
+	CONSTRAINT PK_EMPLEADO
+		PRIMARY KEY (IdEmpleado),
+	CONSTRAINT UK_CEDULA_EMPLEADO UNIQUE(Cedula)
 )
 -- -------------------------------------------------------
 CREATE TABLE CLIENTE(
@@ -25,7 +30,8 @@ CREATE TABLE CLIENTE(
 	Residencia CHAR(45),
 
 	CONSTRAINT PK_CLIENTE
-		PRIMARY KEY (IdCliente)
+		PRIMARY KEY (IdCliente),
+	CONSTRAINT UK_CEDULA_CLIENTE UNIQUE(Cedula)
 )
 
 
@@ -94,6 +100,7 @@ CREATE TABLE PEDIDO (
 	NoSucursal INT,
 	IdCliente INT,	
 	Estado CHAR(7),
+	Empresa CHAR(1),
 
 	CONSTRAINT PK_PEDIDO
 		PRIMARY KEY (NoFactura),
@@ -123,6 +130,7 @@ CREATE TABLE RECETA(
 CREATE TABLE MEDICAMENTOS_POR_RECETA(
 	CodigoMedicamento CHAR(10),
 	NoReceta INT,
+	Cantidad SMALLINT,
 
 	CONSTRAINT PK_MEDICAMENTOS_POR_RECETA
 		PRIMARY KEY (CodigoMedicamento, NoReceta),
@@ -153,6 +161,7 @@ CREATE TABLE MEDICAMENTO_EN_SUCURSAL(
 CREATE TABLE MEDICAMENTOS_POR_PEDIDO (
 	NoFactura INT,
 	CodigoMedicamento CHAR(10),
+	Cantidad SMALLINT,
 
 	CONSTRAINT PK_MEDICAMENTOS_POR_PEDIDO
 		PRIMARY KEY (NoFactura, CodigoMedicamento),

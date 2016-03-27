@@ -28,7 +28,7 @@ namespace FarmaTicaWebService.DataBase
                     pedido.NoSucursal = rdr["NoSucursal"].ToString();
                     pedido.IdCliente = rdr["IdCliente"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();
-                    pedido.Estado = rdr["Empresa"].ToString();
+                    pedido.Empresa = rdr["Empresa"].ToString();
                     listPedidos.Add(pedido);
                 }
             }

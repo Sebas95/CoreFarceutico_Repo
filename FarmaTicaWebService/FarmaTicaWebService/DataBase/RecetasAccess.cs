@@ -23,10 +23,10 @@ namespace FarmaTicaWebService.DataBase
                 while (rdr.Read()) //si existe en la base de datos
                 {
                     Receta receta = new Receta();
-                    receta.NoReceta = rdr["NoFactura"].ToString();
-                    receta.NoFactura = rdr[" HoraRecojo"].ToString(); ;
-                    receta.IdCliente = rdr["NoSucursal "].ToString(); ;
-                    receta.NoDoctor = rdr[" IdCliente"].ToString(); ;
+                    receta.NoReceta = rdr["NoReceta"].ToString();
+                    receta.NoFactura = rdr["NoFactura"].ToString(); ;
+                    receta.IdCliente = rdr["IdCliente"].ToString(); ;
+                    receta.NoDoctor = rdr[" NoDoctor"].ToString(); ;
                     listRecetas.Add(receta);
                 }
             }

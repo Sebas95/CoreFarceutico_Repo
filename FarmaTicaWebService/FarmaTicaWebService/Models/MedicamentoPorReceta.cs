@@ -9,5 +9,6 @@ namespace FarmaTicaWebService.Models
     {
         public string CodigoMedicamento;
         public string NoReceta;
+        public string Cantidad;
     }
 }

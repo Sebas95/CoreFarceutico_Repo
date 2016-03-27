@@ -17,7 +17,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT NoFactura ,CodigoMedicamento FROM MEDICAMENTOS_POR_PEDIDO;", con);
+                    "SELECT NoFactura ,CodigoMedicamento, Cantidad FROM MEDICAMENTOS_POR_PEDIDO;", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
@@ -25,6 +25,7 @@ namespace FarmaTicaWebService.DataBase
                     MedicamentoPorPedido medicamento_por_pedido = new MedicamentoPorPedido();
                     medicamento_por_pedido.NoFactura = rdr["NoFactura"].ToString();
                     medicamento_por_pedido.CodigoMedicamento = rdr["CodigoMedicamento"].ToString();
+                    medicamento_por_pedido.Cantidad = rdr["Cantidad"].ToString();
                     listMedicamento_por_pedido.Add(medicamento_por_pedido);
                 }
             }
@@ -38,7 +39,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT NoFactura ,CodigoMedicamento FROM MEDICAMENTOS_POR_PEDIDO WHERE NoFactura = '"+NoFactura+"';", con);
+                    "SELECT NoFactura ,CodigoMedicamento, Cantidad FROM MEDICAMENTOS_POR_PEDIDO WHERE NoFactura = '" + NoFactura+"';", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
@@ -46,6 +47,7 @@ namespace FarmaTicaWebService.DataBase
                     MedicamentoPorPedido medicamento_por_pedido = new MedicamentoPorPedido();
                     medicamento_por_pedido.NoFactura = rdr["NoFactura"].ToString();
                     medicamento_por_pedido.CodigoMedicamento = rdr["CodigoMedicamento"].ToString();
+                    medicamento_por_pedido.Cantidad = rdr["Cantidad"].ToString();
                     listMedicamento_por_pedido.Add(medicamento_por_pedido);
                 }
             }
@@ -58,8 +60,8 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento )" 
-                    +" VALUES('"+ medicamento_por_pedido.NoFactura + "', '"+ medicamento_por_pedido .CodigoMedicamento+ "'); "
+                    "INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento, Cantidad  )"
+                    + " VALUES('"+ medicamento_por_pedido.NoFactura + "', '"+ medicamento_por_pedido .CodigoMedicamento+ "','"+medicamento_por_pedido.Cantidad+"'); "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -75,7 +77,7 @@ namespace FarmaTicaWebService.DataBase
             {
                 SqlCommand cmd = new SqlCommand(
                     "DELETE FROM MEDICAMENTOS_POR_PEDIDO"
-                    +" WHERE NoFactura = '"+medicamento_por_pedido.NoFactura+"', CodigoMedicamento = '"+medicamento_por_pedido.CodigoMedicamento+"';"
+                    +" WHERE NoFactura = '"+medicamento_por_pedido.NoFactura+"' AND CodigoMedicamento = '"+medicamento_por_pedido.CodigoMedicamento+"';"
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();

@@ -1,6 +1,7 @@
 ﻿// Code goes here
 var app = angular.module('Myapp', ['ngRoute', 'ngResource']);
-
+var URI = 'http://localhost:8080/api/Client';
+var typeOfView = '/Items'
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Items', {
         templateUrl: 'clientsView.html',
@@ -14,17 +15,44 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'addClient.html',
           controller: 'editController'
       })
+      .when('/Items/Doctores', {
+          templateUrl: 'clientsView.html',
+          controller: 'clientController'
+      })
+      .when('/Items/Doctores/add', {
+          templateUrl: 'addDoctores.html',
+          controller: 'addController'
+      })
       .otherwise({
-          redirectTo: "/Items"
+          templateUrl: 'subModuloMantenimiento.html',
+          controller: 'menuMantenimientoController'
       })
 }]);
 
+app.factory('URIService', function () {
+    var svc = {};
+
+    svc.setClients = function () {
+        URI = 'http://localhost:8080/api/Client';
+        typeOfView = '/Items'
+    }
+
+    svc.setDoctores = function () {
+        URI = 'http://localhost:8080/api/Doctor';
+        typeOfView = '/Items/Doctores'
+    }
+
+    return svc;
+
+})
+
 app.factory('httpService', function ($resource) {
-    return $resource('http://localhost:8080/api/Client', {});
+    alert(URI);
+    return $resource(URI, {});
 })
 
 app.factory('JsonResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Client/:id', {}, {
+    return $resource(URI + '/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -36,6 +64,22 @@ app.factory('JsonResource', function ($resource) {
         delete: { method: 'DELETE' }
     });
 });
+
+app.factory('doctorResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Doctor/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
 /*
 resource = $resource(
     "http://foo.com/service/:type/:id",
@@ -96,6 +140,29 @@ app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http
 }]);
 
 
+
+app.controller('menuMantenimientoController', ["$scope", "$location", "$routeParams", "clientService", "httpService", "URIService",
+
+function ($scope, $location, $routeParams, clientService, httpService, URIService) {
+
+    $scope.doctores = function () {
+        URIService.setDoctores();        
+        $location.path(typeOfView);
+    };
+    $scope.clientes = function () {
+        URIService.setClients();
+        $location.path(typeOfView);
+    };
+    $scope.medicamentos = function () {
+
+    };
+    $scope.pedidos = function () {
+
+    };
+
+}]);
+
+
 app.controller("clientController", ["$scope", "$location", "$routeParams", "clientService", "httpService",
 
 function ($scope, $location, $routeParams, clientService, httpService) {
@@ -111,12 +178,12 @@ function ($scope, $location, $routeParams, clientService, httpService) {
     }
 
     $scope.editClient = function (index) {
-        $location.path("/Items/" + index);
+        $location.path(typeOfView + "/" + index);
     }
 
     $scope.refresh = function () {
         $scope.data = httpService.query();
-        $location.path("/Items/" + index);
+        $location.path(typeOfView + "/" +index);
     }
 
 }]);
@@ -154,17 +221,17 @@ function ($scope, $location, $routeParams, clientService, JsonResource) {
                Residencia: $scope.Item.Residencia
            };*/
         JsonResource.update({ id: $scope.Item.IdCliente }, $scope.newClientUpdated);
-        $location.path("/Items");
+        $location.path(typeOfView);
         //Notes.update({ id: $id }, note);
     }
 
     $scope.cancel = function () {
-        $location.path("/Items");
+        $location.path(typeOfView);
     }
 
     $scope.delete = function () {
         JsonResource.delete({ id: $scope.Item.IdCliente });
-        $location.path("/Items");
+        $location.path(typeOfView);
     }
 
 }]);
@@ -174,7 +241,7 @@ app.controller("addController", ["$scope", "$http", "$location", "$routeParams",
 
 function ($scope, $http, $location, $routeParams, clientService, httpService) {
 
-
+    $scope.typeOfHuman = "Clientes";
     $scope.save = function () {
         clientService.addClient({
             Nombre: $scope.Item.Nombre, Apellido: $scope.Item.apellido,
@@ -191,11 +258,11 @@ function ($scope, $http, $location, $routeParams, clientService, httpService) {
         httpService.save($scope.newClient, function () { alert("entro a save"); });
         $scope.DataList = httpService.query();
         $scope.dato = vm.mydata;
-        $location.path("/Items");
+        $location.path(typeOfView);
     }
 
     $scope.cancel = function () {
-        $location.path("/Items");
+        $location.path(typeOfView);
     }
 
 }]);

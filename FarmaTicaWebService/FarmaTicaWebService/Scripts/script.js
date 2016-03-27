@@ -2,6 +2,7 @@
 var app = angular.module('Myapp', ['ngRoute', 'ngResource']);
 var URI = 'http://localhost:8080/api/Client';
 var typeOfView = '/Items'
+var type = "cliente"
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Items', {
         templateUrl: 'clientsView.html',
@@ -17,11 +18,15 @@ app.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/Item/doctores', {
           templateUrl: 'doctoresView.html',
-          controller: 'clientController'
+          controller: 'doctorController'
       })
       .when('/Item/doctores/add', {
-          templateUrl: 'addDoctores.html',
-          controller: 'addController'
+          templateUrl: 'addDoctor.html',
+          controller: 'addDoctorController'
+      })
+      .when('/Item/doctores/:index', {
+          templateUrl: 'addDoctor.html',
+          controller: 'editDoctorController'
       })
       .otherwise({
           templateUrl: 'subModuloMantenimiento.html',
@@ -33,11 +38,15 @@ app.factory('URIService', function () {
     var svc = {};
 
     svc.setClients = function () {
+        typeOfView = '/Items'
+        type = "cliente";
         URI = 'http://localhost:8080/api/Client';
         typeOfView = '/Items'
     }
 
-    svc.setDoctores = function () {        
+    svc.setDoctores = function () {
+        typeOfView = '/Item/doctores'
+        type = "doctor";
         URI = 'http://localhost:8080/api/Doctores';
         typeOfView = '/Item/doctores'
     }
@@ -53,7 +62,7 @@ app.factory('httpService', function ($resource) {
 
 
 app.factory('JsonResource', function ($resource) {
-    return $resource(URI + '/:id', {}, {
+    return $resource('http://localhost:8080/api/Client/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -67,7 +76,7 @@ app.factory('JsonResource', function ($resource) {
 });
 
 app.factory('doctorResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Doctor/:id', {}, {
+    return $resource('http://localhost:8080/api/Doctores/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -81,22 +90,6 @@ app.factory('doctorResource', function ($resource) {
 });
 
 
-/*
-resource = $resource(
-    "http://foo.com/service/:type/:id",
-    {},
-    {
-        save: {
-            method: 'PUT',
-            transformRequest: function (data) {
-                delete data.type;
-                delete data.id;
-                return JSON.stringify(data);
-            },
-            params: { type: '@type', id: '@id' }
-        }
-    }
-);*/
 
 
 app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http) {
@@ -145,9 +138,8 @@ app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http
 app.controller('menuMantenimientoController', ["$scope", "$location", "$routeParams", "clientService", "httpService", "URIService",
 
 function ($scope, $location, $routeParams, clientService, httpService, URIService) {
-
     $scope.doctores = function () {
-        URIService.setDoctores();        
+        URIService.setDoctores();
         $location.path(typeOfView);
     };
     $scope.clientes = function () {
@@ -164,41 +156,18 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
 }]);
 
 
-/*app.controller('getController', ["$scope", "$resource", "$location", "$routeParams", "clientService", "httpService", "URIService",
+app.controller("clientController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "doctorResource",
 
-function ($scope, resource, $location, $routeParams, clientService, httpService, URIService) {
-
-    $scope.doctores = function () {
-        var p = $resource('http://localhost:8080/api/Doctores');
-        return p.query();
-
-    };
-    $scope.clientes = function () {
-        URIService.setClients();
-        $location.path(typeOfView);
-    };
-    $scope.medicamentos = function () {
-
-    };
-    $scope.pedidos = function () {
-
-    };
-
-}]);*/
+function ($scope, $location, $routeParams, clientService, httpService, JsonResource, doctorResource) {
 
 
-
-
-app.controller("clientController", ["$scope", "$location", "$routeParams", "clientService", "httpService",
-
-function ($scope, $location, $routeParams, clientService, httpService) {
-
-    $scope.data = [];
+    //$scope.data = [];
     // $scope.ldata  = clientService.getData();
     //alert(clientService.getData());
     //$scope.data = clientService.getClients();    
-    $scope.data = httpService.query();
-    alert(URI);
+    $scope.data = JsonResource.query();
+    //$scope.data = httpService.query();
+    //alert(URI);
     $scope.addClient = function () {
         $location.path(typeOfView + "/add");
     }
@@ -208,11 +177,97 @@ function ($scope, $location, $routeParams, clientService, httpService) {
     }
 
     $scope.refresh = function () {
-        $scope.data = httpService.query();
-        $location.path(typeOfView + "/" +index);
+        //$scope.data = httpService.query();
+        $scope.data = JsonResource.query();
+        //$location.path(typeOfView + "/" +index);
+    }
+
+    $scope.back = function () {
+        $location.path("regrese");
     }
 
 }]);
+
+
+app.controller("doctorController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "doctorResource",
+
+function ($scope, $location, $routeParams, clientService, httpService, JsonResource, doctorResource) {
+
+
+    //$scope.data = [];
+    // $scope.ldata  = clientService.getData();
+    //alert(clientService.getData());
+    //$scope.data = clientService.getClients();    
+    $scope.data = doctorResource.query();
+    //$scope.data = httpService.query();
+    //alert(URI);
+    $scope.addClient = function () {
+        $location.path(typeOfView + "/add");
+    }
+
+    $scope.editDoctor = function (index) {
+        $location.path(typeOfView + "/" + index);
+    }
+
+    $scope.refresh = function () {
+        //$scope.data = httpService.query();
+        $scope.data = doctorResource.query();
+        //$location.path(typeOfView + "/" +index);
+    }
+
+    $scope.back = function () {
+        $location.path("regrese");
+    }
+
+}]);
+
+app.controller("editDoctorController", ["$scope", "$location", "$routeParams", "clientService", "doctorResource",
+
+
+function ($scope, $location, $routeParams, clientService, doctorResource) {
+    $scope.Item = clientService.getClients()[parseInt($routeParams.index)];    
+    doctorResource.query().$promise.then(function (data) {        
+        $scope.Item = data[parseInt($routeParams.index)];        
+        //$scope.isArray = data instanceof Array;
+    });
+    /*$scope.save = function () {
+        clientService.editClient(parseInt($routeParams.index), {
+            name: $scope.Item.name, apellido: $scope.Item.apellido,
+            cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
+            residencia: $scope.Item.residencia
+        });
+        $location.path("/Items");
+    }*/
+
+
+
+    $scope.save = function () {
+        $scope.newClientUpdated = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            FechaNacimiento: $scope.Item.FechaNacimiento, Residencia: $scope.Item.Residencia
+        };
+        /*   $scope.newClientUpdated = {
+               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+               Residencia: $scope.Item.Residencia
+           };*/
+        doctorResource.update({ id: $scope.Item.NoDoctor }, $scope.newClientUpdated);
+        $location.path(typeOfView);
+        //Notes.update({ id: $id }, note);
+    }
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+    $scope.delete = function () {
+        doctorResource.delete({ id: $scope.Item.NoDoctor });
+        $location.path(typeOfView);
+    }
+
+}]);
+
+
 
 app.controller("editController", ["$scope", "$location", "$routeParams", "clientService", "JsonResource",
 
@@ -262,10 +317,10 @@ function ($scope, $location, $routeParams, clientService, JsonResource) {
 
 }]);
 
-app.controller("addController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService",
+app.controller("addController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "JsonResource",
 
 
-function ($scope, $http, $location, $routeParams, clientService, httpService) {
+function ($scope, $http, $location, $routeParams, clientService, httpService, JsonResource) {
 
     $scope.typeOfHuman = "Clientes";
     $scope.save = function () {
@@ -281,8 +336,8 @@ function ($scope, $http, $location, $routeParams, clientService, httpService) {
         }
         clientService.getData();
         var postVar = new httpService();
-        httpService.save($scope.newClient, function () { alert("entro a save"); });
-        $scope.DataList = httpService.query();
+        JsonResource.save($scope.newClient, function () { alert("entro a save"); });
+        $scope.DataList = JsonResource.query();
         $scope.dato = vm.mydata;
         $location.path(typeOfView);
     }
@@ -292,6 +347,41 @@ function ($scope, $http, $location, $routeParams, clientService, httpService) {
     }
 
 }]);
+
+app.controller("addDoctorController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "doctorResource",
+
+
+function ($scope, $http, $location, $routeParams, clientService, httpService, doctorResource) {
+
+    $scope.typeOfHuman = "Clientes";
+    $scope.save = function () {
+        clientService.addClient({
+            Nombre: $scope.Item.Nombre, Apellido: $scope.Item.apellido,
+            Cedula: $scope.Item.cedula, FechaNacimiento: $scope.Item.fechaNacimiento,
+            Residencia: $scope.Item.residencia
+        });
+        $scope.newClient = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            FechaNacimiento: $scope.Item.FechaNacimiento,
+            Residencia: $scope.Item.Residencia
+        }
+        clientService.getData();
+        var postVar = new httpService();
+        doctorResource.save($scope.newClient, function () { alert("entro a save"); });
+        $scope.DataList = doctorResource.query();
+        $scope.dato = vm.mydata;
+        $location.path(typeOfView);
+    }
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+}]);
+
+
+
+
 /*
 var URI = 'https://api.github.com/users';
 //https://api.github.com/users/rtucker88/repos

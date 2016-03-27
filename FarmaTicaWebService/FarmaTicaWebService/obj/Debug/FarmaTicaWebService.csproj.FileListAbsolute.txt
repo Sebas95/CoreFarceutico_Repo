@@ -181,3 +181,4 @@ C:\Users\Giovanni\Desktop\CoreFarceutico_Repo\FarmaTicaWebService\FarmaTicaWebSe
 C:\Users\Giovanni\Desktop\CoreFarceutico_Repo\FarmaTicaWebService\FarmaTicaWebService\bin\Antlr3.Runtime.pdb
 C:\Users\Giovanni\Desktop\CoreFarceutico_Repo\FarmaTicaWebService\FarmaTicaWebService\obj\Debug\FarmaTicaWebService.dll
 C:\Users\Giovanni\Desktop\CoreFarceutico_Repo\FarmaTicaWebService\FarmaTicaWebService\obj\Debug\FarmaTicaWebService.pdb
+C:\Users\Giovanni\Desktop\CoreFarceutico_Repo\FarmaTicaWebService\FarmaTicaWebService\obj\Debug\FarmaTicaWebService.csprojResolveAssemblyReference.cache

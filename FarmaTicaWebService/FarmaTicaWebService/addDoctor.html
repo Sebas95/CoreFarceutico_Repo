@@ -1,41 +1,26 @@
-﻿
-<html>
-<meta charset="UTF-8">
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
-</script>
+﻿<form>
+    <div class="form-group">
+        <label for="exampleInputCedula">Cédula</label>
+        <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Item.Cedula" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputNombre">Nombre</label>
+        <input type="Nombre" class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Nombre" data-ng-model="Item.Nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputApellido">Apellido</label>
+        <input type="Apellido" class="form-control" id="Apellido" maxlength="15" placeholder="Apellido" data-ng-model="Item.Apellido" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputfNnacimiento">Fecha de Nacimiento</label>
+        <input class="form-control" id="exampleInputfNnacimiento" data type="date" data-ng-model="Item.FechaNacimiento" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputResidencia">Residencia</label>
+        <input class="form-control" id="exampleInputResidencia" maxlength="45" placeholder="Residencia" data-ng-model="Item.Residencia">
+    </div>
 
-<body ng-app="">
-
-    <form>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Nombre</label>
-            <input class="form-control" id="tNombre" maxlength="15" placeholder="Nombre" data-ng-model="Item.name" required>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Apellido</label>
-            <input class="form-control" id="tApellido" maxlength="15" placeholder="Apellido" data-ng-model="Item.apellido" required>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Cedula</label>
-            <input class="form-control" id="tCedula" maxlength="9" placeholder="X0XXX0XXX" data-ng-model="Item.cedula" required>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Fecha Nacimiento</label>
-            <input class="form-control" input type="date" id="tFechaNacimiento" data-ng-model="Item.fechaNacimiento" required>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Residencia</label>
-            <input class="form-control" maxlength="45" id="tResidencia" placeholder="Residencia" data-ng-model="Item.residencia">
-        </div>
-        <li ng-repeat="item in DataList">{{item}}</li>
-        <p>{{dato}}</p>
-
-
-        <button type="Add" class="btn btn-secondary" data-ng-click="save()">Add</button>
-        <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
-
-
-    </form>
-
-</body>
-</html>
+    <button type="Add" class="btn btn-secondary" data-ng-click="save()">Save Changes</button>
+    <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
+    <button type="Add" class="btn btn-primary" data-ng-click="delete()">Delete</button>
+</form>

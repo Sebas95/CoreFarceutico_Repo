@@ -1,0 +1,28 @@
+	Martes 22 0h
+
+Nos pusimos de acuerdo sobre la distribución del trabajo 0h
+
+	Miércoles 23 2h
+
+Trabajé actualizando el modelo ER para la base de datos 1h
+Creé un script para crear la base de datos, investigación de tipos de datos en sql 1h
+
+	Jueves 24 2h
+
+Actualicé un script para crear la base de datos, antes de darme cuenta que ya existía uno 1h
+* INTEGER(p) no funciona, estoy utilizando DECIMAL(n, m) coon m=0 (cero números decimales)
+Actualicé el script ya existente 1h
+
+	Viernes 25 4h
+
+Arreglos en el Script, Investigación sobre usuarios y vistas en sql 2h
+Agrego ejemplos para medicamentos y doctores, datos para iniciar la base de datos 1h
+Investigación AngulasJS 1h
+
+	Saabado 26 11h
+
+Investigacion AngularJS y restricciones HTML5 para la creación de interfaces 8h
+Scripts SQL 3h
+
+	Viernes 27 
+

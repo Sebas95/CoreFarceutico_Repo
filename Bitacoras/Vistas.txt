@@ -1,0 +1,18 @@
+Vista mantenimiento: (dependientes)
+CRUD Clientes
+CRUD Doctores
+CRUD Recetas
+CRUD Medicamentos
+R Pedidos
+
+Vista estadística: (gerente)
+R Pedidos
+*Limitar por empresa
+
+Vista cliente: (cliente)
+C Cliente
+CRU Pedidos
+CR Recetas
+*Limitar editar pedido
+
+*dos login -> cliente, empleado

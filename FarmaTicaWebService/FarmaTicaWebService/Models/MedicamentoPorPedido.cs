@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FarmaTicaWebService.Models
 {
-    public class Medicamento_por_pedido
+    public class MedicamentoPorPedido
     {
         public string NoFactura;
         public string CodigoMedicamento;

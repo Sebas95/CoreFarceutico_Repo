@@ -8,7 +8,7 @@ using FarmaTicaWebService.Models;
 using FarmaTicaWebService.DataBase;
 namespace FarmaTicaWebService.Controllers
 {
-    public class SucursalMedicamentoController : ApiController
+    public class MedicamentoEnSucursalController : ApiController
     {
         public MedicamentosAccess databaseAccess = new MedicamentosAccess();
 

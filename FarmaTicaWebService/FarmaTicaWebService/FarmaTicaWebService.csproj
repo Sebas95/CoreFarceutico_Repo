@@ -165,7 +165,7 @@
     <Compile Include="Controllers\PadecimientosController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
-    <Compile Include="Controllers\SucursalMedicamentoController.cs" />
+    <Compile Include="Controllers\MedicamentoEnSucursalController.cs" />
     <Compile Include="Controllers\TelefonosClientesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataBase\ClientsAccess.cs" />
@@ -183,7 +183,7 @@
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Medicamento.cs" />
     <Compile Include="Models\MedicamentoPorReceta.cs" />
-    <Compile Include="Models\Medicamento_por_pedido.cs" />
+    <Compile Include="Models\MedicamentoPorPedido.cs" />
     <Compile Include="Models\Padecimiento.cs" />
     <Compile Include="Models\Pedido.cs" />
     <Compile Include="Models\Receta.cs" />

@@ -13,20 +13,20 @@ namespace FarmaTicaWebService.Controllers
     {
         public MedicamentosPorPedidoAccess databaseAccess = new MedicamentosPorPedidoAccess();
 
-        public List<Medicamento_por_pedido> Get()
+        public List<MedicamentoPorPedido> Get()
         {
             return databaseAccess.getMedicamentosPorPedido();
         }
-        public List<Medicamento_por_pedido> Get(string id)
+        public List<MedicamentoPorPedido> Get(string id)
         {
             return databaseAccess.getMedicamentosPorPedido(id);
         }
-        public Medicamento_por_pedido Post(Medicamento_por_pedido medicamento_por_pedido)
+        public MedicamentoPorPedido Post(MedicamentoPorPedido medicamento_por_pedido)
         {
             return databaseAccess.addMedicamento_por_pedido(medicamento_por_pedido);
         }
      
-        public void Delete(Medicamento_por_pedido medicamento_por_pedido)
+        public void Delete(MedicamentoPorPedido medicamento_por_pedido)
         {
             databaseAccess.Delete_Medicamento_por_pedido(medicamento_por_pedido);
         }

@@ -8,10 +8,11 @@ GO
 USE FARMATICA;
 
 --* ---------------------------: Significa cambio con respecto al modelo anterior.
-CREATE TABLE USUARIOS(
-	NombreUsuario CHAR(15),
+CREATE TABLE EMPLEADO(
+	Nombre CHAR(15),
 	Passwrd Char(8),
-	Tipo INT
+	Rol CHAR(1),
+	Empresa CHAR(1)
 )
 -- -------------------------------------------------------
 CREATE TABLE CLIENTE(

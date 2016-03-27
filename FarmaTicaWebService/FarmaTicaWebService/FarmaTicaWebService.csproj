@@ -170,6 +170,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataBase\ClientsAccess.cs" />
     <Compile Include="DataBase\DoctorsAccess.cs" />
+    <Compile Include="DataBase\MedicamentoEnSucursalAccess.cs" />
     <Compile Include="DataBase\MedicamentoPorRecetaAccess.cs" />
     <Compile Include="DataBase\MedicamentosAccess.cs" />
     <Compile Include="DataBase\MedicamentosPorPedidoAccess.cs" />

@@ -37,6 +37,34 @@ namespace FarmaTicaWebService.DataBase
             return listClientes;
 
         }
+        public Client getClient(string cedula)
+        {
+            Client cliente = new Client();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "select  IdCliente, Cedula, Nombre , Apellido, Prioridad,CONVERT(VARCHAR(10),FechaNacimiento,120) as Fecha , Residencia"
+                    +" from CLIENTE WHERE  Cedula = '"+cedula+"' ; "
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if(rdr.Read()) //si existe en la base de datos
+                {
+             
+                    cliente.IdCliente = Convert.ToInt32(rdr["IdCliente"]);
+                    cliente.Cedula = rdr["Cedula"].ToString();
+                    cliente.Nombre = rdr["Nombre"].ToString();
+                    cliente.Apellido = rdr["Apellido"].ToString();
+                    cliente.Prioridad = rdr["Prioridad"].ToString();
+                    cliente.FechaNacimiento = rdr["Fecha"].ToString();
+                    cliente.Residencia = rdr["Residencia"].ToString();
+
+                }
+            }
+            return cliente;
+
+        }
         public Client addClient(Client client)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

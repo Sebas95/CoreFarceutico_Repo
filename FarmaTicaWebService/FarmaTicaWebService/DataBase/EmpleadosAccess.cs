@@ -36,6 +36,30 @@ namespace FarmaTicaWebService.DataBase
             return listEmpleados;
 
         }
+        public Empleado getEmpleado(string cedula, string password)
+        {
+            Empleado empleado = new Empleado();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT IdEmpleado, Nombre, Cedula, Passwrd , Rol , Empresa FROM Empleado WHERE cedula = '"+cedula+"' AND Passwrd = '"+password+"' ;"
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read()) //si existe en la base de datos
+                {
+                    empleado.IdEmpleado = rdr["IdEmpleado"].ToString();
+                    empleado.Nombre = rdr["Nombre"].ToString();
+                    empleado.Cedula = rdr["Cedula"].ToString();
+                    empleado.Passwrd = rdr["Passwrd"].ToString();
+                    empleado.Rol = rdr["Rol"].ToString();
+                    empleado.Empresa = rdr["Empresa"].ToString();
+                }
+            }
+            return empleado;
+
+        }
         public Empleado addEmpleado(Empleado empleado)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

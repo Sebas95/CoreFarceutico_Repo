@@ -29,6 +29,10 @@ namespace FarmaTicaWebService.Controllers
         {
             databaseAccess.deleteEmpleado(id);
         }
+        public Empleado GetEmpleado(string Cedula, string password)
+        {
+            return new Empleado();
+        }
 
     }
 }

@@ -19,6 +19,10 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getAllMedicamentos();
         }
+        public Medicamento Get(string id)
+        {
+            return databaseAccess.getMedicamento(id);
+        }
         public Medicamento Post(Medicamento medicamento)
         {
             return databaseAccess.addMedicamento(medicamento);

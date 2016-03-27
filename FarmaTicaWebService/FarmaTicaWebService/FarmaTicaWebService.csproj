@@ -160,7 +160,9 @@
     <Compile Include="Controllers\DoctoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MedicamentoController.cs" />
+    <Compile Include="Controllers\MedicamentosPorPedidoController.cs" />
     <Compile Include="Controllers\PadecimientosController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\SucursalMedicamentoController.cs" />
     <Compile Include="Controllers\TelefonosClientesController.cs" />
@@ -168,6 +170,9 @@
     <Compile Include="DataBase\ClientsAccess.cs" />
     <Compile Include="DataBase\DoctorsAccess.cs" />
     <Compile Include="DataBase\MedicamentosAccess.cs" />
+    <Compile Include="DataBase\Medicamentos_por_pedidoAccess.cs" />
+    <Compile Include="DataBase\PedidoAccess.cs" />
+    <Compile Include="DataBase\RecetasAccess.cs" />
     <Compile Include="DataBase\SucursalAccess.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -175,7 +180,10 @@
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\Medicamento.cs" />
+    <Compile Include="Models\Medicamento_por_pedido.cs" />
     <Compile Include="Models\Padecimiento.cs" />
+    <Compile Include="Models\Pedido.cs" />
+    <Compile Include="Models\Receta.cs" />
     <Compile Include="Models\Sucursal.cs" />
     <Compile Include="Models\SucursalPorMedicamento.cs" />
     <Compile Include="Models\TelefonoCliente.cs" />

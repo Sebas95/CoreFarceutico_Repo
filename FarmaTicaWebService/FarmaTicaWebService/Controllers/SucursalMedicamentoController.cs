@@ -21,10 +21,16 @@ namespace FarmaTicaWebService.Controllers
             return databaseAccess.addSucursalPorMedicamento(id,sucursal_por_medicamento);
 
         }
-        public void deleteRemoveSucursalFromMedicamento(string codigoMedicamento, string NoSucursal)
+       /* public void deleteRemoveSucursalFromMedicamento(string id, string id2)
+        {
+            databaseAccess.deleteRemoveSucursalFromMedicamento(id,id2);
+        }*/
+        
+         public void deleteRemoveSucursalFromMedicamento(string codigoMedicamento, string NoSucursal)
         {
             databaseAccess.deleteRemoveSucursalFromMedicamento(codigoMedicamento,NoSucursal);
         }
+        
 
     }
 }

@@ -72,6 +72,21 @@ INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento , NoReceta, Cantidad)
 VALUES('AC','2',29) ;
 
 
+INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
+VALUES ('gerado','34453435','1234','G','F');
+INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
+VALUES ('Lucia','34451115','1234','G','P');
+INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
+VALUES ('Maria','34453321','1234','D','F');
+INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
+VALUES ('Cristian','3445199','1222','D','P');
+INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
+VALUES ('Daniel','3445555','asas','D','P');
+
+
+
+
+
 SELECT * FROM CLIENTE;
 select * from TELEFONOS_POR_CLIENTE; 
 select * from PADECIMIENTOS_POR_CLIENTE; 
@@ -83,5 +98,4 @@ select * from PEDIDO;
 select * from MEDICAMENTOS_POR_PEDIDO; 
 select * from RECETA; 
 select * from MEDICAMENTOS_POR_RECETA; 
-
 select * from EMPLEADO;

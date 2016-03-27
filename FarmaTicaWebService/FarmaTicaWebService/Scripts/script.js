@@ -15,11 +15,11 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'addClient.html',
           controller: 'editController'
       })
-      .when('/Items/Doctores', {
-          templateUrl: 'clientsView.html',
+      .when('/Item/doctores', {
+          templateUrl: 'doctoresView.html',
           controller: 'clientController'
       })
-      .when('/Items/Doctores/add', {
+      .when('/Item/doctores/add', {
           templateUrl: 'addDoctores.html',
           controller: 'addController'
       })
@@ -37,9 +37,9 @@ app.factory('URIService', function () {
         typeOfView = '/Items'
     }
 
-    svc.setDoctores = function () {
-        URI = 'http://localhost:8080/api/Doctor';
-        typeOfView = '/Items/Doctores'
+    svc.setDoctores = function () {        
+        URI = 'http://localhost:8080/api/Doctores';
+        typeOfView = '/Item/doctores'
     }
 
     return svc;
@@ -50,6 +50,7 @@ app.factory('httpService', function ($resource) {
     alert(URI);
     return $resource(URI, {});
 })
+
 
 app.factory('JsonResource', function ($resource) {
     return $resource(URI + '/:id', {}, {
@@ -163,18 +164,43 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
 }]);
 
 
+/*app.controller('getController', ["$scope", "$resource", "$location", "$routeParams", "clientService", "httpService", "URIService",
+
+function ($scope, resource, $location, $routeParams, clientService, httpService, URIService) {
+
+    $scope.doctores = function () {
+        var p = $resource('http://localhost:8080/api/Doctores');
+        return p.query();
+
+    };
+    $scope.clientes = function () {
+        URIService.setClients();
+        $location.path(typeOfView);
+    };
+    $scope.medicamentos = function () {
+
+    };
+    $scope.pedidos = function () {
+
+    };
+
+}]);*/
+
+
+
+
 app.controller("clientController", ["$scope", "$location", "$routeParams", "clientService", "httpService",
 
 function ($scope, $location, $routeParams, clientService, httpService) {
 
-
+    $scope.data = [];
     // $scope.ldata  = clientService.getData();
     //alert(clientService.getData());
-    //$scope.data = clientService.getClients();
+    //$scope.data = clientService.getClients();    
     $scope.data = httpService.query();
-
+    alert(URI);
     $scope.addClient = function () {
-        $location.path("/Items/add");
+        $location.path(typeOfView + "/add");
     }
 
     $scope.editClient = function (index) {

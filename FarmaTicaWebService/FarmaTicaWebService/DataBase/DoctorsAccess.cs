@@ -39,8 +39,8 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "insert into doctor (NoDoctor,Cedula,Nombre,Apellido,FechaNacimiento,Residencia)" +
-                    " values("+doctor.NoDoctor+ ", '"+doctor.Cedula+"', '"+doctor.Nombre+"', '"+doctor.Apellido+"', '"+doctor.FechaNacimiento+"', '"+doctor.Residencia+"'); "
+                    "insert into doctor (Cedula,Nombre,Apellido,FechaNacimiento,Residencia)" +
+                    " values( '"+ doctor.Cedula+"', '"+doctor.Nombre+"', '"+doctor.Apellido+"', '"+doctor.FechaNacimiento+"', '"+doctor.Residencia+"'); "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();

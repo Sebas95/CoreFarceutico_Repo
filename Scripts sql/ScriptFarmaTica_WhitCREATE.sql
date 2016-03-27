@@ -53,7 +53,7 @@ CREATE TABLE TELEFONOS_POR_CLIENTE(
 )
 
 CREATE TABLE DOCTOR(
-	NoDoctor INT,
+	NoDoctor INT IDENTITY(1,1),
 	Cedula CHAR(15),
 	Nombre CHAR(15),
 	Apellido CHAR(15),
@@ -88,7 +88,7 @@ CREATE TABLE SUCURSAL (
 )
 
 CREATE TABLE PEDIDO (
-	NoFactura INT,
+	NoFactura INT IDENTITY(1,1),
 	HoraRecojo TIME(0),
 	NoSucursal INT,
 	IdCliente INT,	
@@ -103,7 +103,7 @@ CREATE TABLE PEDIDO (
 )
 
 CREATE TABLE RECETA(
-	NoReceta INT,
+	NoReceta INT IDENTITY(1,1),
 	NoFactura INT,
 	IdCliente INT,
 	NoDoctor INT,

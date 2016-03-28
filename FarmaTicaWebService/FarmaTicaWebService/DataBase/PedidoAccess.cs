@@ -17,14 +17,14 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT NoFactura , HoraRecojo , NoSucursal , IdCliente, Estado , Empresa  FROM PEDIDO;", con);
+                    "SELECT NoFactura , FechaRecojo , NoSucursal , IdCliente, Estado , Empresa  FROM PEDIDO;", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
                 {
                     Pedido pedido = new Pedido();
                     pedido.NoFactura = rdr["NoFactura"].ToString();
-                    pedido.HoraRecojo = rdr["HoraRecojo"].ToString();
+                    pedido.FechaRecojo = rdr["FechaRecojo"].ToString();
                     pedido.NoSucursal = rdr["NoSucursal"].ToString();
                     pedido.IdCliente = rdr["IdCliente"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();
@@ -41,8 +41,8 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado , Empresa)" 
-                    +" VALUES('"+pedido.HoraRecojo+"', '"+pedido.NoSucursal+"', '"+pedido.IdCliente+"', '"+pedido.Estado+"','"+pedido.Empresa+"'); "
+                    "INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado , Empresa)"
+                    + " VALUES('" + pedido.FechaRecojo + "', '" + pedido.NoSucursal + "', '" + pedido.IdCliente + "', '" + pedido.Estado + "','" + pedido.Empresa + "'); "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -56,9 +56,9 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "UPDATE PEDIDO  SET HoraRecojo = '"+pedido.HoraRecojo+"', NoSucursal = '"+pedido.NoSucursal+"', "
-                    +" IdCliente = '"+pedido.IdCliente+"', Estado = '"+pedido.Estado+"' , Empresa = '"+pedido.Empresa +"'" 
-                    +" WHERE NoFactura = '"+NoFactura+"' ; "
+                    "UPDATE PEDIDO  SET FechaRecojo = '" + pedido.FechaRecojo + "', NoSucursal = '" + pedido.NoSucursal + "', "
+                    + " IdCliente = '" + pedido.IdCliente + "', Estado = '" + pedido.Estado + "' , Empresa = '" + pedido.Empresa + "'"
+                    + " WHERE NoFactura = '" + NoFactura + "' ; "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -72,11 +72,43 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM PEDIDO WHERE NoFactura = '"+NoFactura+"'; "
+                    "DELETE FROM PEDIDO WHERE NoFactura = '" + NoFactura + "'; "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
+
+        }
+        public List<VistaPedido> getAllVistasPedidos()
+        {
+            List<VistaPedido> listPedidos = new List<VistaPedido>();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido,T.Telefono,S.Nombre AS SucursalDeRecojo ,P.FechaRecojo, p.Estado"
+                    + " FROM"
+                    + " ((PEDIDO AS P JOIN CLIENTE AS C ON P.IdCliente = C.IdCliente)"
+                    + " jOIN SUCURSAL AS S ON P.NoSucursal = S.NoSucursal) JOIN TELEFONOS_POR_CLIENTE AS T ON C.IdCliente = T.IdCliente"
+                    + " WHERE T.Descripcion = 'Preferido'"
+                    + "ORDER BY (FechaRecojo) ;"
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read()) //si existe en la base de datos
+                {
+                    VistaPedido pedido = new VistaPedido();
+                    pedido.NoFactura = rdr["NoFactura"].ToString();
+                    pedido.NombreCliente = rdr["NombreCliente"].ToString();
+                    pedido.Apellidos = rdr["Apellido"].ToString();
+                    pedido.Telefono = rdr["Telefono"].ToString();
+                    pedido.SucursalDeRecojo = rdr["SucursalDeRecojo"].ToString();
+                    pedido.FechaRecojo = rdr["FechaRecojo"].ToString();
+                    pedido.Estado = rdr["Estado"].ToString();
+                    listPedidos.Add(pedido);
+                }
+            }
+            return listPedidos;
 
         }
     }

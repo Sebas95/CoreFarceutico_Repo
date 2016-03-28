@@ -53,6 +53,10 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'editMedicaView.html',
           controller: 'editMedicaController'
       })
+      .when('/Item/pedidos/:index', {
+                  templateUrl: 'Pedido.html',
+                  controller: 'pedidoController'
+      })
       .otherwise({
           templateUrl: 'subModuloMantenimiento.html',
           controller: 'menuMantenimientoController'
@@ -277,6 +281,11 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
         //alert("eentroaqui");
         URIService.setRecetas();
         $location.path(typeOfView);
+    };
+    $scope.pedido = function () {
+        //alert("eentroaqui");
+        URIService.setRecetas();
+        $location.path("/Item/pedidos/:index");
     };
 
 }]);
@@ -755,6 +764,28 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, do
         $location.path(typeOfView);
     }
 
+}]);
+
+
+app.factory('pedidoResource', function ($resource) {
+    return $resource('http://localhost:8080/api/VistaPedidos/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
+
+app.controller("pedidoController", ["$scope", "$location", "$routeParams", "pedidoResource",
+function ($scope, $location, $routeParams, pedidoResource) {
+    $scope.data = pedidoResource.query();
 }]);
 
 

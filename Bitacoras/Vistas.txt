@@ -11,7 +11,7 @@ R Pedidos
 
 Vista cliente: (cliente)
 C Cliente
-CRU Pedidos
+CR Pedidos
 CR Recetas
 *Limitar editar pedido
 

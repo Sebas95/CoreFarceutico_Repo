@@ -9,7 +9,9 @@ INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES (1 , 'PADECIMIENTO2');
 INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES (1 , 'PADECIMIENTO1');
 
 INSERT INTO TELEFONOS_POR_CLIENTE VALUES (1 , '324434234','casa');
-INSERT INTO TELEFONOS_POR_CLIENTE VALUES (1 , '89985104','cel');
+INSERT INTO TELEFONOS_POR_CLIENTE VALUES (1 , '89985104','Preferido');
+INSERT INTO TELEFONOS_POR_CLIENTE VALUES (2 , '324434234','móvil');
+INSERT INTO TELEFONOS_POR_CLIENTE VALUES (2 , '89985104','Preferido');
 
 insert into doctor (Cedula,Nombre,Apellido,FechaNacimiento,Residencia) 
 values('323453234','Alfred','Cen','1889-01-02','colorado');
@@ -40,14 +42,14 @@ VALUES ('CF', 22 , 300);
 
 
 
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES (convert(varchar(10),getdate(),108),'22','2','R','F');
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES (convert(varchar(10),getdate(),108),'22','2','R','P');
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('20:18:01','11','1','R','F');
-INSERT INTO PEDIDO ( HoraRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('23:10:01','11','1','R','F');
+INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES ('2009-09-25 02:47:00.000' ,'22','2','R','F');
+INSERT INTO PEDIDO (FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES ('2017-09-25 01:47:00.000','22','2','R','P');
+INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES ('2012-09-25 20:47:00.000','11','1','R','F');
+INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
+VALUES ('2013-09-25 21:47:00.000','11','1','R','F');
 
 
 INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 

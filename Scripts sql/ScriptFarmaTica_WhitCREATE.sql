@@ -96,7 +96,7 @@ CREATE TABLE SUCURSAL (
 
 CREATE TABLE PEDIDO (
 	NoFactura INT IDENTITY(1,1),
-	HoraRecojo TIME(0),
+	FechaRecojo DATE,
 	NoSucursal INT,
 	IdCliente INT,	
 	Estado CHAR(7),

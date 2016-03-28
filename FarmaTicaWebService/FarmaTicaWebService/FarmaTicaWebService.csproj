@@ -199,15 +199,21 @@
   <ItemGroup>
     <Content Include="addClient.html" />
     <Content Include="addDoctor.html" />
+    <Content Include="addMedicamento.html" />
+    <Content Include="addPedido.html" />
+    <Content Include="addReceta.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="clientsView.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="doctoresView.html" />
+    <Content Include="editMedicaView.html" />
+    <Content Include="editRecetas.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="medicamentoView.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -236,6 +242,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\script.js" />
+    <Content Include="startPedido.html" />
+    <Content Include="startRecetas.html" />
     <Content Include="subModuloMantenimiento.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

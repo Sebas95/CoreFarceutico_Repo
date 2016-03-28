@@ -3,6 +3,7 @@ var app = angular.module('Myapp', ['ngRoute', 'ngResource']);
 var URI = 'http://localhost:8080/api/Client';
 var typeOfView = '/Items'
 var type = "cliente"
+var clientesParaReceta = [];
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Items', {
         templateUrl: 'clientsView.html',
@@ -28,6 +29,30 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'addDoctor.html',
           controller: 'editDoctorController'
       })
+      .when('/Item/recetas/:index', {
+          templateUrl: 'editRecetas.html',
+          controller: 'editrecetasController'
+      })
+      .when('/Item/recetas', {
+          templateUrl: 'startRecetas.html',
+          controller: 'recetasController'
+      })
+      .when('/Item/pedidos', {
+          templateUrl: 'startPedidos.html',
+          controller: 'starPedidosController'
+      })
+      .when('/Item/medica', {
+          templateUrl: 'medicamentoView.html',
+          controller: 'medicaController'
+      })
+      .when('/Item/medica/add', {
+          templateUrl: 'addMedicamento.html',
+          controller: 'addMedicaController'
+      })
+      .when('/Items/medica/:index', {
+          templateUrl: 'editMedicaView.html',
+          controller: 'editMedicaController'
+      })
       .otherwise({
           templateUrl: 'subModuloMantenimiento.html',
           controller: 'menuMantenimientoController'
@@ -50,13 +75,27 @@ app.factory('URIService', function () {
         URI = 'http://localhost:8080/api/Doctores';
         typeOfView = '/Item/doctores'
     }
+    svc.setRecetas = function () {
+        typeOfView = '/Item/recetas'
+        type = "receta";
+        URI = 'http://localhost:8080/api/Recetas';
+        typeOfView = '/Item/recetas'
+    }
+
+    svc.setMed = function () {
+        typeOfView = '/Item/medica'
+        type = "medica";
+        URI = 'http://localhost:8080/api/Medicamento';
+        typeOfView = '/Item/medica'
+    }
 
     return svc;
 
 })
 
+
 app.factory('httpService', function ($resource) {
-    alert(URI);
+    //alert(URI);
     return $resource(URI, {});
 })
 
@@ -103,6 +142,76 @@ app.factory('telefonosResource', function ($resource) {
     });
 });
 
+app.factory('pedidosResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Pedido/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+app.factory('recetasResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Recetas/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+app.factory('casasResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Recetas/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
+app.factory('medicaResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Medicamento/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+app.factory('sucursalResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Sucursal/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
 
 
 app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http) {
@@ -134,7 +243,7 @@ app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http
         $http.get(URI)
             .then(function (result) {
                 vm.mydata = result.data;
-                alert(vm.mydata)
+                //alert(vm.mydata)
             });
         return vm.mydata;
     }
@@ -160,11 +269,250 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
         $location.path(typeOfView);
     };
     $scope.medicamentos = function () {
+        URIService.setMed();
+        $location.path(typeOfView);
 
     };
-    $scope.pedidos = function () {
-
+    $scope.recetas = function () {
+        //alert("eentroaqui");
+        URIService.setRecetas();
+        $location.path(typeOfView);
     };
+
+}]);
+
+app.controller("startPedidosController", ["$scope", "$location", "$routeParams", "pedidosResource",
+
+function ($scope, $location, $routeParams, pedidosResource) {
+
+
+    //$scope.data = [];
+    // $scope.ldata  = clientService.getData();
+    //alert(clientService.getData());
+    //$scope.data = clientService.getClients();    
+    $scope.Item = pedidosResource.query();
+    //$scope.data = httpService.query();
+    //alert(URI);
+    $scope.addPedido = function () {
+        $location.path(typeOfView + "/add");
+    }
+
+    $scope.editPedido = function (index) {
+        $location.path(typeOfView + "/" + index);
+    }
+
+    $scope.refresh = function () {
+        //$scope.data = httpService.query();
+        $scope.Item = pedidosResource.query();
+        //$location.path(typeOfView + "/" +index);
+    }
+
+    $scope.back = function () {
+        $location.path("regrese");
+    }
+
+}]);
+
+
+app.controller("recetasController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "doctorResource", "recetasResource",
+
+function ($scope, $location, $routeParams, clientService, httpService, JsonResource, doctorResource, recetasResource) {
+
+
+    //$scope.data = [];
+    // $scope.ldata  = clientService.getData();
+    //alert(clientService.getData());
+    //$scope.data = clientService.getClients();    
+    $scope.data = recetasResource.query();
+    //$scope.data = httpService.query();
+    //alert(URI);
+    $scope.addClient = function () {
+        $location.path(typeOfView + "/add");
+    }
+
+    $scope.editReceta = function (index) {
+        $location.path(typeOfView + "/" + index);
+    }
+
+    $scope.refresh = function () {
+        //$scope.data = httpService.query();
+        $scope.data = recetasResource.query();
+        //$location.path(typeOfView + "/" +index);
+    }
+
+    $scope.back = function () {
+        $location.path("regrese");
+    }
+
+}]);
+
+
+app.controller("editRecetasController", ["$scope", "$location", "$routeParams", "clientService", "JsonResource", "recetasResource",
+
+
+function ($scope, $location, $routeParams, clientService, JsonResource, recetasResource) {
+    // $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
+    $scope.telefonos = {};
+    recetasResource.query().$promise.then(function (data) {
+        $scope.Item = data[parseInt($routeParams.index)];
+
+        /*JsonResource.query().$promise.then(function (data) {
+            $scope.list = data[parseInt($scope.ItemRecetas.IdCliente)];*/
+        //$scope.telefonos = telefonosResource.query({ id: $scope.Item.IdCliente });
+        //$scope.isArray = data instanceof Array;
+    });
+    /*$scope.save = function () {
+        clientService.editClient(parseInt($routeParams.index), {
+            name: $scope.Item.name, apellido: $scope.Item.apellido,
+            cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
+            residencia: $scope.Item.residencia
+        });
+        $location.path("/Items");
+    }*/
+
+    $scope.addPhone = function () {
+        alert($scope.Item.IdCliente);
+        $scope.newPhone = {
+            idCliente: $scope.Item.IdCliente, Telefono: $scope.newPhoneC, descripcion: $scope.descrp
+        };
+        telefonosResource.save($scope.newPhone);
+        $location.path(typeOfView);
+    }
+
+    $scope.save = function () {
+        $scope.newClientUpdated = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+            Residencia: $scope.Item.Residencia
+        };
+        $scope.newTelefonoUpdated = {
+            idCliente: $scope.Item.Cedula, Telefono: selectedCar, descripcion: telefono.descripción
+        };
+        /*   $scope.newClientUpdated = {
+               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+               Residencia: $scope.Item.Residencia
+           };*/
+        JsonResource.update({ id: $scope.Item.IdCliente }, $scope.newClientUpdated);
+        $location.path(typeOfView);
+        telefonosResource.save($scope.newTelefonoUpdated);
+        //Notes.update({ id: $id }, note);
+    }
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+    $scope.delete = function () {
+        JsonResource.delete({ id: $scope.Item.IdCliente });
+        $location.path(typeOfView);
+    }
+
+}]);
+
+app.controller("editMedicaController", ["$scope", "$location", "$routeParams", "clientService", "medicaResource", "JsonResource", "sucursalResource",
+
+function ($scope, $location, $routeParams, clientService, medicaResource, JsonResource, sucursalResource) {
+
+    $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
+    $scope.telefonos = {};
+    medicaResource.query().$promise.then(function (data) {
+        $scope.Item = data[parseInt($routeParams.index)];
+        //$scope.telefonos = telefonosResource.query({ id: $scope.Item.IdCliente });
+        //$scope.isArray = data instanceof Array;
+    });
+    $scope.save = function () {
+        $scope.newMed = {
+            Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
+            CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
+        };
+        /*   $scope.newClientUpdated = {
+               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+               Residencia: $scope.Item.Residencia
+           };*/
+        alert(angular.toJson($scope.newMed));
+        medicaResource.update({ id: $scope.Item.codigo }, $scope.newMed);
+        $location.path(typeOfView);
+        //telefonosResource.save($scope.newTelefonoUpdated);
+        //Notes.update({ id: $id }, note);
+    }
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+    $scope.delete = function () {
+        alert(angular.toJson({ id: $scope.Item.codigo }));
+        medicaResource.delete({ id: $scope.Item.codigo });
+        $location.path(typeOfView);
+    }
+
+}]);
+
+app.controller("addMedicaController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "sucursalResource", "medicaResource",
+
+
+function ($scope, $http, $location, $routeParams, clientService, httpService, sucursalResource, medicaResource) {
+    $scope.data = sucursalResource.query();
+    $scope.typeOfHuman = "Clientes";
+    $scope.save = function () {
+        /*alert($scope.Item.Nombre);
+        alert($scope.Item.codigo);
+        alert($scope.Item.Prescripcion);
+        alert($scope.Item.CasaFarmaceutica);
+        alert($scope.Item.Costo);*/
+        $scope.newMed = {
+            Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
+            CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
+        };
+        alert(angular.toJson($scope.newMed));
+        //clientService.getData();
+        // var postVar = new httpService();
+        medicaResource.save($scope.newMed, function () { alert("entro a save"); });
+        //$scope.DataList = medicaResource.query();
+        $scope.dato = vm.mydata;
+        $location.path(typeOfView);
+    }
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+}]);
+
+
+
+app.controller("medicaController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "medicaResource",
+
+function ($scope, $location, $routeParams, clientService, httpService, JsonResource, medicaResource) {
+
+
+    //$scope.data = [];
+    // $scope.ldata  = clientService.getData();
+    //alert(clientService.getData());
+    //$scope.data = clientService.getClients();        
+    $scope.data = medicaResource.query();
+    //$scope.data = httpService.query();
+    //alert(URI);
+    //alert(typeOfView);
+    $scope.addClient = function () {
+        $location.path(typeOfView + "/add");
+    }
+
+    $scope.editClient = function (index) {
+        $location.path('/Items/medica/' + index);
+    }
+
+    $scope.refresh = function () {
+        //$scope.data = httpService.query();
+        $scope.data = medicaResource.query();
+        //$location.path(typeOfView + "/" +index);
+    }
+
+    $scope.back = function () {
+        $location.path("regrese");
+    }
 
 }]);
 
@@ -308,7 +656,7 @@ function ($scope, $location, $routeParams, clientService, JsonResource, telefono
     }*/
 
     $scope.addPhone = function () {
-        alert($scope.Item.IdCliente);
+        //alert($scope.Item.IdCliente);
         $scope.newPhone = {
             idCliente: $scope.Item.IdCliente, Telefono: $scope.newPhoneC, descripcion: $scope.descrp
         };

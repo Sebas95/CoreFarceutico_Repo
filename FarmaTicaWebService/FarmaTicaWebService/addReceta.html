@@ -19,6 +19,13 @@
             </div>
 
             <form>
+
+                <div class="form-group">
+                    <label> Doctor </label>
+                    <br>
+                    <input class="form-control" input type="number" id="exampleInputQuantity" placeholder="0" maxlength="255" data-ng-model="Item.Quantity" required>
+ 
+                </div>
                 <div class="form-group">
                     <label> Medicamentos </label>
                     <br>
@@ -26,13 +33,13 @@
                     <input class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Medicamento" data-ng-model="Item.Nombre" required>
                     <button type="button" onclick="x.Qtty="> Añadir más </button>
                 </div>
+
             </form>
             <br>
             <div class="form-group">
                 <label for="archivo">Imágen</label>
                 <input type="file" id="archivo">
-                <p class="help-block">Máximo 5MB</p>
-                <button class="btn btn-primary">Enviar</button>
+                <p class="help-block">Máximo 2MB</p>
             </div>
 
             <button type="Add" class="btn btn-secondary" data-ng-click="save()"> Guardar </button>

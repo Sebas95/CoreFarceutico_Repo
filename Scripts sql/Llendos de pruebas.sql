@@ -42,14 +42,14 @@ VALUES ('CF', 22 , 300);
 
 
 
-INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('2009-09-25 02:47:00.000' ,'22','2','R','F');
-INSERT INTO PEDIDO (FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('2017-09-25 01:47:00.000','22','2','R','P');
-INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('2012-09-25 20:47:00.000','11','1','R','F');
-INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa) 
-VALUES ('2013-09-25 21:47:00.000','11','1','R','F');
+INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
+VALUES ('2009-09-25 02:47:00.000' ,'22','2','R','F','89985104');
+INSERT INTO PEDIDO (FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
+VALUES ('2017-09-25 01:47:00.000','22','2','R','P','89985104');
+INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
+VALUES ('2012-09-25 20:47:00.000','11','1','R','F','89985104');
+INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
+VALUES ('2013-09-25 21:47:00.000','11','1','R','F','324434234');
 
 
 INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 

@@ -13,5 +13,6 @@ namespace FarmaTicaWebService.Models
         public string IdCliente;
         public string Estado;
         public string Empresa;
+        public string TelefonoPreferido;
     }
 }

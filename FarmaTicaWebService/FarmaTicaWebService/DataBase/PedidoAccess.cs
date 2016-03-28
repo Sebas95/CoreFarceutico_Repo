@@ -17,7 +17,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT NoFactura , FechaRecojo , NoSucursal , IdCliente, Estado , Empresa  FROM PEDIDO;", con);
+                    "SELECT NoFactura , FechaRecojo , NoSucursal , IdCliente, Estado , Empresa , TelefonoPreferido  FROM PEDIDO;", con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
@@ -29,6 +29,7 @@ namespace FarmaTicaWebService.DataBase
                     pedido.IdCliente = rdr["IdCliente"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();
                     pedido.Empresa = rdr["Empresa"].ToString();
+                    pedido.TelefonoPreferido = rdr["TelefonoPreferido"].ToString();
                     listPedidos.Add(pedido);
                 }
             }
@@ -41,8 +42,8 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado , Empresa)"
-                    + " VALUES('" + pedido.FechaRecojo + "', '" + pedido.NoSucursal + "', '" + pedido.IdCliente + "', '" + pedido.Estado + "','" + pedido.Empresa + "'); "
+                    "INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado , Empresa , TelefonoPreferido )"
+                    + " VALUES('" + pedido.FechaRecojo + "', '" + pedido.NoSucursal + "', '" + pedido.IdCliente + "', '" + pedido.Estado + "','" + pedido.Empresa + "' , '"+pedido.TelefonoPreferido+"'); "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -57,7 +58,7 @@ namespace FarmaTicaWebService.DataBase
             {
                 SqlCommand cmd = new SqlCommand(
                     "UPDATE PEDIDO  SET FechaRecojo = '" + pedido.FechaRecojo + "', NoSucursal = '" + pedido.NoSucursal + "', "
-                    + " IdCliente = '" + pedido.IdCliente + "', Estado = '" + pedido.Estado + "' , Empresa = '" + pedido.Empresa + "'"
+                    + " IdCliente = '" + pedido.IdCliente + "', Estado = '" + pedido.Estado + "' , Empresa = '" + pedido.Empresa + "' , TelefonoPreferido = '"+pedido.TelefonoPreferido+"'"
                     + " WHERE NoFactura = '" + NoFactura + "' ; "
                     , con);
                 con.Open();
@@ -86,12 +87,10 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido,T.Telefono,S.Nombre AS SucursalDeRecojo ,P.FechaRecojo, p.Estado"
-                    + " FROM"
-                    + " ((PEDIDO AS P JOIN CLIENTE AS C ON P.IdCliente = C.IdCliente)"
-                    + " jOIN SUCURSAL AS S ON P.NoSucursal = S.NoSucursal) JOIN TELEFONOS_POR_CLIENTE AS T ON C.IdCliente = T.IdCliente"
-                    + " WHERE T.Descripcion = 'Preferido'"
-                    + "ORDER BY (FechaRecojo) ;"
+                    "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido,P.TelefonoPreferido ,S.Nombre AS SucursalDeRecojo ,P.FechaRecojo, p.Estado" 
+                    +" FROM ((PEDIDO AS P JOIN CLIENTE AS C ON P.IdCliente = C.IdCliente)"
+                    +" jOIN SUCURSAL AS S ON P.NoSucursal = S.NoSucursal)"
+                    +" ORDER BY (FechaRecojo); "
                     , con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
@@ -101,7 +100,7 @@ namespace FarmaTicaWebService.DataBase
                     pedido.NoFactura = rdr["NoFactura"].ToString();
                     pedido.NombreCliente = rdr["NombreCliente"].ToString();
                     pedido.Apellidos = rdr["Apellido"].ToString();
-                    pedido.Telefono = rdr["Telefono"].ToString();
+                    pedido.Telefono = rdr["TelefonoPreferido"].ToString();
                     pedido.SucursalDeRecojo = rdr["SucursalDeRecojo"].ToString();
                     pedido.FechaRecojo = rdr["FechaRecojo"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();

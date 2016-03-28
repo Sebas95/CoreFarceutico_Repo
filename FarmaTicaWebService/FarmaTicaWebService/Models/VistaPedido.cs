@@ -14,5 +14,6 @@ namespace FarmaTicaWebService.Models
         public string SucursalDeRecojo;
         public string FechaRecojo;
         public string Estado;
+        public string Prioridad;
     }
 }

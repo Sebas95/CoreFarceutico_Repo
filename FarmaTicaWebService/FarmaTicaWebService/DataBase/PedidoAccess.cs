@@ -87,7 +87,7 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido,P.TelefonoPreferido ,S.Nombre AS SucursalDeRecojo ,P.FechaRecojo, p.Estado" 
+                    "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido,P.TelefonoPreferido ,S.Nombre AS SucursalDeRecojo ,P.FechaRecojo, p.Estado, C.Prioridad"
                     +" FROM ((PEDIDO AS P JOIN CLIENTE AS C ON P.IdCliente = C.IdCliente)"
                     +" jOIN SUCURSAL AS S ON P.NoSucursal = S.NoSucursal)"
                     +" ORDER BY (FechaRecojo); "
@@ -104,6 +104,7 @@ namespace FarmaTicaWebService.DataBase
                     pedido.SucursalDeRecojo = rdr["SucursalDeRecojo"].ToString();
                     pedido.FechaRecojo = rdr["FechaRecojo"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();
+                    pedido.Prioridad = rdr["Prioridad"].ToString();
                     listPedidos.Add(pedido);
                 }
             }

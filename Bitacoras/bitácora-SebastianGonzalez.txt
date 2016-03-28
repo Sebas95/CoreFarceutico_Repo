@@ -7,3 +7,6 @@
 25/03/2016 2 hrs solución de conexión de la página web del web service.
 25/03/2016 3hr Modificación en la base de datos (simplificación).
 25/03/2016 6hr Servicio web de medicamentos (simplificación).
+26/03/2016 12hr implementación del web service.
+27/03/2016 8hr Se añadió funcionalidad extra al web service.
+

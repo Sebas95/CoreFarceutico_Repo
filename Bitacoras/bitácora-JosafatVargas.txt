@@ -26,3 +26,4 @@ Scripts SQL 3h
 
 	Viernes 27 
 
+Investigación AngularJS, Scripts SQL, Creación de formularios 7h

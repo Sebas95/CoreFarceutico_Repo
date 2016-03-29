@@ -7,13 +7,15 @@
                 <th>Cantidad</th>
                 <th>CostoUnitario</th>
                 <th>Casa Farmaceutica</th>
+                <th></th>
             </tr>
-            <tr data-ng-repeat="item in Item  | filter: search" data-ng-click="editClient($index)">
+            <tr data-ng-repeat="item in Item  | filter: search" >
                 <td>{{item.Codigo}}</td>
                 <td>{{item.Nombre}}</td>
                 <td>{{item.Cantidad}}</td>
                 <td>{{item.CostoUnitario}}</td>
                 <td>{{item.CasaFarmaceutica}}</td>
+                <td><input type="button" value="Remove" class="btn btn-primary" data-ng-click="borrar(item.Codigo,item.Cantidad)" /></td>
             </tr>
         </tbody>
     </table>
@@ -23,8 +25,23 @@
             <option ng-repeat="x in telefonos" value="{{x.Telefono}}" selected="selected">{{x.Telefono}}</option>
         </select>
     </div>-->
-    <button type="Add" class="btn btn-secondary" data-ng-click="save()">Save Changes</button>
-    <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
-    <button type="Add" class="btn btn-primary" data-ng-click="delete()">Delete</button>
-
+    <h1><label for="exampleInputResidencia">Ingresar Nuevo Medicamento a la Receta</label></h1>    
+    <div class="btn-group" ng-class='{open: open}'>
+            <button class="btn">Action</button>
+            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="datos in dato"><a data-ng-click="addMed(cantidad,datos.codigo)">{{datos.Nombre}}</a></li>
+                <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>-->
+            </ul>      
+    </div>
+    <div class="container">
+        <label for="exampleInputResidencia">Cantidad</label>
+        <input class="form-control" id="exampleInputCantidad" maxlength="45" placeholder="Cantidad" data-ng-model="cantidad">
+        <button type="Add" class="btn btn-secondary" data-ng-click="save()">Save Changes</button>
+        <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
+        <button type="Add" class="btn btn-primary" data-ng-click="delete()">Delete</button>
+    </div>
 </form>

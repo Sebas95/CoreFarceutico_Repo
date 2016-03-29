@@ -50,16 +50,20 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: 'addMedicaController'
       })
       .when('/Items/medica/:index', {
-          templateUrl: 'editMedicaView.html',
+          templateUrl: 'addMedicamento.html',
           controller: 'editMedicaController'
       })
       .when('/Item/pedidos/:index', {
-                  templateUrl: 'Pedido.html',
-                  controller: 'pedidoController'
+          templateUrl: 'Pedido.html',
+          controller: 'pedidoController'
       })
-      .otherwise({
+      .when('/Item/depend', {
           templateUrl: 'subModuloMantenimiento.html',
           controller: 'menuMantenimientoController'
+      })
+      .otherwise({
+          templateUrl: 'login.html',
+          controller: 'loginController'
       })
 }]);
 
@@ -189,7 +193,7 @@ app.factory('casasResource', function ($resource) {
 });
 
 
-app.factory('medicaResource', function ($resource) {
+app.factory('medResource', function ($resource) {
     return $resource('http://localhost:8080/api/Medicamento/:id', {}, {
         query: {
             method: 'GET',
@@ -202,6 +206,7 @@ app.factory('medicaResource', function ($resource) {
         delete: { method: 'DELETE' }
     });
 });
+
 
 app.factory('sucursalResource', function ($resource) {
     return $resource('http://localhost:8080/api/Sucursal/:id', {}, {
@@ -259,7 +264,34 @@ app.factory("clientService", ["$rootScope", "$http", function ($rootScope, $http
     return svc;
 }]);
 
+app.factory('enviarResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Medicamento/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
 
+
+app.factory('loginResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Medicamento/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
 
 app.controller('menuMantenimientoController', ["$scope", "$location", "$routeParams", "clientService", "httpService", "URIService",
 
@@ -289,6 +321,23 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
     };
 
 }]);
+
+app.controller("loginController", ["$scope", "$location", "$routeParams", "pedidosResource",
+
+function ($scope, $location, $routeParams, pedidosResource) {
+
+
+    $scope.cliente = function () {
+        $location.path(typeOfView + "/add");
+    }
+
+    $scope.empleado = function (index) {
+        $location.path('/Item/depend');
+    }
+
+}]);
+
+
 
 app.controller("startPedidosController", ["$scope", "$location", "$routeParams", "pedidosResource",
 
@@ -419,50 +468,11 @@ function ($scope, $location, $routeParams, clientService, JsonResource, recetasR
 
 }]);
 
-app.controller("editMedicaController", ["$scope", "$location", "$routeParams", "clientService", "medicaResource", "JsonResource", "sucursalResource",
 
-function ($scope, $location, $routeParams, clientService, medicaResource, JsonResource, sucursalResource) {
-
-    $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
-    $scope.telefonos = {};
-    medicaResource.query().$promise.then(function (data) {
-        $scope.Item = data[parseInt($routeParams.index)];
-        //$scope.telefonos = telefonosResource.query({ id: $scope.Item.IdCliente });
-        //$scope.isArray = data instanceof Array;
-    });
-    $scope.save = function () {
-        $scope.newMed = {
-            Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
-            CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
-        };
-        /*   $scope.newClientUpdated = {
-               Cedula: "5555555", Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
-               Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
-               Residencia: $scope.Item.Residencia
-           };*/
-        alert(angular.toJson($scope.newMed));
-        medicaResource.update({ id: $scope.Item.codigo }, $scope.newMed);
-        $location.path(typeOfView);
-        //telefonosResource.save($scope.newTelefonoUpdated);
-        //Notes.update({ id: $id }, note);
-    }
-
-    $scope.cancel = function () {
-        $location.path(typeOfView);
-    }
-
-    $scope.delete = function () {
-        alert(angular.toJson({ id: $scope.Item.codigo }));
-        medicaResource.delete({ id: $scope.Item.codigo });
-        $location.path(typeOfView);
-    }
-
-}]);
-
-app.controller("addMedicaController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "sucursalResource", "medicaResource",
+app.controller("addMedicaController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "sucursalResource", "medResource",
 
 
-function ($scope, $http, $location, $routeParams, clientService, httpService, sucursalResource, medicaResource) {
+function ($scope, $http, $location, $routeParams, clientService, httpService, sucursalResource, medResource) {
     $scope.data = sucursalResource.query();
     $scope.typeOfHuman = "Clientes";
     $scope.save = function () {
@@ -478,7 +488,7 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, su
         alert(angular.toJson($scope.newMed));
         //clientService.getData();
         // var postVar = new httpService();
-        medicaResource.save($scope.newMed, function () { alert("entro a save"); });
+        medResource.save($scope.newMed, function () { alert("entro a save"); });
         //$scope.DataList = medicaResource.query();
         $scope.dato = vm.mydata;
         $location.path(typeOfView);
@@ -492,16 +502,16 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, su
 
 
 
-app.controller("medicaController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "medicaResource",
+app.controller("medicaController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "medResource",
 
-function ($scope, $location, $routeParams, clientService, httpService, JsonResource, medicaResource) {
+function ($scope, $location, $routeParams, clientService, httpService, JsonResource, medResource) {
 
 
     //$scope.data = [];
     // $scope.ldata  = clientService.getData();
     //alert(clientService.getData());
     //$scope.data = clientService.getClients();        
-    $scope.data = medicaResource.query();
+    $scope.data = medResource.query();
     //$scope.data = httpService.query();
     //alert(URI);
     //alert(typeOfView);
@@ -515,7 +525,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
 
     $scope.refresh = function () {
         //$scope.data = httpService.query();
-        $scope.data = medicaResource.query();
+        $scope.data = medResource.query();
         //$location.path(typeOfView + "/" +index);
     }
 
@@ -524,6 +534,56 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     }
 
 }]);
+
+
+app.controller("editMedicaController", ["$scope", "$location", "$routeParams", "clientService", "doctorResource", "medResource",
+
+
+function ($scope, $location, $routeParams, clientService, doctorResource, medResource) {
+    $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
+    medResource.query().$promise.then(function (data) {
+        $scope.Item = data[parseInt($routeParams.index)];
+        //$scope.isArray = data instanceof Array;
+    });
+    /*$scope.save = function () {
+        clientService.editClient(parseInt($routeParams.index), {
+            name: $scope.Item.name, apellido: $scope.Item.apellido,
+            cedula: $scope.Item.cedula, fechaNacimiento: $scope.Item.fechaNacimiento,
+            residencia: $scope.Item.residencia
+        });
+        $location.path("/Items");
+    }*/
+
+
+
+    $scope.save = function () {
+
+        alert("entro save");
+
+        $scope.newClientUpdated = {
+            Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
+            CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
+        };
+        alert(angular.toJson($scope.newClientUpdated));
+        medResource.update({ id: $scope.Item.codigo }, $scope.newClientUpdated);
+        alert("salió save");
+        $location.path(typeOfView);
+        //Notes.update({ id: $id }, note);
+    }
+
+
+
+    $scope.cancel = function () {
+        $location.path(typeOfView);
+    }
+
+    $scope.delete = function () {
+        medResource.delete({ id: $scope.Item.codigo });
+        $location.path(typeOfView);
+    }
+
+}]);
+
 
 
 app.controller("clientController", ["$scope", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "doctorResource",
@@ -768,7 +828,7 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, do
 
 
 app.factory('pedidoResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Pedido/:id', {}, {
+    return $resource('http://localhost:8080/api/VistaPedidos/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {

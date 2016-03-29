@@ -166,9 +166,11 @@
     <Compile Include="Controllers\PadecimientosController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
+    <Compile Include="Controllers\RecetasPorPedidoController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\MedicamentoEnSucursalController.cs" />
     <Compile Include="Controllers\TelefonosClientesController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DataBase\ClientsAccess.cs" />
     <Compile Include="DataBase\DoctorsAccess.cs" />
     <Compile Include="DataBase\EmpleadosAccess.cs" />

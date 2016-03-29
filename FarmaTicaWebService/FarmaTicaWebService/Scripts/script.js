@@ -913,6 +913,46 @@ function ($scope, $location, $routeParams, detallePedidoResource) {
 
 }]);
 
+app.factory('detalleRecetaResource', function ($resource) {
+    return $resource('http://localhost:8080/api/MedicamentosPorReceta/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+app.factory('pedidoRecetaResource', function ($resource) {
+    return $resource('http://localhost:8080/api/RecetasPorPedido/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
+
+app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource",
+function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource) {
+    $scope.listaRecetas = pedidoRecetaResource.query({ id: pedidoActual.NoFactura });
+    $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura }); 
+}
+
+]);
+
 
 /*
 var URI = 'https://api.github.com/users';
@@ -929,4 +969,3 @@ app.controller('MyController', function($scope, $http) {
               alert(result.data)
              });
 });*/
-

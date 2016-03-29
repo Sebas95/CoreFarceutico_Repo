@@ -1,0 +1,30 @@
+﻿<form>
+    <div class="form-group">
+        <label for="exampleInputCedula">Cédula</label>
+        <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Item.Cedula" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputNombre">Nombre</label>
+        <input type="Nombre" class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Nombre" data-ng-model="Item.Nombre" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputApellido">Apellido</label>
+        <input type="Apellido" class="form-control" id="Apellido" maxlength="15" placeholder="Apellido" data-ng-model="Item.Apellido" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPrioridad">Prioridad</label>
+        <input class="form-control" id="exampleInputPrioridad" maxlength="1" placeholder="Prioridad" data-ng-model="Item.Prioridad">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputfNnacimiento">Fecha de Nacimiento</label>
+        <input class="form-control" id="exampleInputfNnacimiento" data type="date" data-ng-model="Item.FechaNacimiento" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputResidencia">Residencia</label>
+        <input class="form-control" id="exampleInputResidencia" maxlength="45" placeholder="Residencia" data-ng-model="Item.Residencia">
+    </div>
+    <button type="Add" class="btn btn-secondary" data-ng-click="save()">Save Changes</button>
+    <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
+    <button type="Add" class="btn btn-primary" data-ng-click="delete()">Delete</button>
+    <button type="Add" class="btn btn-primary" data-ng-click="addPhone()">Add Phone</button>
+</form>

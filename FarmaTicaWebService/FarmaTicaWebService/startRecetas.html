@@ -7,34 +7,24 @@
     <tbody>
         <tr>
             <th>NoFactura</th>
-            <th>IdCliente</th>
-            <th>Apellido</th>
+            <th>NoReceta</th>
+            <th>Nombre del Cliente</th>
+            <th>Apellidos</th>
+            <th>Cedula Cliente</th>
+            <th>Nombre Doctor</th>
+            <th>Numero Doctor</th>
+            <!--<th>Imagen</th>-->
         </tr>
-        <tr data-ng-repeat="item in data  | filter: search">
-            <td data-ng-click="editReceta($index)">{{item.NoFactura}}</td>
-            <td>
-                <button class="btn btn-default" data-toggle="modal" data-target="#popupNuevaAventura">Crear nueva</button><!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Modal Header</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Some text in the modal.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </td>
+        <tr data-ng-repeat="item in data  | filter: search" data-ng-click="editReceta($index)">
+            <td>{{item.NoFactura}}</td>
+            <td>{{item.NoReceta}}</td>
+            <td>{{item.NombreCliente}}</td>
+            <td>{{item.Apellidos}}</td>
+            <td>{{item.CedulaCliente}}</td>
+            <td>{{item.NombreDoctor}}</td>
             <td>{{item.NoDoctor}}</td>
+            <!--<td>{{item.Imagen}}</td>-->
+
         </tr>
     </tbody>
 </table>

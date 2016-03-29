@@ -1,47 +1,25 @@
 ﻿<form>
-
-
     <table class="table table-striped table-hover">
         <tbody>
             <tr>
-                <th>Cedula</th>
+                <th>Codigo</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Prioridad</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Residencia</th>
+                <th>Cantidad</th>
+                <th>CostoUnitario</th>
+                <th>Casa Farmaceutica</th>
             </tr>
-            <tr data-ng-repeat="item in list  | filter: search" data-ng-click="editClient($index)">
-                <td>{{item.Cedula}}</td>
+            <tr data-ng-repeat="item in Item  | filter: search" data-ng-click="editClient($index)">
+                <td>{{item.Codigo}}</td>
                 <td>{{item.Nombre}}</td>
-                <td>{{item.Apellido}}</td>
-                <td>{{item.Prioridad}}</td>
-                <td>{{item.FechaNacimiento}}</td>
-                <td>{{item.Residencia}}</td>
+                <td>{{item.Cantidad}}</td>
+                <td>{{item.CostoUnitario}}</td>
+                <td>{{item.CasaFarmaceutica}}</td>
             </tr>
         </tbody>
     </table>
-
-
-    <div class="form-group">
-        <label for="exampleInputCedula">Cédula</label>
-        <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Item.Cedula" required>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputNombre">Nombre</label>
-        <input type="Nombre" class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Nombre" data-ng-model="Item.Nombre" required>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputApellido">Apellido</label>
-        <input type="Apellido" class="form-control" id="Apellido" maxlength="15" placeholder="Apellido" data-ng-model="Item.Apellido" required>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPrioridad">Prioridad</label>
-        <input class="form-control" id="exampleInputPrioridad" maxlength="1" placeholder="Prioridad" data-ng-model="Item.Prioridad">
-    </div>
     <div class="form-group">
         <label for="exampleInputfNnacimiento">Fecha de Nacimiento</label>
-        <input class="form-control" id="exampleInputfNnacimiento" data type="date" data-ng-model="Item.FechaNacimiento" required>
+        <input class="form-control" id="exampleInputfNnacimiento" data-ng-model="Item.FechaNacimiento" required>
     </div>
     <div class="form-group">
         <label for="exampleInputResidencia">Residencia</label>

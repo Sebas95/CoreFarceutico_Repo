@@ -211,6 +211,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="doctoresView.html" />
+    <Content Include="editClient.html" />
     <Content Include="editMedicaView.html" />
     <Content Include="editRecetas.html" />
     <Content Include="empleadoLog.html" />

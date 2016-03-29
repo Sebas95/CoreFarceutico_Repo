@@ -33,22 +33,28 @@ namespace FarmaTicaWebService.DataBase
             return listMedicamento_por_receta;
 
         }
-        public List<MedicamentoPorReceta> getMedicamentosPorReceta(string NoReceta)
+        public List<VistaMedicamentosPorReceta> getMedicamentosPorReceta(string NoReceta)
         {
-            List<MedicamentoPorReceta> listMedicamento_por_receta = new List<MedicamentoPorReceta>();
+            List<VistaMedicamentosPorReceta> listMedicamento_por_receta = new List<VistaMedicamentosPorReceta>();
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT CodigoMedicamento , NoReceta , Cantidad FROM MEDICAMENTOS_POR_RECETA WHERE NoReceta = '" + NoReceta+"' ;", con);
+                    "SELECT M.Codigo , M.Nombre , MR.Cantidad , M.Costo AS CostoUnitario , M.CasaFarmaceutica   FROM" 
+                    +" (RECETA AS R  JOIN MEDICAMENTOS_POR_RECETA AS MR ON R.NoReceta = MR.NoReceta)"
+                    +" JOIN MEDICAMENTO AS M ON MR.CodigoMedicamento = M.Codigo"
+                    +" WHERE R.NoReceta = '"+NoReceta+"'  ; "
+                    , con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
                 {
-                    MedicamentoPorReceta medicamento_por_receta = new MedicamentoPorReceta();
-                    medicamento_por_receta.CodigoMedicamento = rdr["CodigoMedicamento"].ToString();
-                    medicamento_por_receta.NoReceta = rdr["NoReceta"].ToString();
+                    VistaMedicamentosPorReceta medicamento_por_receta = new VistaMedicamentosPorReceta();
+                    medicamento_por_receta.Codigo = rdr["Codigo"].ToString();
+                    medicamento_por_receta.Nombre = rdr["Nombre"].ToString();
                     medicamento_por_receta.Cantidad = rdr["Cantidad"].ToString();
+                    medicamento_por_receta.CostoUnitario = rdr["CostoUnitario"].ToString();
+                    medicamento_por_receta.CasaFarmaceutica = rdr["CasaFarmaceutica"].ToString();
                     listMedicamento_por_receta.Add(medicamento_por_receta);
                 }
             }

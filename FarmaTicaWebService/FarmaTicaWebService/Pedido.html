@@ -13,6 +13,7 @@
             <th>Sucursal de Recojo</th>
             <th>Fecha de Recojo</th>
             <th>Estado</th>
+            <th>Prioridad</th>
         </tr>
         <tr data-ng-repeat="item in data  | filter: search" data-ng-click="editClient($index)">
             <td>{{item.NoFactura}}</td>
@@ -22,6 +23,7 @@
             <td>{{item.SucursalDeRecojo}}</td>
             <td>{{item.FechaRecojo}}</td>
             <td>{{item.Estado}}</td>
+            <td>{{item.Prioridad}}</td>
         </tr>
     </tbody>
 </table>

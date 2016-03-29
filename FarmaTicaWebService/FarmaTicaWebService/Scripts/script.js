@@ -194,7 +194,10 @@ app.factory('editRecetasResource', function ($resource) {
             isArray: true
         },
         update: { method: 'PUT' },
-        delete: { method: 'DELETE' }
+        delete: {
+            method: 'DELETE' ,
+            headers: { 'Content-Type': 'application/json' }
+        }
     });
 });
 
@@ -472,21 +475,28 @@ function ($scope, $location, $routeParams, clientService, medResource, editRecet
         $location.path(typeOfView);
     }
 
-    $scope.borrar = function (idABorrar, cantidad) {
-        $scope.medABorrar = { CodigoMedicamento : "CF", NoReceta: "2", Cantidad: "29"}
-        alert("med a borrar:");
-        alert(angular.toJson($scope.medABorrar));
-        editRecetasResource.delete(angular.toJson($scope.medABorrar));        
+    $scope.borrar = function (cantidad,codigo) {
+        $scope.medABorrar = { CodigoMedicamento: "D", NoReceta: 3, Cantidad: 8 };
+        alert($scope.medABorrar);
+        //alert(angular.toJson($scope.medABorrar));
+        editRecetasResource.delete($scope.medABorrar);
         alert("ya sirve");
     }
 
-    $scope.addMed = function (cantidad,codigo) {
-        alert(codigo);
-        $scope.newMed = { CodigoMedicamento: codigo, NoReceta: jsonList.NoReceta, Cantidad: cantidad }
-        alert(angular.toJson($scope.newMed));
+    $scope.addMed = function (cantidad, codigo) {
+        alert(cantidad + codigo);
+        $scope.newMed = { CodigoMedicamento: codigo, NoReceta: jsonList.NoReceta, Cantidad: cantidad }        
         editRecetasResource.save($scope.newMed);
-        alert("si sirvio el button");
+        alert('Se agrego su medicamento');
+        $scope.refresh();
+        $location.path('/Item/recetas/1');
+        //$scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
+    }
 
+    $scope.refresh = function () {
+        //$scope.data = httpService.query();
+        $scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
+        //$location.path(typeOfView + "/" +index);
     }
 }]);
 
@@ -599,7 +609,7 @@ function ($scope, $location, $routeParams, clientService, doctorResource, medRes
         $location.path(typeOfView);
     }
 
-    $scope.delete = function () {
+    $scope.delete = function () {       
         medResource.delete({ id: $scope.Item.codigo });
         $location.path(typeOfView);
     }

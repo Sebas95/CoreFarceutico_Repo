@@ -81,6 +81,7 @@ namespace FarmaTicaWebService.DataBase
 
         public void DeleteMedicamento_por_receta(MedicamentoPorReceta medicamento_por_receta)
         {
+            Console.WriteLine(medicamento_por_receta);
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {

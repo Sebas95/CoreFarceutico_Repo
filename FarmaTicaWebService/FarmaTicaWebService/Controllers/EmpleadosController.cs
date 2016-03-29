@@ -29,6 +29,7 @@ namespace FarmaTicaWebService.Controllers
         {
             databaseAccess.deleteEmpleado(id);
         }
+        [Route("api/Empleados/{Cedula}/{password}")]
         public Empleado GetEmpleado(string Cedula, string password)
         {
             return new Empleado();

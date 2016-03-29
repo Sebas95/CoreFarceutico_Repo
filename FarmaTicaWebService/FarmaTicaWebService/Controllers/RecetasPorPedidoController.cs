@@ -17,6 +17,6 @@ namespace FarmaTicaWebService.Controllers
         {
             return recetasAccess.getRecetasPorPedido(id);
         }
-        public VistaReceta prueba(int id, int id2) { return new VistaReceta(); }
+      
     }
 }

@@ -26,9 +26,10 @@ namespace FarmaTicaWebService.Controllers
             return databaseAccess.addMedicamento_por_receta(medicamento_por_receta);
         }
 
-        public void Delete(MedicamentoPorReceta medicamento_por_receta)
+        [Route("api/MedicamentosPorReceta/{codigoMedicamento}/{NoReceta}")]
+        public void Delete(string codigoMedicamento , string NoReceta)
         {
-            databaseAccess.DeleteMedicamento_por_receta(medicamento_por_receta);
+            databaseAccess.DeleteMedicamento_por_receta(codigoMedicamento, NoReceta);
         }
     }
 }

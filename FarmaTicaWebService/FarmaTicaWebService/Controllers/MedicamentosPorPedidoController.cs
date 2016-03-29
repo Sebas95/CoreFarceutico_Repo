@@ -17,18 +17,20 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getMedicamentosPorPedido();
         }
-        public List<VistaMedicamentosPorPedido> Get(string id)
+        [Route("api/MedicamentosPorPedido/{NoFactura}")]
+        public List<VistaMedicamentosPorPedido> Get(string NoFactura)
         {
-            return databaseAccess.getMedicamentosPorPedido(id);
+            return databaseAccess.getMedicamentosPorPedido(NoFactura);
         }
         public MedicamentoPorPedido Post(MedicamentoPorPedido medicamento_por_pedido)
         {
             return databaseAccess.addMedicamento_por_pedido(medicamento_por_pedido);
         }
-     
-        public void Delete(MedicamentoPorPedido medicamento_por_pedido)
+
+        [Route("api/MedicamentosPorPedido/{NoFactura}/{CodigoMedicamento}")]
+        public void Delete(string NoFactura, string CodigoMedicamento)
         {
-            databaseAccess.Delete_Medicamento_por_pedido(medicamento_por_pedido);
+            databaseAccess.Delete_Medicamento_por_pedido( NoFactura, CodigoMedicamento);
         }
     }
 }

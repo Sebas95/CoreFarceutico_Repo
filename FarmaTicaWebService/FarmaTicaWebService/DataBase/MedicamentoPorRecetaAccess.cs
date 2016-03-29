@@ -79,15 +79,14 @@ namespace FarmaTicaWebService.DataBase
 
 
 
-        public void DeleteMedicamento_por_receta(MedicamentoPorReceta medicamento_por_receta)
+        public void DeleteMedicamento_por_receta(string CodigoMedicamento, string NoReceta)
         {
-            Console.WriteLine(medicamento_por_receta);
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
                     "DELETE FROM MEDICAMENTOS_POR_RECETA WHERE  "
-                    +" CodigoMedicamento = '"+medicamento_por_receta.CodigoMedicamento+ "' AND NoReceta = '"+medicamento_por_receta.NoReceta+"' ;"
+                    +" CodigoMedicamento = '"+CodigoMedicamento+ "' AND NoReceta = '"+NoReceta+"' ;"
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();

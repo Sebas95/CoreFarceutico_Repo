@@ -32,7 +32,7 @@ namespace FarmaTicaWebService.Controllers
         [Route("api/Empleados/{Cedula}/{password}")]
         public Empleado GetEmpleado(string Cedula, string password)
         {
-            return new Empleado();
+            return databaseAccess.getEmpleado(Cedula, password);
         }
 
     }

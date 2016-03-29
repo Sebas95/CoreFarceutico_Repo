@@ -12,10 +12,10 @@ namespace FarmaTicaWebService.Controllers
     public class RecetasPorPedidoController : ApiController
     {
         private RecetasAccess recetasAccess = new RecetasAccess();
-
-        public List<VistaReceta> Get(string id)
+        [Route("api/RecetasPorPedido/{NoFactura}")]
+        public List<VistaReceta> Get(string NoFactura)
         {
-            return recetasAccess.getRecetasPorPedido(id);
+            return recetasAccess.getRecetasPorPedido(NoFactura);
         }
       
     }

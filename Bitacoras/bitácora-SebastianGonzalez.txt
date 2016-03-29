@@ -9,4 +9,6 @@
 25/03/2016 6hr Servicio web de medicamentos (simplificación).
 26/03/2016 12hr implementación del web service.
 27/03/2016 8hr Se añadió funcionalidad extra al web service.
+28/03/2016 2hrs Se agregó consultas con joins en el web service. 
+28/03/2016 7hrs Reunió de grupo.  
 

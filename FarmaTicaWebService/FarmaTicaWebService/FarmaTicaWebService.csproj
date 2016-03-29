@@ -252,6 +252,7 @@
     <Content Include="startPedido.html" />
     <Content Include="startRecetas.html" />
     <Content Include="subModuloMantenimiento.html" />
+    <Content Include="DetallePedidoModSucursal.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

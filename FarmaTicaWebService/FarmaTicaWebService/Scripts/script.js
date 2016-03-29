@@ -4,6 +4,7 @@ var URI = 'http://localhost:8080/api/Client';
 var typeOfView = '/Items'
 var type = "cliente"
 var clientesParaReceta = [];
+var pedidoActual = {};
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/Items', {
         templateUrl: 'clientsView.html',
@@ -60,6 +61,10 @@ app.config(['$routeProvider', function ($routeProvider) {
       .when('/Item/depend', {
           templateUrl: 'subModuloMantenimiento.html',
           controller: 'menuMantenimientoController'
+      })
+      .when('/Item/DetallePedido/:index', {
+          templateUrl: 'DetallePedidoModSucursal.html',
+          controller: 'detallePedidoController'
       })
       .otherwise({
           templateUrl: 'login.html',
@@ -319,6 +324,7 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
         URIService.setRecetas();
         $location.path("/Item/pedidos/:index");
     };
+
 
 }]);
 
@@ -846,10 +852,39 @@ app.factory('pedidoResource', function ($resource) {
 app.controller("pedidoController", ["$scope", "$location", "$routeParams", "pedidoResource",
 function ($scope, $location, $routeParams, pedidoResource) {
     $scope.data = pedidoResource.query();
+
+    $scope.viewPedido = function (index) {
+        pedidoActual = $scope.data[index];
+        //alert(angular.toJson(pedidoActual));
+        $location.path("/Item/DetallePedido/"+ $routeParams.index);
+    }
+
 }]);
 
 
+app.factory('detallePedidoResource', function ($resource) {
+    return $resource('http://localhost:8080/api/MedicamentosPorPedido/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
 
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
+
+app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource",
+function ($scope, $location, $routeParams, detallePedidoResource) {
+    $scope.data = detallePedidoResource.query({id : pedidoActual.NoFactura});
+
+
+}]);
 
 /*
 var URI = 'https://api.github.com/users';

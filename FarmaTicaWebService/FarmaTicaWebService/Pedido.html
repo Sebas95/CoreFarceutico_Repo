@@ -15,7 +15,7 @@
             <th>Estado</th>
             <th>Prioridad</th>
         </tr>
-        <tr data-ng-repeat="item in data  | filter: search" data-ng-click="editClient($index)">
+        <tr data-ng-repeat="item in data  | filter: search" data-ng-click="viewPedido($index)">
             <td>{{item.NoFactura}}</td>
             <td>{{item.NombreCliente}}</td>
             <td>{{item.Apellidos}}</td>

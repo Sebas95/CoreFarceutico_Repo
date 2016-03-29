@@ -13,10 +13,14 @@ namespace FarmaTicaWebService.Controllers
     {
         private PedidoAccess databaseAccess = new PedidoAccess();
 
-        public List<Pedido> Get()
+        public List<VistaPedido> Get()
+        {
+            return databaseAccess.getAllVistasPedidos();
+        }
+      /*  public List<Pedido> Get()
         {
             return databaseAccess.getAllPedidos();
-        }
+        }*/
         public Pedido Post(Pedido pedido)
         {
             return databaseAccess.addPedido(pedido);

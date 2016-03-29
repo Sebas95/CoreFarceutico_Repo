@@ -10,24 +10,31 @@ namespace FarmaTicaWebService.DataBase
 {
     public class RecetasAccess
     {
-        public List<Receta> getAllRecetas()
+        public List<VistaReceta> getAllRecetas()
         {
-            List<Receta> listRecetas = new List<Receta>();
+            List<VistaReceta> listRecetas = new List<VistaReceta>();
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT NoReceta , NoFactura , IdCliente , NoDoctor FROM RECETA", con);
+                    "SELECT R.NoFactura , R.NoReceta , C.Nombre AS NombreCliente ,"
+                    +" C.Apellido as Apellidos, c.Cedula as CedulaCliente, D.Nombre AS NombreDoctor, D.NoDoctor"
+                    +" FROM"
+                    +" (RECETA AS R JOIN DOCTOR AS D ON R.NoDoctor = D.NoDoctor) JOIN CLIENTE AS C ON R.IdCliente = C.IdCliente ;"           
+                    ,con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read()) //si existe en la base de datos
                 {
-                    Receta receta = new Receta();
-                    receta.NoReceta = rdr["NoReceta"].ToString();
-                    receta.NoFactura = rdr["NoFactura"].ToString(); ;
-                    receta.IdCliente = rdr["IdCliente"].ToString(); ;
-                    receta.NoDoctor = rdr["NoDoctor"].ToString(); 
-                    listRecetas.Add(receta);
+                    VistaReceta vista_receta = new VistaReceta();
+                    vista_receta.NoFactura = rdr["NoFactura"].ToString();
+                    vista_receta.NoReceta = rdr["NoReceta"].ToString();
+                    vista_receta.NombreCliente = rdr["NombreCliente"].ToString();
+                    vista_receta.Apellidos = rdr["Apellidos"].ToString();
+                    vista_receta.CedulaCliente = rdr["CedulaCliente"].ToString();
+                    vista_receta.NombreDoctor = rdr["NombreDoctor"].ToString();
+                    vista_receta.NoDoctor = rdr["NoDoctor"].ToString();
+                    listRecetas.Add(vista_receta);
                 }
             }
             return listRecetas;

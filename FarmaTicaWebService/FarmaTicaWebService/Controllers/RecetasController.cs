@@ -13,7 +13,7 @@ namespace FarmaTicaWebService.Controllers
     {
         public RecetasAccess databaseAccess = new RecetasAccess();
 
-        public List<Receta> Get()
+        public List<VistaReceta> Get()
         {
             return databaseAccess.getAllRecetas();
         }

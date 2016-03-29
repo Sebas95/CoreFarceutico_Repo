@@ -34,6 +34,7 @@ namespace FarmaTicaWebService.Controllers
         {
             DataBaseAccess.deleteClient(id);
         }
+        [Route("api/Client/{cedula}")]
         public Client GetClient (string cedula)
         {
             return DataBaseAccess.getClient(cedula);

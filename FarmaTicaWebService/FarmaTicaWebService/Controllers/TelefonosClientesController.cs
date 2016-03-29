@@ -13,10 +13,10 @@ namespace FarmaTicaWebService.Controllers
     public class TelefonosClientesController : ApiController
     {
         public ClientsAccess DataBaseAccess = new ClientsAccess();
-
-        public List<TelefonoCliente> getTelefonos(int id)
+        [Route("api/TelefonosClientes/{idCliente}")]
+        public List<TelefonoCliente> getTelefonos(int idCliente)
         {
-            return DataBaseAccess.getTelefonos(id);
+            return DataBaseAccess.getTelefonos(idCliente);
         }
         public TelefonoCliente Post(TelefonoCliente tel)
         {

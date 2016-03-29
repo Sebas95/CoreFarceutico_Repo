@@ -828,7 +828,7 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, do
 
 
 app.factory('pedidoResource', function ($resource) {
-    return $resource('http://localhost:8080/api/VistaPedidos/:id', {}, {
+    return $resource('http://localhost:8080/api/Pedido/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {

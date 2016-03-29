@@ -194,6 +194,7 @@
     <Compile Include="Models\Sucursal.cs" />
     <Compile Include="Models\SucursalPorMedicamento.cs" />
     <Compile Include="Models\TelefonoCliente.cs" />
+    <Compile Include="Models\VistaMedicamentosPorPedido.cs" />
     <Compile Include="Models\VistaReceta.cs" />
     <Compile Include="Models\VistaMedicamentosPorReceta.cs" />
     <Compile Include="Models\VistaPedido.cs" />

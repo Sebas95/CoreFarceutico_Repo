@@ -17,7 +17,7 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getMedicamentosPorPedido();
         }
-        public List<MedicamentoPorPedido> Get(string id)
+        public List<VistaMedicamentosPorPedido> Get(string id)
         {
             return databaseAccess.getMedicamentosPorPedido(id);
         }

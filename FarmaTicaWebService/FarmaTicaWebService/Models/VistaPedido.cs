@@ -17,5 +17,6 @@ namespace FarmaTicaWebService.Models
         public string Prioridad;
         public string Empresa;
         public string IdCliente;
+        public string NoSucursal;
     }
 }

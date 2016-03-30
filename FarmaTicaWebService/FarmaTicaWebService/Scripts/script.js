@@ -965,7 +965,7 @@ function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaRe
         alert(newState);
         alert(angular.toJson($scope.pedidoUpdated));
         //alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
-        //pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
+        pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
     }
 }
 

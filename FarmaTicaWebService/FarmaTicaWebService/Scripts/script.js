@@ -911,12 +911,7 @@ app.factory('detallePedidoResource', function ($resource) {
 
 
 
-app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource",
-function ($scope, $location, $routeParams, detallePedidoResource) {
-    $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
 
-
-}]);
 
 app.factory('detalleRecetaResource', function ($resource) {
     return $resource('http://localhost:8080/api/MedicamentosPorReceta/:id', {}, {
@@ -953,19 +948,24 @@ app.factory('pedidoRecetaResource', function ($resource) {
 app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource", "pedidoResource",
 function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource) {
     $scope.state = pedidoActual.Estado;
+    $scope.pedidoOr = pedidoResource.query({ id: pedidoActual.NoFactura });
+    alert(angular.toJson($scope.pedidoOr));
     $scope.listaRecetas = pedidoRecetaResource.query({ id: pedidoActual.NoFactura });
     $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
 
     $scope.changeState = function (newState) {
         //OJO CON EL PEDIDO ACTUAL PORQUE  CAMBIARIA HAY QUE ASIGNARLO BIEN !!!!!!!!!!!!!!!
-        alert("dasd");
+        alert("FFFFF");
         $scope.pedidoUpdated = {
             NoFactura: pedidoActual.NoFactura, FechaRecojo: pedidoActual.FechaRecojo, NoSucursal: pedidoActual.NoSucursal, IdCliente: pedidoActual.IdCliente,
             Estado: newState, Empresa: pedidoActual.Empresa, TelefonoPreferido: pedidoActual.TelefonoPreferido
-        }
-        alert(angular.toJson({ id: pedidoActual.NoFactura }));
-        alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
-        pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
+        }        
+        alert(angular.toJson(pedidoActual));
+        alert(pedidoActual.IdCliente);
+        alert(newState);
+        alert(angular.toJson($scope.pedidoUpdated));
+        //alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
+        //pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
     }
 }
 

@@ -71,6 +71,10 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'DetallePedidoModSucursal.html',
           controller: 'detallePedidoController'
       })
+      .when('/Item/RecMod', {
+          templateUrl: 'verRecetasModSuc.html',
+          controller: 'verRecModController'
+      })
       .otherwise({
           templateUrl: 'login.html',
           controller: 'loginController'
@@ -884,10 +888,12 @@ app.factory('pedidoResource', function ($resource) {
 app.controller("pedidoController", ["$scope", "$location", "$routeParams", "pedidoResource",
 function ($scope, $location, $routeParams, pedidoResource) {
     $scope.data = pedidoResource.query();
+    alert(angular.toJson($scope.data));
 
     $scope.viewPedido = function (index) {
         pedidoActual = $scope.data[index];
         //alert(angular.toJson(pedidoActual));
+        alert(angular.toJson($scope.data[index]));
         $location.path("/Item/DetallePedido/" + $routeParams.index);
     }
 
@@ -945,31 +951,58 @@ app.factory('pedidoRecetaResource', function ($resource) {
 
 
 
-app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource", "pedidoResource",
-function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource) {
+app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource", "pedidoResource", "recetasResource",
+function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource, recetasResource) {
+    $scope.data = recetasResource.query();
     $scope.state = pedidoActual.Estado;
-    $scope.pedidoOr = pedidoResource.query({ id: pedidoActual.NoFactura });
-    alert(angular.toJson($scope.pedidoOr));
+    alert(angular.toJson(pedidoActual.NoFactura));
     $scope.listaRecetas = pedidoRecetaResource.query({ id: pedidoActual.NoFactura });
+    alert(angular.toJson($scope.listaRecetas));
     $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
 
     $scope.changeState = function (newState) {
         //OJO CON EL PEDIDO ACTUAL PORQUE  CAMBIARIA HAY QUE ASIGNARLO BIEN !!!!!!!!!!!!!!!
-        alert("FFFFF");
         $scope.pedidoUpdated = {
             NoFactura: pedidoActual.NoFactura, FechaRecojo: pedidoActual.FechaRecojo, NoSucursal: pedidoActual.NoSucursal, IdCliente: pedidoActual.IdCliente,
             Estado: newState, Empresa: pedidoActual.Empresa, TelefonoPreferido: pedidoActual.TelefonoPreferido
-        }        
+        }
+        alert("Viejo Pedido");
         alert(angular.toJson(pedidoActual));
-        alert(pedidoActual.IdCliente);
-        alert(newState);
-        alert(angular.toJson($scope.pedidoUpdated));
         //alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
+        $scope.nuevaFactura = pedidoActual.NoFactura;
+        alert($scope.pedidoActual);
         pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
     }
+    $scope.verMedRec = function (index) {
+        //alert("pasó1");                
+        jsonList = $scope.data;
+        //alert("pasó");
+        $location.path("/Item/RecMod");
+    };
+
 }
 
 ]);
+
+
+app.controller("verRecModController", ["$scope", "$location", "$routeParams", "clientService", "editRecetasResource", "editRecetasResource", "recetasResource",
+
+
+function ($scope, $location, $routeParams, clientService, editRecetasResource, editRecetasResource, recetasResource) {
+    // $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
+    //alert(angular.toJson(jsonList.NoReceta));
+    //quuiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    //$scope.isArray = data instanceof Array;    
+    $scope.Item = jsonList;
+    //alert(angular.toJson($scope.Item));
+
+    $scope.refresh = function () {
+        //$scope.data = httpService.query();
+        $scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
+        //$location.path(typeOfView + "/" +index);
+    }
+}]);
+
 
 app.controller("empleadoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource", "pedidoResource",
 function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource) {

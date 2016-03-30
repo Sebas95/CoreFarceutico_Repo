@@ -46,7 +46,7 @@
             <th>Nombre del Doctor</th>
             <!--<th>Imagen</th>-->
         </tr>
-        <tr data-ng-repeat="item in listaRecetas  | filter: search" data-ng-click="editReceta($index)">
+        <tr data-ng-repeat="item in listaRecetas  | filter: search" data-ng-click="verMedRec($index)">
             <td>{{item.NoReceta}}</td>
             <td>{{item.NombreCliente}}</td>
             <td>{{item.Apellidos}}</td>

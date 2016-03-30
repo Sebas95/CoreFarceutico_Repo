@@ -1,0 +1,22 @@
+﻿<form>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>CostoUnitario</th>
+                <th>Casa Farmaceutica</th>
+                <th></th>
+            </tr>
+            <tr data-ng-repeat="item in Item  | filter: search">
+                <td>{{item.Codigo}}</td>
+                <td>{{item.Nombre}}</td>
+                <td>{{item.Cantidad}}</td>
+                <td>{{item.CostoUnitario}}</td>
+                <td>{{item.CasaFarmaceutica}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
+</form>

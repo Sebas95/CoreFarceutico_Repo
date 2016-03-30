@@ -43,13 +43,13 @@ VALUES ('CF', 22 , 300);
 
 
 INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
-VALUES ('2009-09-25 02:47:00.000' ,'22','2','R','F','89985104');
+VALUES ('2009-09-25 02:47:00.000' ,'22','2','Retirado','F','89985104');
 INSERT INTO PEDIDO (FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
-VALUES ('2017-09-25 01:47:00.000','22','2','R','P','89985104');
+VALUES ('2017-09-25 01:47:00.000','22','2','Nuevo','P','89985104');
 INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
-VALUES ('2012-09-25 20:47:00.000','11','1','R','F','89985104');
+VALUES ('2012-09-25 20:47:00.000','11','1','Preparado','F','89985104');
 INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado, Empresa , TelefonoPreferido) 
-VALUES ('2013-09-25 21:47:00.000','11','1','R','F','324434234');
+VALUES ('2013-09-25 21:47:00.000','11','1','Facturado','F','324434234');
 
 
 INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
@@ -101,3 +101,5 @@ select * from MEDICAMENTOS_POR_PEDIDO;
 select * from RECETA; 
 select * from MEDICAMENTOS_POR_RECETA; 
 select * from EMPLEADO;
+select * from EMPRESA;
+

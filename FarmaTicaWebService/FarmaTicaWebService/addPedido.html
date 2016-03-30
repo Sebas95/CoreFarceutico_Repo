@@ -1,52 +1,56 @@
-﻿<html>
+﻿<form>
+    <h1>Ingrese los datos de su receta </h1>
 
-<head>
-    <meta charset="utf-8">
-    <title>Pedido</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <script src="Scripts/script.js"></script>
-    <div class="form-group">
-        <label for="nombre">Ingrese los datos de su receta </label>
-    </div>
-</head>
-
-<body>
     <div class="container">
-        <br />
-        <form action="" class="">
-
-            <form>
-                <div class="form-group">
-                    <label> Medicamentos </label>
-                    <br>
-                    <input class="form-control" input type="number" id="exampleInputQuantity" placeholder="0" maxlength="255" data-ng-model="Item.Quantity" required>
-                    <input class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Medicamento" data-ng-model="Item.Nombre" required>
-                    <button type="button" onclick="x.Qtty="> Añadir más </button>
-                </div>
-            </form>
-
-            <form ng-app>
-                <div class="form-group">
-                    <label> Recetas </label>
-                    <br>
-                    <button data-ng-click="addReceta()" class="btn btn-primary">Añadir Receta</button>
-                </div>
-            </form>
+        <br>
+        <div class="form-group" ng-controller="pedidosController">
+            <label> Datos del pedido </label>
 
             <br>
-            <button type="Add" class="btn btn-secondary" data-ng-click="save()"> Guardar </button>
-            <button type="Add" class="btn btn-secondary" data-ng-click="cancel()"> Cancelar </button>
-            <button type="Add" class="btn btn-primary" data-ng-click="delete()"> Borrar </button>
+            <div class="form-group">
+                <label for="exampleInputNombre">Fecha</label>
+                <input class="form-control" input type="date" id="exampleInputQuantity" placeholder="0" data-ng-model="Item.FechaRecojo">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputApellido">Hora</label>
+                <input class="form-control" input type="time" id="exampleInputQuantity" placeholder="0" data-ng-model="Item.HoraRecojo">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputApellido">Número de Sucursal</label>
+                <input class="form-control" input type="number" id="exampleInputSucursal" placeholder="Número de Sucursal" data-ng-model="Item.Sucursal">
+            </div>
+            <br>
+            <br>
+        </div>
 
-        </form>
+        <div>
+            <label> En la orden: </label>
+            <br>
+            {{Su orden está vacía}}
+
+            <br>
+            <label> Medicamentos </label>
+            <br>
+            <input class="form-control" input type="number" id="exampleInputQuantity" placeholder="0" max="255" min="1" data-ng-model="Item.Quantity">
+            <input class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Medicamento" data-ng-model="Item.Nombre">
+            <br>
+            <button type="button" onclick=""> Añadir más </button>
+        </div>
+
+        <div>
+            <div class="form-group">
+                <label> Recetas </label>
+                <br>
+                <button data-ng-click="addReceta()" class="btn btn-primary">Añadir Receta</button>
+            </div>
+        </div>
+
+        <br>
+        <div>
+            <button class="btn btn-secondary" data-ng-click="save()"> Guardar </button>
+            <button class="btn btn-secondary" datahng-click="cancel()"> Cancelar </button>
+            <button class="btn btn-primary" data-ng-click="delete()"> Borrar </button>
+        </div>
     </div>
 
-
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-</body>
-</html>
+</form>

@@ -24,6 +24,14 @@ Investigación AngulasJS 1h
 Investigacion AngularJS y restricciones HTML5 para la creación de interfaces 8h
 Scripts SQL 3h
 
-	Viernes 27 
+	Domingo 27 7h
 
 Investigación AngularJS, Scripts SQL, Creación de formularios 7h
+
+	Lunes 28 4h
+
+Investigación AngularJS 4h
+
+	Martes 29
+Investigación 3h
+Formularios 5h

@@ -15,5 +15,7 @@ namespace FarmaTicaWebService.Models
         public string FechaRecojo;
         public string Estado;
         public string Prioridad;
+        public string Empresa;
+        public string IdCliente;
     }
 }

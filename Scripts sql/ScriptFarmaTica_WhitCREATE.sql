@@ -105,7 +105,7 @@ CREATE TABLE EMPRESA(
 
 CREATE TABLE PEDIDO (
 	NoFactura INT IDENTITY(1,1),
-	FechaRecojo DATE,
+	FechaRecojo DATETIME,
 	NoSucursal INT,
 	IdCliente INT,	
 	Estado CHAR(9),

@@ -87,10 +87,11 @@ namespace FarmaTicaWebService.DataBase
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
-                    "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido,P.TelefonoPreferido ,S.Nombre AS SucursalDeRecojo ,P.FechaRecojo, p.Estado, C.Prioridad"
-                    +" FROM ((PEDIDO AS P JOIN CLIENTE AS C ON P.IdCliente = C.IdCliente)"
-                    +" jOIN SUCURSAL AS S ON P.NoSucursal = S.NoSucursal)"
-                    +" ORDER BY (FechaRecojo); "
+                   "SELECT P.NoFactura, C.Nombre as NombreCliente, C.Apellido, P.TelefonoPreferido, S.Nombre AS SucursalDeRecojo,"
+                   +" CONVERT(VARCHAR(10), P.FechaRecojo, 120) as Fecha, CONVERT(VARCHAR(10), FechaRecojo, 108) as Hora, p.Estado, C.Prioridad"
+                   +" FROM((PEDIDO AS P JOIN CLIENTE AS C ON P.IdCliente = C.IdCliente)"
+                   +" jOIN SUCURSAL AS S ON P.NoSucursal = S.NoSucursal)"
+                   +" ORDER BY (FechaRecojo);" 
                     , con);
                 con.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
@@ -102,7 +103,7 @@ namespace FarmaTicaWebService.DataBase
                     pedido.Apellidos = rdr["Apellido"].ToString();
                     pedido.Telefono = rdr["TelefonoPreferido"].ToString();
                     pedido.SucursalDeRecojo = rdr["SucursalDeRecojo"].ToString();
-                    pedido.FechaRecojo = rdr["FechaRecojo"].ToString();
+                    pedido.FechaRecojo = rdr["Fecha"] + " " + rdr["Hora"].ToString();
                     pedido.Estado = rdr["Estado"].ToString();
                     pedido.Prioridad = rdr["Prioridad"].ToString();
                     listPedidos.Add(pedido);

@@ -4,7 +4,7 @@ USE FARMATICA;
 /*------------------------------CREATE-------------------------------------------*/
 
 INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
-VALUES ('','','','','');
+VALUES ('Malcador',106300667, '12345678', 'G','P');
 /*------------------------------READ-------------------------------------------*/
 
 SELECT IdEmpleado, Nombre, Cedula, Passwrd, Rol , Empresa FROM Empleado;
@@ -17,19 +17,4 @@ WHERE IdEmpleado= '' ;
 /*------------------------------Delete-------------------------------------------*/
 DELETE FROM EMPLEADO
 WHERE IdEmpleado= '' ;
-
-
-/*
-	Malcador Sigillite, G, F
-	Horus Lupercal, G, P
-
-		Lion ElJonson, D
-		Jaghatai Khan, D
-		Leman Russ, D
-		Rogal Dorn, D
-		Ferrus Manus, D
-		Roboute Gulliman, D
-		Corvus Corax, D
-		Alpharius Omegon, D
-		Konrad Curze, D
-		*/
+*/

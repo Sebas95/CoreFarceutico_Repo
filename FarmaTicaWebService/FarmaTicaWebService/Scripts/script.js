@@ -55,7 +55,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'addMedicamento.html',
           controller: 'editMedicaController'
       })
-      .when('/Item/pedidos/:index', {
+      .when('/Item/pedidos', {
           templateUrl: 'Pedido.html',
           controller: 'pedidoController'
       })
@@ -63,10 +63,14 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'subModuloMantenimiento.html',
           controller: 'menuMantenimientoController'
       })
+      .when('/Item/employee', {
+          templateUrl: 'empleadoView.html',
+          controller: 'empleadoController'
+      })
       .when('/Item/DetallePedido/:index', {
           templateUrl: 'DetallePedidoModSucursal.html',
           controller: 'detallePedidoController'
-      })	  
+      })
       .otherwise({
           templateUrl: 'login.html',
           controller: 'loginController'
@@ -185,7 +189,7 @@ app.factory('recetasResource', function ($resource) {
 });
 
 app.factory('editRecetasResource', function ($resource) {
-    return $resource('http://localhost:8080/api/MedicamentosPorReceta/:id', {}, {
+    return $resource('http://localhost:8080/api/MedicamentosPorReceta/:cod/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -195,7 +199,7 @@ app.factory('editRecetasResource', function ($resource) {
         },
         update: { method: 'PUT' },
         delete: {
-            method: 'DELETE' ,
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
         }
     });
@@ -356,7 +360,7 @@ function ($scope, $location, $routeParams, pedidosResource) {
     }
 
     $scope.empleado = function (index) {
-        $location.path('/Item/depend');
+        $location.path('/Item/employee');
     }
 
 }]);
@@ -429,7 +433,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
         $location.path("regrese");
     }
 
-    $scope.cancel = function(){
+    $scope.cancel = function () {
         $location.path('/Item/recetas');
     }
 
@@ -446,7 +450,7 @@ function ($scope, $location, $routeParams, clientService, medResource, editRecet
     //$scope.isArray = data instanceof Array;
     $scope.cantidad = 1;
     $scope.dato = medResource.query();
-    $scope.Item = editRecetasResource.query({ id: jsonList.NoReceta});
+    $scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
     $scope.addPhone = function () {
         alert($scope.Item.IdCliente);
         $scope.newPhone = {
@@ -475,17 +479,18 @@ function ($scope, $location, $routeParams, clientService, medResource, editRecet
         $location.path(typeOfView);
     }
 
-    $scope.borrar = function (cantidad,codigo) {
+    $scope.borrar = function (codigo, cantidad) {
         $scope.medABorrar = { CodigoMedicamento: "D", NoReceta: 3, Cantidad: 8 };
         alert($scope.medABorrar);
         //alert(angular.toJson($scope.medABorrar));
-        editRecetasResource.delete($scope.medABorrar);
+        alert(angular.toJson({ cod: codigo, id: jsonList.NoReceta }));
+        editRecetasResource.delete({ cod: codigo, id: jsonList.NoReceta });
         alert("ya sirve");
     }
 
     $scope.addMed = function (cantidad, codigo) {
         alert(cantidad + codigo);
-        $scope.newMed = { CodigoMedicamento: codigo, NoReceta: jsonList.NoReceta, Cantidad: cantidad }        
+        $scope.newMed = { CodigoMedicamento: codigo, NoReceta: jsonList.NoReceta, Cantidad: cantidad }
         editRecetasResource.save($scope.newMed);
         alert('Se agrego su medicamento');
         $scope.refresh();
@@ -609,7 +614,7 @@ function ($scope, $location, $routeParams, clientService, doctorResource, medRes
         $location.path(typeOfView);
     }
 
-    $scope.delete = function () {       
+    $scope.delete = function () {
         medResource.delete({ id: $scope.Item.codigo });
         $location.path(typeOfView);
     }
@@ -883,7 +888,7 @@ function ($scope, $location, $routeParams, pedidoResource) {
     $scope.viewPedido = function (index) {
         pedidoActual = $scope.data[index];
         //alert(angular.toJson(pedidoActual));
-        $location.path("/Item/DetallePedido/"+ $routeParams.index);
+        $location.path("/Item/DetallePedido/" + $routeParams.index);
     }
 
 }]);
@@ -908,7 +913,7 @@ app.factory('detallePedidoResource', function ($resource) {
 
 app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource",
 function ($scope, $location, $routeParams, detallePedidoResource) {
-    $scope.data = detallePedidoResource.query({id : pedidoActual.NoFactura});
+    $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
 
 
 }]);
@@ -945,10 +950,39 @@ app.factory('pedidoRecetaResource', function ($resource) {
 
 
 
-app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource",
-function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource) {
+app.controller("detallePedidoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource", "pedidoResource",
+function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource) {
+    $scope.state = pedidoActual.Estado;
     $scope.listaRecetas = pedidoRecetaResource.query({ id: pedidoActual.NoFactura });
-    $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura }); 
+    $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
+
+    $scope.changeState = function (newState) {
+        //OJO CON EL PEDIDO ACTUAL PORQUE  CAMBIARIA HAY QUE ASIGNARLO BIEN !!!!!!!!!!!!!!!
+        alert("dasd");
+        $scope.pedidoUpdated = {
+            NoFactura: pedidoActual.NoFactura, FechaRecojo: pedidoActual.FechaRecojo, NoSucursal: pedidoActual.NoSucursal, IdCliente: pedidoActual.IdCliente,
+            Estado: newState, Empresa: pedidoActual.Empresa, TelefonoPreferido: pedidoActual.TelefonoPreferido
+        }
+        alert(angular.toJson({ id: pedidoActual.NoFactura }));
+        alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
+        pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
+    }
+}
+
+]);
+
+app.controller("empleadoController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "pedidoRecetaResource", "pedidoResource",
+function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource) {
+    $scope.state = pedidoActual.Estado;
+    $scope.listaRecetas = pedidoRecetaResource.query({ id: pedidoActual.NoFactura });
+    $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
+
+    $scope.sucursal = function () {
+        $location.path('/Item/pedidos');
+    }
+    $scope.mantenimiento = function () {
+        $location.path('/Item/depend');
+    }
 }
 
 ]);

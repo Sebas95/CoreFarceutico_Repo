@@ -217,6 +217,7 @@
     <Content Include="editMedicaView.html" />
     <Content Include="editRecetas.html" />
     <Content Include="empleadoLog.html" />
+    <Content Include="empleadoView.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

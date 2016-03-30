@@ -9,7 +9,7 @@
                 <th>Casa Farmaceutica</th>
                 <th></th>
             </tr>
-            <tr data-ng-repeat="item in Item  | filter: search" >
+            <tr data-ng-repeat="item in Item  | filter: search">
                 <td>{{item.Codigo}}</td>
                 <td>{{item.Nombre}}</td>
                 <td>{{item.Cantidad}}</td>
@@ -25,11 +25,11 @@
             <option ng-repeat="x in telefonos" value="{{x.Telefono}}" selected="selected">{{x.Telefono}}</option>
         </select>
     </div>-->
-    <h1><label for="exampleInputResidencia">Ingresar Nuevo Medicamento a la Receta</label></h1>    
+    <h1><label for="exampleInputResidencia">Ingresar Nuevo Medicamento a la Receta</label></h1>
     <div class="form-group">
         <label for="exampleInputResidencia">Cantidad</label>
-        <input class="form-control" id="exampleInputCantidad" maxlength="45" placeholder="Cantidad" data-ng-model="cantidad">    
-    </div>    
+        <input class="form-control" id="exampleInputCantidad" maxlength="45" placeholder="Cantidad" data-ng-model="cantidad">
+    </div>
     <div class="btn-block">
         <div class="btn-group" ng-class='{open: open}'>
             <button class="btn">Medicamentos</button>
@@ -44,10 +44,5 @@
         </div>
         <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancel</button>
         <button type="Add" class="btn btn-secondary" data-ng-click="refresh()">Refresh</button>
-    </div>
-    <div class="btn-group">
-        <div class="form-group">
-            
-        </div>
     </div>
 </form>

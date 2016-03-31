@@ -3,22 +3,40 @@
 
     <div class="container">
         <br>
-        <div class="form-group" ng-controller="pedidosController">
+        <div class="form-group">
             <label> Datos del pedido </label>
 
             <br>
             <div class="form-group">
-                <label for="exampleInputNombre">Fecha</label>
-                <input class="form-control" input type="date" id="exampleInputQuantity" placeholder="0" data-ng-model="Item.FechaRecojo">
+                <label for="exampleInputNombre">Fecha y Hora de Recojo</label>
+                <input class="form-control" input type="datetime-local" id="exampleInputQuantity" placeholder="0" data-ng-model="FechaR">
+            </div>
+            <h1>Seleccione Sucursal de Recojo</h1>
+            <div class="btn-block">
+                <div class="btn-group" ng-class='{open: open}'>
+                    <button class="btn" ng-click='open=!open'>{{sucActual}}</button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="datos in recList"><a data-ng-click="addNoSuc(datos.NoSucursal,datos.Nombre)">{{datos.Nombre}}</a></li>
+                        <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>-->
+                    </ul>
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputApellido">Hora</label>
-                <input class="form-control" input type="time" id="exampleInputQuantity" placeholder="0" data-ng-model="Item.HoraRecojo">
+                <label for="sel1">Telefonos: </label>
+                <select class="form-control" id="sel1" ng-model="phones">
+                    <option ng-repeat="x in telefonos" value="{{x.Telefono}}" selected="selected">{{x.Telefono}}</option>
+                </select>
             </div>
+            <!--
             <div class="form-group">
                 <label for="exampleInputApellido">Número de Sucursal</label>
-                <input class="form-control" input type="number" id="exampleInputSucursal" placeholder="Número de Sucursal" data-ng-model="Item.Sucursal">
+                <input class="form-control" input type="number" id="exampleInputSucursal" placeholder="Número de Sucursal" data-ng-model="Suc">
             </div>
+            -->
             <br>
             <br>
         </div>
@@ -26,28 +44,40 @@
         <div>
             <label> En la orden: </label>
             <br>
-            {{Su orden está vacía}}
-
             <br>
             <label> Medicamentos </label>
             <br>
-            <input class="form-control" input type="number" id="exampleInputQuantity" placeholder="0" max="255" min="1" data-ng-model="Item.Quantity">
-            <input class="form-control" id="exampleInputNombre" maxlength="15" placeholder="Medicamento" data-ng-model="Item.Nombre">
+            <div class="form-group">
+                <label for="exampleInputResidencia">Cantidad</label>
+                <input class="form-control" id="exampleInputCantidad" maxlength="45" placeholder="Cantidad" data-ng-model="cantidad">
+            </div>
+            <div class="btn-block">
+                <div class="btn-group" ng-class='{open: open}'>
+                    <button class="btn" >{{medActual}}</button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="datos in medList"><a data-ng-click="addMedPed(cantidad,datos.codigo,datos.Nombre)">{{datos.Nombre}}</a></li>
+                        <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>-->
+                    </ul>
+                </div>
+            </div>
             <br>
-            <button type="button" onclick=""> Añadir más </button>
         </div>
 
         <div>
             <div class="form-group">
                 <label> Recetas </label>
                 <br>
-                <button data-ng-click="addReceta()" class="btn btn-primary">Añadir Receta</button>
+                <button data-ng-click="goAddReceta()" class="btn btn-primary">Añadir Receta</button>
             </div>
         </div>
 
         <br>
         <div>
-            <button class="btn btn-secondary" data-ng-click="save()"> Guardar </button>
+            <button class="btn btn-secondary" data-ng-click="addPedido(FechaR,phones)"> Guardar </button>
             <button class="btn btn-secondary" datahng-click="cancel()"> Cancelar </button>
             <button class="btn btn-primary" data-ng-click="delete()"> Borrar </button>
         </div>

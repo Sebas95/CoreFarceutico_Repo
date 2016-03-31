@@ -2,17 +2,39 @@
                 <label>Ingrese los datos de su receta </label>
 
                 <div class="form-group">
-                    <label> Número de doctor </label>
-                    <br>
-                    <input class="form-control" input type="number" id="exampleInputNoDoctor" placeholder="0" maxlength="255" data-ng-model="Item.NoDoctor" required>
- 
+                    <label> Doctor: </label>
+                    <br> 
+                    <div class="btn-block">
+                        <div class="btn-group" ng-class='{open: open}'>
+                            <button class="btn">{{docActual}}</button>
+                            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="datos in docList"><a data-ng-click="addDoc(datos.NoDoctor)">{{datos.Nombre}}</a></li>
+                                <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>-->
+                            </ul>
+                        </div>
+                    </div> 
                 </div>
                 <div class="form-group">
-                    <label> Medicamentos </label>
+                    <label> Medicamentos:</label>
                     <br>
-                    <input class="form-control" id="exampleInputQuantity" type="number" placeholder="0" maxlength="255" data-ng-model="Item.Quantity">
-                    <input class="form-control" id="exampleInputNombre" type="text" placeholder="Medicamento" maxlength="15" data-ng-model="Item.Nombre">
-                    <button type="button" onclick=""> Añadir más </button>
+                    <div class="btn-block">
+                        <input class="form-control" id="exampleInputCantidad" maxlength="45" placeholder="Cantidad del Medicamento" data-ng-model="cantidad">
+                        <div class="btn-group" ng-class='{open: open}'>
+                            <button class="btn">{{medActual}}</button>
+                            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="datos in medList"><a data-ng-click="addMedRec(cantidad,datos.codigo,datos.Nombre)">{{datos.Nombre}}</a></li>
+                                <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>-->
+                            </ul>
+                        </div>
+                    </div> 
                 </div>
 
             <br>
@@ -22,8 +44,8 @@
                 <p class="help-block">Máximo 2MB</p>
             </div>
 
-            <button class="btn btn-secondary" data-ng-click="save()"> Guardar </button>
+            <button class="btn btn-secondary" data-ng-click="addReceta()"> Guardar </button>
             <button class="btn btn-secondary" data-ng-click="cancel()"> Cancelar </button>
-            <button class="btn btn-primary" data-ng-click="delete()"> Borrar </button>
+            <button class="btn btn-primary" data-ng-click="backPed()"> Listo </button>
 
         </form>

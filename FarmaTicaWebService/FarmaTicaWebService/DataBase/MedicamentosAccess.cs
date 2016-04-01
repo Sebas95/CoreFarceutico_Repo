@@ -36,6 +36,32 @@ namespace FarmaTicaWebService.DataBase
             }
             return listMedicamentos;
         }
+        public List<Medicamento> getAllMedicamentos(string Prescripcion)
+        {
+            List<Medicamento> listMedicamentos = new List<Medicamento>();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT Nombre, Codigo , Prescripcion , CasaFarmaceutica, Costo  FROM MEDICAMENTO WHERE Prescripcion = '"+Prescripcion+"' ; "
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read()) //si existe en la base de datos
+                {
+                    Medicamento medicamento = new Medicamento();
+                    medicamento.Nombre = rdr["Nombre"].ToString();
+                    medicamento.codigo = rdr["Codigo"].ToString();
+                    medicamento.Prescripcion = rdr["Prescripcion"].ToString();
+                    if (medicamento.Prescripcion == "True") { medicamento.Prescripcion = "1"; }
+                    if (medicamento.Prescripcion == "False") { medicamento.Prescripcion = "0"; }
+                    medicamento.CasaFarmaceutica = rdr["CasaFarmaceutica"].ToString();
+                    medicamento.Costo = rdr["Costo"].ToString();
+                    listMedicamentos.Add(medicamento);
+                }
+            }
+            return listMedicamentos;
+        }
         public Medicamento getMedicamento(string codigo)
         {
             Medicamento medicamento = new Medicamento();

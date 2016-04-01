@@ -68,10 +68,10 @@ namespace FarmaTicaWebService.DataBase
                 SqlCommand cmd = new SqlCommand(
                    "INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa)" 
                     +" VALUES('"+empleado.Nombre+"', '"+empleado.Cedula+"', '"+empleado.Passwrd+"', '"+empleado.Rol+"', '"+empleado.Empresa+"'); "
+                    + "  Select SCOPE_IDENTITY();  "
                     , con);
                 con.Open();
-                cmd.ExecuteNonQuery();
-
+                empleado.IdEmpleado =cmd.ExecuteScalar().ToString(); //execute query
             }
             return empleado;
         }

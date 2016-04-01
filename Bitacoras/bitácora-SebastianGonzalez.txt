@@ -10,5 +10,7 @@
 26/03/2016 12hr implementación del web service.
 27/03/2016 8hr Se añadió funcionalidad extra al web service.
 28/03/2016 2hrs Se agregó consultas con joins en el web service. 
-28/03/2016 7hrs Reunió de grupo.  
+28/03/2016 7hrs Reunión de grupo.  
+29/03/2016
+30/03/2016 3hrs Intento de obtener los ids generados en la base de datos.    
 

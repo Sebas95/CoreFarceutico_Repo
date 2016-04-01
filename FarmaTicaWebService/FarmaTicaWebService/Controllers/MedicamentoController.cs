@@ -23,6 +23,11 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getMedicamento(id);
         }
+        [Route("api/Medicamento/{Prescripcion}")]
+        public List<Medicamento> GetMedicamentosPrescripcion(string Prescripcion)
+        {
+            return databaseAccess.getAllMedicamentos(Prescripcion);
+        }
         public Medicamento Post(Medicamento medicamento)
         {
             return databaseAccess.addMedicamento(medicamento);

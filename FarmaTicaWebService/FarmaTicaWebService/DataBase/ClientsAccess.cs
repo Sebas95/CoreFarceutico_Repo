@@ -73,11 +73,10 @@ namespace FarmaTicaWebService.DataBase
                 SqlCommand cmd = new SqlCommand(
                     "INSERT INTO CLIENTE (Cedula, Nombre,Apellido,Prioridad, FechaNacimiento, Residencia) " +
                     "VALUES('"+client.Cedula+"', '"+client.Nombre+"', '"+client.Apellido+"', '"
-                    +client.Prioridad+"', '"+client.FechaNacimiento+"', '"+client.Residencia+"');"
+                    +client.Prioridad+"', '"+client.FechaNacimiento+"', '"+client.Residencia+ "');  Select SCOPE_IDENTITY();  "
                     , con);
                 con.Open();
-                cmd.ExecuteNonQuery();
-                
+                client.IdCliente = Convert.ToInt32(cmd.ExecuteScalar()); //execute query
             }
             return client;
         }

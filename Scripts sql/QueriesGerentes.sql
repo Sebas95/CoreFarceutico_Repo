@@ -60,3 +60,90 @@ FROM
 	WHERE Pf.NoFactura=Mppf.NoFactura AND Mppf.CodigoMedicamento=M.Código;
 **/
 
+
+
+
+
+
+
+
+/* productos más vendidos */
+
+Select T.Nombre AS NOMBRE_DEL_MEDICAMENTO , SUM(T.Cantidad) AS TOTAL_VENDIDO
+	FROM
+	(
+		SELECT Nombre ,  Cantidad 
+		FROM MEDICAMENTOS_POR_PEDIDO  JOIN MEDICAMENTO  ON Codigo = CodigoMedicamento
+			UNION ALL
+		SELECT Nombre ,  Cantidad 
+		FROM MEDICAMENTOS_POR_RECETA JOIN MEDICAMENTO ON Codigo =CodigoMedicamento
+			UNION ALL
+		SELECT Nombre ,  Cantidad 
+		FROM MEDICAMENTOS_POR_PEDIDO_FISICO JOIN MEDICAMENTO ON Codigo =CodigoMedicamento
+
+	) AS T
+GROUP BY ( T.Nombre )
+ORDER BY (TOTAL_VENDIDO) DESC
+ 
+
+
+ 
+/*productos más vendidos por el nuevo software,*/
+
+
+Select T.Nombre AS NOMBRE_DEL_MEDICAMENTO , SUM(T.Cantidad) AS TOTAL_VENDIDO
+	FROM
+	(
+		SELECT Nombre ,  Cantidad 
+		FROM MEDICAMENTOS_POR_PEDIDO  JOIN MEDICAMENTO  ON Codigo = CodigoMedicamento
+			UNION ALL
+		SELECT Nombre ,  Cantidad 
+		FROM MEDICAMENTOS_POR_RECETA JOIN MEDICAMENTO ON Codigo =CodigoMedicamento
+	) AS T
+GROUP BY ( T.Nombre )
+ORDER BY (TOTAL_VENDIDO) DESC
+
+/*cantidad de ventas por compañía,*/
+
+
+ Select  COUNT(T.NoFactura) AS CANTIDAD_DE_VENTAS  
+	FROM
+	(
+		SELECT   COUNT(NoFactura) AS CANTIDAD_DE_VENTAS  , Empresa FROM PEDIDO 
+
+		UNION ALL
+
+		SELECT COUNT(NoFactura) AS CANTIDAD_DE_VENTAS  ,Empresa FROM 	PEDIDO  		
+
+	) AS T
+--	WHERE Empresa = ''
+		
+		
+ 
+
+/*productos más vendidos por compañía.*/
+
+ Select T.Nombre AS NOMBRE_DEL_MEDICAMENTO , SUM(T.Cantidad) AS TOTAL_VENDIDO 
+	FROM
+	(
+		SELECT Nombre ,  Cantidad , Empresa FROM 
+			PEDIDO AS P  JOIN MEDICAMENTOS_POR_PEDIDO AS MP ON MP.NoFactura =  P.NoFactura 
+			JOIN MEDICAMENTO AS M  ON M.Codigo = MP.CodigoMedicamento
+
+		UNION ALL
+
+		SELECT Nombre ,  Cantidad , Empresa	FROM
+			PEDIDO AS P JOIN RECETA AS R ON P.NoFactura = R.NoFactura 
+			JOIN  MEDICAMENTOS_POR_RECETA AS MP ON R.NoReceta = MP.NoReceta
+			JOIN MEDICAMENTO AS M ON M.Codigo = MP.CodigoMedicamento
+
+		UNION ALL
+
+		SELECT Nombre ,  Cantidad  ,Empresa FROM 
+			PEDIDO AS P JOIN MEDICAMENTOS_POR_PEDIDO_FISICO AS MPF ON P.NoFactura = MPF.NoFactura  
+			JOIN MEDICAMENTO ON Codigo =CodigoMedicamento
+
+	) AS T
+	WHERE Empresa = 'P'
+		GROUP BY ( T.Nombre )
+		ORDER BY (TOTAL_VENDIDO) DESC

@@ -43,10 +43,11 @@ namespace FarmaTicaWebService.DataBase
             {
                 SqlCommand cmd = new SqlCommand(
                     "INSERT INTO PEDIDO ( FechaRecojo , NoSucursal , IdCliente, Estado , Empresa , TelefonoPreferido )"
-                    + " VALUES('" + pedido.FechaRecojo + "', '" + pedido.NoSucursal + "', '" + pedido.IdCliente + "', '" + pedido.Estado + "','" + pedido.Empresa + "' , '"+pedido.TelefonoPreferido+"'); "
+                    + " VALUES('" + pedido.FechaRecojo + "', '" + pedido.NoSucursal + "', '" + pedido.IdCliente + "',"
+                    +" '" + pedido.Estado + "','" + pedido.Empresa + "' , '"+pedido.TelefonoPreferido+ "');  Select SCOPE_IDENTITY();  "
                     , con);
                 con.Open();
-                cmd.ExecuteNonQuery();
+                pedido.NoFactura = cmd.ExecuteScalar().ToString(); //execute query
 
             }
             return pedido;

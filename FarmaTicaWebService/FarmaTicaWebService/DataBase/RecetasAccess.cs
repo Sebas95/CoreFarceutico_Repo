@@ -78,10 +78,10 @@ namespace FarmaTicaWebService.DataBase
             {
                 SqlCommand cmd = new SqlCommand(
                     "INSERT INTO RECETA ( NoFactura , IdCliente , NoDoctor)"
-                    +" VALUES('"+receta.NoFactura+"', '"+receta.IdCliente+"', '"+receta.NoDoctor+"'); "
+                    +" VALUES('"+receta.NoFactura+"', '"+receta.IdCliente+"', '"+receta.NoDoctor+ "'); Select SCOPE_IDENTITY();  "
                     , con);
                 con.Open();
-                cmd.ExecuteNonQuery();
+                receta.NoReceta = cmd.ExecuteScalar().ToString(); //execute query
 
             }
             return receta;

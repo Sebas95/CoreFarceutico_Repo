@@ -3,7 +3,8 @@ USE FARMATICA;
 INSERT INTO CLIENTE ( Cedula, Nombre,Apellido,Prioridad, FechaNacimiento, Residencia) 
 VALUES ('115090837','Sebastian','Gonzalez','B','1995-01-19','Tres Rios')
 INSERT INTO CLIENTE ( Cedula, Nombre,Apellido,Prioridad, FechaNacimiento, Residencia) 
-VALUES ('415090677','Cristian','Bolaños','B','1986-01-19','San jose')
+VALUES ('41501177','Celso','Borges','B','1986-01-19','San jose')
+
 
 INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES (1 , 'PADECIMIENTO2');
 INSERT INTO PADECIMIENTOS_POR_CLIENTE VALUES (1 , 'PADECIMIENTO1');
@@ -53,7 +54,7 @@ VALUES ('2013-09-25 21:47:00.000','11','1','Facturado','F','324434234');
 
 
 INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ('3', 'CF' ,23);
+VALUES ('1', 'CF' ,23);
 INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
 VALUES ( '3' , 'AC',2 );
 INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento , Cantidad) 
@@ -81,10 +82,33 @@ VALUES ('Lucia','34451115','1234','G','P');
 INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
 VALUES ('Maria','34453321','1234','D','F');
 INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
-VALUES ('Cristian','3445199','1222','D','P');
+VALUES ('Cristian','3745199','1222','D','P');
 INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
-VALUES ('Daniel','3445555','asas','D','P');
+VALUES ('Daniel','3045555','asas','D','P');
 
+
+
+INSERT INTO PEDIDO_FISICO ( NoSucursal , Estado, Empresa) 
+VALUES ('22','Retirado','F');
+INSERT INTO PEDIDO_FISICO ( NoSucursal , Estado, Empresa) 
+VALUES ('22','Nuevo','P');
+INSERT INTO PEDIDO_FISICO ( NoSucursal , Estado, Empresa) 
+VALUES ('11','Preparado','F');
+INSERT INTO PEDIDO_FISICO  ( NoSucursal , Estado, Empresa) 
+VALUES ('11','Facturado','F');
+
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ('5', 'CF' ,23);
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ( '7' , 'AC',2 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ( '6' , 'AL',1 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ('8', 'CF' ,23);
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ( '8' , 'AC',2 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
+VALUES ( '7' , 'AL',1 );
 
 
 
@@ -102,4 +126,6 @@ select * from RECETA;
 select * from MEDICAMENTOS_POR_RECETA; 
 select * from EMPLEADO;
 select * from EMPRESA;
+Select * from PEDIDO_FISICO;
+select * from MEDICAMENTOS_POR_PEDIDO_FISICO; 
 

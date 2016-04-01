@@ -40,10 +40,11 @@ namespace FarmaTicaWebService.DataBase
             {
                 SqlCommand cmd = new SqlCommand(
                     "insert into doctor (Cedula,Nombre,Apellido,FechaNacimiento,Residencia)" +
-                    " values( '"+ doctor.Cedula+"', '"+doctor.Nombre+"', '"+doctor.Apellido+"', '"+doctor.FechaNacimiento+"', '"+doctor.Residencia+"'); "
+                    " values( '" + doctor.Cedula + "', '" + doctor.Nombre + "', '" + doctor.Apellido + "', '" + doctor.FechaNacimiento + "', '" + doctor.Residencia + "'); "
+                    + " Select SCOPE_IDENTITY(); "
                     , con);
                 con.Open();
-                cmd.ExecuteNonQuery();
+                doctor.NoDoctor = Convert.ToInt32(cmd.ExecuteScalar()); //execute query
 
             }
             return doctor;

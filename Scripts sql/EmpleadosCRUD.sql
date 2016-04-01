@@ -4,7 +4,7 @@ USE FARMATICA;
 /*------------------------------CREATE-------------------------------------------*/
 
 INSERT INTO Empleado (Nombre,Cedula, Passwrd, Rol, Empresa) 
-VALUES ('Malcador',106300667, '12345678', 'G','P');
+VALUES ('','','','','');
 /*------------------------------READ-------------------------------------------*/
 
 SELECT IdEmpleado, Nombre, Cedula, Passwrd, Rol , Empresa FROM Empleado;
@@ -17,4 +17,4 @@ WHERE IdEmpleado= '' ;
 /*------------------------------Delete-------------------------------------------*/
 DELETE FROM EMPLEADO
 WHERE IdEmpleado= '' ;
-*/
+

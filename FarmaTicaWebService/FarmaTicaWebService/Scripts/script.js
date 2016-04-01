@@ -17,7 +17,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'clientController'
     })
       .when('/Items/add', {
-          templateUrl: 'addClient.html',
+          templateUrl: 'editClient.html',
           controller: 'addController'
       })
       .when('/Items/:index', {
@@ -385,6 +385,8 @@ function ($scope, $location, $routeParams, pedidosResource) {
 var listaMedicamentosxPedido = [];
 var listaMedicamentosxReceta = [];
 var listaMedsActuales = [];
+var listaMedsActualesPeds = [];
+var listaMedsActualesRecs = [];
 
 app.controller("addPedidoController", ["$scope", "$location", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
     "JsonResource", "detallePedidoResource", "detalleRecetaResource", "recetasResource","detalleRecetaResource",
@@ -411,17 +413,20 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
     $scope.docList = doctorResource.query();
     $scope.recList = sucursalResource.query();
     $scope.medList = medResource.query();
+    $scope.medListPed = listaMedsActualesPeds;
+    $scope.medListRec = listaMedsActualesRecs;
     $scope.plantillaPedido = { NoFactura: "", CodigoMedicamento: "", Cantidad: "" };
 
     $scope.addNoSuc = function (numeroS,nombre) {
         $scope.sucActual = nombre;
         $scope.numSuc = numeroS;
     }
-    $scope.addMedPed = function (cant,codMed,nomMed) {
+    $scope.addMedPed = function (cant,codMed,nomMed,costo) {
         $scope.medActual = nomMed;
         $scope.newMedxPedido = $scope.plantillaPedido;
         $scope.newMedxPedido.codMed = codMed;
         $scope.newMedxPedido.Cantidad = cant;
+        listaMedsActualesPeds.push({ Nombre: nomMed, CodigoMedicamento: codMed, Cantidad: cant , Costo: costo});
         listaMedicamentosxPedido.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
         alert(angular.toJson(listaMedicamentosxPedido));
         //Prueba que sirvio-----------------
@@ -431,12 +436,12 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
         alert(angular.toJson($scope.listaMedicamentosxPedido));
         $scope.listaMedicamentosxPedido[0].NoFactura = 3;
         alert(angular.toJson($scope.listaMedicamentosxPedido));*/
-
         //$scope.newMedxPedido = { NoFactura:  , CodigoMedicamento: , Cantidad: }
     };
 
-    $scope.addMedRec = function (cant, codMed, nomMed) {
+    $scope.addMedRec = function (cant, codMed, nomMed,costo) {
         $scope.medActual = nomMed;
+        listaMedsActualesRecs.push({ Nombre: nomMed, Cantidad: cant, Costo: costo });
         listaMedsActuales.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
         alert("Medicamentos de esta receta: ");
         alert(angular.toJson(listaMedsActuales));
@@ -483,6 +488,17 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
 
     $scope.backPed = function () {
         $location.path('/Item/addPedidosView');
+    }
+
+    $scope.borrarMedPed = function (index) {
+        listaMedsActualesPeds.splice(index, 1);
+        listaMedicamentosxPedido.splice(index, 1);
+        $location.path('/Item/addPedidosView');
+    }
+    $scope.borrarMedRec = function (index) {
+        listaMedsActualesRecs.splice(index, 1);
+        listaMedsActuales.splice(index, 1);
+        $location.path("/Item/addReceta");
     }
 
     $scope.addPedido = function (fech, phone) {
@@ -555,6 +571,8 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
 
         listaMedicamentosxPedido = [];
         listaMedicamentosxReceta = [];
+        listaMedsActualesRecs = [];
+        listaMedsActualesPeds = [];
         listaMedsActuales = [];
         listaRecets = [];
     }
@@ -983,6 +1001,10 @@ function ($scope, $location, $routeParams, clientService, JsonResource, telefono
                Residencia: $scope.Item.Residencia
            };*/
         alert("entro aquia");
+        alert(angular.toJson({ id: $scope.Item.IdCliente }));
+        alert(angular.toJson($scope.newClientUpdated));
+
+
         JsonResource.update({ id: $scope.Item.IdCliente }, $scope.newClientUpdated);
         $location.path(typeOfView);
         //telefonosResource.save($scope.newTelefonoUpdated);

@@ -27,7 +27,7 @@
                             <button class="btn">{{medActual}}</button>
                             <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="datos in medList"><a data-ng-click="addMedRec(cantidad,datos.codigo,datos.Nombre)">{{datos.Nombre}}</a></li>
+                                <li ng-repeat="datos in medList"><a data-ng-click="addMedRec(cantidad,datos.codigo,datos.Nombre,datos.Costo)">{{datos.Nombre}}</a></li>
                                 <!-- <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
@@ -36,7 +36,23 @@
                         </div>
                     </div> 
                 </div>
-
+                <h4>Medicamentos en la Receta: </h4>
+                <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>CostoUnitario</th>
+                            <th></th>
+                        </tr>
+                        <tr data-ng-repeat="item in medListRec  | filter: search">
+                            <td>{{item.Nombre}}</td>
+                            <td>{{item.Cantidad}}</td>
+                            <td>{{item.Costo}}</td>
+                            <td><input type="button" value="Eliminar" class="btn btn-primary" data-ng-click="borrarMedRec($index)" /></td>
+                        </tr>
+                    </tbody>
+                </table>
             <br>
             <div class="form-group">
                 <label for="archivo">Imágen</label>

@@ -223,6 +223,8 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="login.html" />
+    <Content Include="loginClientes.html" />
+    <Content Include="loginEmpleado.html" />
     <Content Include="medicamentoView.html" />
     <Content Include="Pedido.html" />
     <Content Include="Scripts\bootstrap.js" />

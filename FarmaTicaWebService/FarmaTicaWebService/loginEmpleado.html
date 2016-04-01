@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <h1>Ingrese su Cédula y Password</h1>
+    <div class="form-group">
+        <label for="exampleInputCedula">Cédula</label>
+        <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Cedula" required>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputCedula">Password</label>
+        <input class="form-control" id="exampleInputCedula" type="password" placeholder="Password" maxlength="9" data-ng-model="Password" required>
+    </div>
+    <button type="Add" class="btn btn-primary" data-ng-click="login()">Ingresar</button>
+    <button type="Add" class="btn btn-default" data-ng-click="cancel()">Cancelar</button>
+</body>
+</html>

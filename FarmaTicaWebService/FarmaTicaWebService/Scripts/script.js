@@ -7,7 +7,7 @@ var clientesParaReceta = [];
 var jsonList = {};
 var pedidoActual = {};
 var clienteActual = 1;
-var listaRecets;
+var listaRecets = [];
 var docActual = "Doctores"
 var medActual = "Medicamentos"
 var sucActual = "Sucursales"
@@ -382,12 +382,16 @@ function ($scope, $location, $routeParams, pedidosResource) {
 
 }]);
 
+var listaMedicamentosxPedido = [];
+var listaMedicamentosxReceta = [];
+var listaMedsActuales = [];
 
 app.controller("addPedidoController", ["$scope", "$location", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
-    "JsonResource", "detallePedidoResource", "detalleRecetaResource", "recetasResource",
+    "JsonResource", "detallePedidoResource", "detalleRecetaResource", "recetasResource","detalleRecetaResource",
 
 function ($scope, $location, $routeParams, doctorResource, sucursalResource, medResource, pedidoResource, telefonosResource, JsonResource, detallePedidoResource
-    , detalleRecetaResource, recetasResource) {
+    , detalleRecetaResource, recetasResource, detalleRecetaResource) {
+
     //Este es el nuevo---------------------
     //Recordar cambiar clienteActual !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111
     JsonResource.query().$promise.then(function (data) {
@@ -395,6 +399,8 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
         $scope.telefonos = telefonosResource.query({ id: clienteActual });
         //$scope.isArray = data instanceof Array;
     });
+    $scope.numRec = 3;
+    $scope.numRec2 = 4;
     $scope.numFac = 2;
     $scope.Estado = "Nuevo";
     $scope.Empresa = "F";
@@ -406,9 +412,7 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
     $scope.recList = sucursalResource.query();
     $scope.medList = medResource.query();
     $scope.plantillaPedido = { NoFactura: "", CodigoMedicamento: "", Cantidad: "" };
-    $scope.listaMedicamentosxPedido = [];
-    $scope.listaMedicamentosxReceta = [];
-    $scope.listaRecetas = [];
+
     $scope.addNoSuc = function (numeroS,nombre) {
         $scope.sucActual = nombre;
         $scope.numSuc = numeroS;
@@ -418,8 +422,8 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
         $scope.newMedxPedido = $scope.plantillaPedido;
         $scope.newMedxPedido.codMed = codMed;
         $scope.newMedxPedido.Cantidad = cant;
-        $scope.listaMedicamentosxPedido.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
-        alert(angular.toJson($scope.listaMedicamentosxPedido));
+        listaMedicamentosxPedido.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
+        alert(angular.toJson(listaMedicamentosxPedido));
         //Prueba que sirvio-----------------
        /* $scope.newMedxPedido = $scope.plantillaPedido;
         $scope.newMedxPedido.codMed = codMed;
@@ -433,11 +437,9 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
 
     $scope.addMedRec = function (cant, codMed, nomMed) {
         $scope.medActual = nomMed;
-        $scope.newMedxPedido = $scope.plantillaPedido;
-        $scope.newMedxPedido.codMed = codMed;
-        $scope.newMedxPedido.Cantidad = cant;
-        $scope.listaMedicamentosxReceta.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
-        alert(angular.toJson($scope.listaMedicamentosxReceta));
+        listaMedsActuales.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
+        alert("Medicamentos de esta receta: ");
+        alert(angular.toJson(listaMedsActuales));
         //Prueba que sirvio-----------------
         /* $scope.newMedxPedido = $scope.plantillaPedido;
          $scope.newMedxPedido.codMed = codMed;
@@ -450,12 +452,17 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
     };
 
     $scope.addReceta = function () {
+        listaMedicamentosxReceta.push(listaMedsActuales);
+        alert("Medicamentos de recetas: ");
+        alert(angular.toJson(listaMedicamentosxReceta));
+        listaMedsActuales = [];
         listaRecets.push({ NoFactura: "", IdCliente: clienteActual, NoDoctor: $scope.numeroDoc });
+        alert("Recetas totales:  ");
         alert(angular.toJson(listaRecets));
+        $location.path('/Item/addPedidosView');
     }
 
-    $scope.goAddReceta = function (index) {
-        listaRecets = $scope.listaRecetas;
+    $scope.goAddReceta = function (index) {       
         $location.path('/Item/addReceta');
     }
 
@@ -479,15 +486,23 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
     }
 
     $scope.addPedido = function (fech, phone) {
+
         alert(fech);
         $scope.pedidoNuevo = { FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.Empresa, TelefonoPreferido: phone };
         alert(angular.toJson($scope.pedidoNuevo));
-        //--------------Asignar $scope.numFac------------------------------
+
+        //-----------------Guardar PEDIDO------------------------------------
+
         //$scope.pedOutPut = pedidoResource.save($scope.pedidoNuevo);
+
+        //----------------Asignar $scope.numFac------------------------------
+
         //$scope.numFac = $scope.pedOutPut.NoFactura; 
         //alert(angular.toJson($scope.numFac));
-        alert(angular.toJson($scope.listaMedicamentosxPedido));
-        //Para medicamentos por pedido---------------------------------------
+        //alert(angular.toJson($scope.listaMedicamentosxPedido));
+        
+
+        //------------------------Guardar  MEDICAMENTOS por PEDIDO---------------------------------------
 
        /* var values = $scope.listaMedicamentosxPedido;
         angular.forEach(values, function (value, key) {
@@ -495,15 +510,53 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
             alert(angular.toJson(value));
             detallePedidoResource.save(value);            
         });*/
-        //Para recetas por pedido-----------------------------------
+
+        //-----------------------Guardar RECETAS-----------------------------------
+        /*
         values = listaRecets;
         alert(angular.toJson(values));
         angular.forEach(values, function (value, key) {
             value.NoFactura = $scope.numFac;
             alert(angular.toJson(value));
             recetasResource.save(value);
+        
+        */
+        //-----------------Guardar MEDICAMENTOS por RECETA--------------------------
+
+        /* Prueba que sirvió
+        listRcts = listaRecets;
+        angular.forEach(listRcts, function (receta, key1) {
+            receta.NoReceta = $scope.numRec;
+            medsdeRec = listaMedicamentosxReceta[key1];
+            angular.forEach(medsdeRec, function (medicamento, key2) {
+                medicamento.NoReceta = receta.numRec;
+                alert("ingreso: ");
+                alert(angular.toJson({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: $scope.numRec, Cantidad: medicamento.Cantidad }));
+                detalleRecetaResource.save({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: $scope.numRec, Cantidad: medicamento.Cantidad });
+            });
+            $scope.numRec = 4;
+        */
+        listRcts = listaRecets;
+        angular.forEach(listRcts, function (receta, key1) {
+            receta.NoReceta = $scope.numRec;
+            medsdeRec = listaMedicamentosxReceta[key1];
+            angular.forEach(medsdeRec, function (medicamento, key2) {
+                alert("ingreso: ");
+                alert(angular.toJson({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: $scope.numRec, Cantidad: medicamento.Cantidad }));
+                detalleRecetaResource.save({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: $scope.numRec, Cantidad: medicamento.Cantidad });
+            });
+            $scope.numRec = 4;
+            //medicamento.NoReceta = listaRecets[key].NoReceta; //la que debería ser una vez que devuelva el ID
+            /*value.NoReceta = $scope.numRec;
+            alert(angular.toJson(value));
+            listaMedicamentosxReceta[key]
+            recetasResource.save(value);*/
         });
-        //Para MEDICAMENTOS por RECETA-----------------------------------
+
+        listaMedicamentosxPedido = [];
+        listaMedicamentosxReceta = [];
+        listaMedsActuales = [];
+        listaRecets = [];
     }
 }]);
 

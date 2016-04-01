@@ -62,6 +62,7 @@ namespace FarmaTicaWebService.DataBase
         }
         public Empleado addEmpleado(Empleado empleado)
         {
+
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -77,6 +78,7 @@ namespace FarmaTicaWebService.DataBase
         }
         public Empleado updateEmpleado(string idEmpleado, Empleado empleado)
         {
+           
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -87,7 +89,7 @@ namespace FarmaTicaWebService.DataBase
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-
+                empleado.IdEmpleado = idEmpleado;
             }
             return empleado;
         }

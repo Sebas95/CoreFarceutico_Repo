@@ -82,6 +82,7 @@ namespace FarmaTicaWebService.DataBase
         }
         public Client updateClient(int clientId, Client client)
         {
+           
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -92,7 +93,7 @@ namespace FarmaTicaWebService.DataBase
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-
+                client.IdCliente = clientId;
             }
             return client;
         }

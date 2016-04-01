@@ -114,10 +114,9 @@ namespace FarmaTicaWebService.DataBase
                     "UPDATE MEDICAMENTO SET Nombre = '"+medicamento.Nombre+"', Prescripcion = "+medicamento.Prescripcion+", CasaFarmaceutica = '"+medicamento.CasaFarmaceutica+"', Costo = "+ medicamento.Costo+
                     " WHERE Codigo = '"+Codigo+"' ; "
                     , con);
-                medicamento.codigo = Codigo;
                 con.Open();
                 cmd.ExecuteNonQuery();
-
+                medicamento.codigo = Codigo;
             }
             return medicamento;
         }

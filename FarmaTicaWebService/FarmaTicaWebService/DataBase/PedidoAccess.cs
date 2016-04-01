@@ -64,7 +64,7 @@ namespace FarmaTicaWebService.DataBase
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-
+                pedido.NoFactura = NoFactura;
             }
             return pedido;
         }

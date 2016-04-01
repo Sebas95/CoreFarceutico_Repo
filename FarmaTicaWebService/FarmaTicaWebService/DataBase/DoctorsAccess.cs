@@ -51,6 +51,7 @@ namespace FarmaTicaWebService.DataBase
         }
         public Doctor updateDoctor(int NoDoctor, Doctor doctor)
         {
+           
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -60,7 +61,7 @@ namespace FarmaTicaWebService.DataBase
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-
+                doctor.NoDoctor = NoDoctor;
             }
             return doctor;
         }

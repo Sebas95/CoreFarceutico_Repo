@@ -60,6 +60,7 @@ namespace FarmaTicaWebService.DataBase
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
+                sucursal.NoSucursal = NoSucursal.ToString();
 
             }
             return sucursal;

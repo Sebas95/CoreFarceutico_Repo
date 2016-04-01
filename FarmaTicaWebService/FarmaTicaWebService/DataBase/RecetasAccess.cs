@@ -88,6 +88,7 @@ namespace FarmaTicaWebService.DataBase
         }
         public Receta updateReceta(string NoReceta, Receta receta)
         {
+            
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
@@ -97,7 +98,7 @@ namespace FarmaTicaWebService.DataBase
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-
+                receta.NoReceta = NoReceta;
             }
             return receta;
         }

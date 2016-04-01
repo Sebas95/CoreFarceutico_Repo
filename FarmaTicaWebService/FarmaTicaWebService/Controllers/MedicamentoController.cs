@@ -23,7 +23,7 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getMedicamento(id);
         }
-        [Route("api/Medicamento/{Prescripcion}")]
+        [Route("api/Medicamento/Prescripcion/{Prescripcion}")]
         public List<Medicamento> GetMedicamentosPrescripcion(string Prescripcion)
         {
             return databaseAccess.getAllMedicamentos(Prescripcion);

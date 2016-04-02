@@ -32,6 +32,17 @@ Investigación AngularJS, Scripts SQL, Creación de formularios 7h
 
 Investigación AngularJS 4h
 
-	Martes 29
-Investigación 3h
+	Martes 29 8h
+Investigación AngularJS 3h
 Formularios 5h
+
+	Miércoles 30 7h
+Investigación 3h
+Lista de cosas por hacer 0h
+Documentación 4h
+
+	Jueves 31
+Documentación 2h
+
+	Viernes 1
+Documentación 1h

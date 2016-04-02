@@ -65,7 +65,7 @@ FROM
 
 
 
-
+USE FARMATICA;
 
 /* productos más vendidos */
 
@@ -145,5 +145,5 @@ ORDER BY (TOTAL_VENDIDO) DESC
 
 	) AS T
 	WHERE Empresa = 'P'
-		GROUP BY ( T.Nombre )
+		GROUP BY ( T.Nombre  )
 		ORDER BY (TOTAL_VENDIDO) DESC

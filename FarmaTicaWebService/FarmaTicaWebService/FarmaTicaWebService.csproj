@@ -167,6 +167,7 @@
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\RecetasController.cs" />
     <Compile Include="Controllers\RecetasPorPedidoController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\MedicamentoEnSucursalController.cs" />
     <Compile Include="Controllers\TelefonosClientesController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="DataBase\MedicamentosPorPedidoAccess.cs" />
     <Compile Include="DataBase\PedidoAccess.cs" />
     <Compile Include="DataBase\RecetasAccess.cs" />
+    <Compile Include="DataBase\ReportesAccess.cs" />
     <Compile Include="DataBase\SucursalAccess.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -192,10 +194,12 @@
     <Compile Include="Models\MedicamentoPorPedido.cs" />
     <Compile Include="Models\Padecimiento.cs" />
     <Compile Include="Models\Pedido.cs" />
+    <Compile Include="Models\ProductosMasVendidos.cs" />
     <Compile Include="Models\Receta.cs" />
     <Compile Include="Models\Sucursal.cs" />
     <Compile Include="Models\SucursalPorMedicamento.cs" />
     <Compile Include="Models\TelefonoCliente.cs" />
+    <Compile Include="Models\Venta.cs" />
     <Compile Include="Models\VistaMedicamentosPorPedido.cs" />
     <Compile Include="Models\VistaReceta.cs" />
     <Compile Include="Models\VistaMedicamentosPorReceta.cs" />

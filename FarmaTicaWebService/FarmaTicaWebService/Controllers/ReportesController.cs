@@ -34,7 +34,7 @@ namespace FarmaTicaWebService.Controllers
             return databaseAccess.getProductosMasVendidosPorEmpresa(Empresa);
         }
         [Route("api/Reportes/TotalVendidoPorEmpresa/{Empresa}")]
-        public String GetTotalVendidoPorEmpresa(string Empresa)
+        public TotalVendido GetTotalVendidoPorEmpresa(string Empresa)
         {
             return databaseAccess.getTotalVendidoPorEmpresa(Empresa);
         }

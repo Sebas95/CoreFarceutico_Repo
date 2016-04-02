@@ -156,9 +156,9 @@ namespace FarmaTicaWebService.DataBase
             }
             return listProductos;
         }
-        public String getTotalVendidoPorEmpresa(string Empresa)
+        public TotalVendido getTotalVendidoPorEmpresa(string Empresa)
         {
-            String total_final = null;
+            TotalVendido total = new TotalVendido();
             List<ProductosMasVendidos> listProductos = new List<ProductosMasVendidos>();
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
@@ -187,10 +187,11 @@ namespace FarmaTicaWebService.DataBase
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.Read()) //si existe en la base de datos
                 {
-                    total_final = rdr["TOTAL_DE_VENTAS"].ToString();
+                    total.Empresa = Empresa;
+                    total.totalVendido = rdr["TOTAL_DE_VENTAS"].ToString();
                 }
             }
-            return total_final;
+            return total;
         }
 
     }

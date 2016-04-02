@@ -199,6 +199,7 @@
     <Compile Include="Models\Sucursal.cs" />
     <Compile Include="Models\SucursalPorMedicamento.cs" />
     <Compile Include="Models\TelefonoCliente.cs" />
+    <Compile Include="Models\TotalVendido.cs" />
     <Compile Include="Models\Venta.cs" />
     <Compile Include="Models\VistaMedicamentosPorPedido.cs" />
     <Compile Include="Models\VistaReceta.cs" />

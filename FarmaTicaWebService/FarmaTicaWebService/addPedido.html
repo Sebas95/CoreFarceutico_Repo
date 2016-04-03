@@ -7,15 +7,15 @@
             <br>
             <div class="form-group">
                 <h4>Fecha y Hora de Recojo</h4>
-                <input class="form-control" input type="datetime-local" id="exampleInputQuantity" placeholder="0" data-ng-model="FechaR">
+                <input class="form-control" input type="datetime-local" id="exampleInputQuantity" placeholder="0" data-ng-model="FechaR" required>
             </div>
             <h4>Seleccione Sucursal de Recojo</h4>
             <div class="btn-block">
                 <div class="btn-group" ng-class='{open: open}'>
                     <button class="btn" ng-click='open=!open'>{{sucActual}}</button>
-                    <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open' ><span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li ng-repeat="datos in recList"><a data-ng-click="addNoSuc(datos.NoSucursal,datos.Nombre)">{{datos.Nombre}}</a></li>
+                        <li ng-repeat="datos in recList"><a data-ng-click="addNoSuc(datos.NoSucursal,datos.Nombre)" required>{{datos.Nombre}}</a></li>
                         <!-- <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>

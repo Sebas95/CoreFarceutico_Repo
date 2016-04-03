@@ -92,33 +92,25 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'gerentesView.html',
           controller: 'gerenteController'
       })
+      .when('/Item/clientLog', {
+          templateUrl: 'loginClientes.html',
+          controller: 'clientLoginController'
+      }) 
+      .when('/Item/employeeLog', {
+          templateUrl: 'loginEmpleados.html',
+          controller: 'empleadoLoginController'
+      }) 
+      .when('/Item/registroCliente', {
+          templateUrl: 'editClient.html',
+          controller: 'registroClienteController'
+      })
+
       .otherwise({
           templateUrl: 'login.html',
           controller: 'loginController'
       })
 }]);
 
-
-/*
-app.factory('gerentesResource', [
-    '$resource',
-    function ($resource) {
-        return $resource(
-            'https://:url/:action',
-            {
-                url: 'search.twitter.com',
-                action: 'search.json',
-                q: '#ThingsYouSayToYourBestFriend',
-                callback: 'JSON_CALLBACK'
-            },
-            {
-                get: {
-                    method: 'JSONP'
-                }
-            }
-        );
-    }
-]); */
 
 
 app.factory('URIService', function () {
@@ -175,6 +167,8 @@ app.factory('JsonResource', function ($resource) {
         delete: { method: 'DELETE' }
     });
 });
+
+
 
 app.factory('doctorResource', function ($resource) {
     return $resource('http://localhost:8080/api/Doctores/:id', {}, {
@@ -394,17 +388,30 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
 
 }]);
 
+app.controller("loginClientController", ["$scope", "$location", "$routeParams", "pedidosResource",
+
+function ($scope, $location, $routeParams, pedidosResource) {
+
+
+    $scope.go = function () {
+
+        $location.path('/Item/addPedidosView');
+    }
+
+}]);
+
+
 app.controller("loginController", ["$scope", "$location", "$routeParams", "pedidosResource",
 
 function ($scope, $location, $routeParams, pedidosResource) {
 
 
     $scope.cliente = function () {
-        $location.path('/Item/addPedidosView');
+        $location.path('/Item/clientLog');
     }
 
     $scope.empleado = function (index) {
-        $location.path('/Item/employee');
+        $location.path('/Item/employeeLog');
     }
 
     $scope.gerente = function () {
@@ -475,7 +482,7 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
         $scope.medActual = nomMed;
         listaMedsActualesRecs.push({ Nombre: nomMed, Cantidad: cant, Costo: costo });
         listaMedsActuales.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant });
-        listaMedsActualesRecs = [];
+        //listaMedsActualesRecs = [];
         alert("Medicamentos de esta receta: ");
         alert(angular.toJson(listaMedsActuales));
         //Prueba que sirvio-----------------
@@ -494,6 +501,7 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
         alert("Medicamentos de recetas: ");
         alert(angular.toJson(listaMedicamentosxReceta));
         listaMedsActuales = [];
+        listaMedsActualesRecs = [];
         listaRecets.push({ NoFactura: "", IdCliente: clienteActual, NoDoctor: $scope.numeroDoc });
         alert("Recetas totales:  ");
         alert(angular.toJson(listaRecets));
@@ -1260,9 +1268,100 @@ app.factory('gerentesResource', function ($resource) {
     });
 });
 
+app.factory('clientLoginResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Client/login/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: false
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
 
-app.controller("gerenteController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "gerentesResource",
-function ($scope, $location, $routeParams, detallePedidoResource, gerentesResource) {
+app.factory('empleadoLoginResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Empleados/:cedula/:pass', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: false
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
+app.controller("clientLoginController", ["$scope", "$location", "$routeParams", "clientLoginResource", "gerentesResource",
+function ($scope, $location, $routeParams, clientLoginResource, gerentesResource) {
+    $scope.go = 0;
+    $scope.login = function (numeroCliente) {
+        $scope.returnado = clientLoginResource.query({ id: numeroCliente }).$promise.then(function (data) {
+            $scope.dato = data.IdCliente;
+            //clienteActual = data.IdCliente;
+            alert($scope.dato);
+            $scope.go = 1;
+        });        
+    };
+
+    $scope.goClientView = function () {
+        $location.path('/Item/addPedidosView');
+    }
+    $scope.alerte = function () {
+        alert("No es un cliente registrado")
+    }
+
+    $scope.registro = function () {
+        $location.path('/Item/registroCliente');
+    }
+    $scope.cancel = function () {
+        $location.path('/Item/eerfgmployeeLog');
+    }
+}
+
+]);
+
+
+app.controller("empleadoLoginController", ["$scope", "$location", "$routeParams", "clientLoginResource", "empleadoLoginResource",
+function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginResource) {
+    $scope.go = 0;
+    $scope.D = "D";
+    $scope.G = "G";
+    $scope.login = function (numeroEmpleado, contraseña) {
+        alert("entro");
+        $scope.returnado = empleadoLoginResource.query({ cedula: numeroEmpleado, pass: contraseña }).$promise.then(function (data) {
+            $scope.dato = data.IdEmpleado;
+            alert($scope.dato);
+            $scope.empleadoType = data.Rol;
+            $scope.go = 1;
+        });
+    };
+
+    $scope.goEmpleadoView = function () {
+        $location.path('/Item/depend');
+    }
+    $scope.goGerenteView = function () {
+        $location.path('/Item/gerente');
+    }
+    $scope.alerte = function () {
+        alert("No es un empleado registrado")
+    }
+    $scope.cancel = function () {
+        $location.path('/Item/eerfgmployeeLog');
+    }
+}
+
+]);
+
+
+
+app.controller("gerenteController", ["$scope", "$location", "$routeParams", "clientLoginResource", "gerentesResource",
+function ($scope, $location, $routeParams, clientLoginResource, gerentesResource) {
     $scope.dataVendidos = gerentesResource.query({ url: "ProductosMasVendidos" });
     $scope.dataVendidosNuevo = gerentesResource.query({ url: "ProductosMasVendidosPorNuevoSoftware" });
     $scope.dataVentasEmpresa = gerentesResource.query({ url: "CantidadDeVentasPorEmpresa", empresa: "F" });
@@ -1270,21 +1369,32 @@ function ($scope, $location, $routeParams, detallePedidoResource, gerentesResour
     $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: "F" });
 }
 
-]);
+]); 
+
+app.controller("registroClienteController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "telefonosResource",
 
 
-/*
-var URI = 'https://api.github.com/users';
-//https://api.github.com/users/rtucker88/repos
-//https://api.mongolab.com/api/1/databases/lagrossetete/collections/avengers?apiKey=j0PIJH2HbfakfRo1ELKkX0ShST6_F78A
-//http://www.bogotobogo.com/AngularJS/files/httpRequest/planet2.json
-app.controller('MyController', function($scope, $http) {
-  var vm = this;
-  vm.mydata = [];
+function ($scope, $http, $location, $routeParams, clientService, httpService, JsonResource, telefonosResource) {
 
-        $http.get(URI)
-            .then(function(result) {
-              vm.mydata = result.data;
-              alert(result.data)
-             });
-});*/
+    $scope.save = function () {
+        clientService.addClient({
+            Nombre: $scope.Item.Nombre, Apellido: $scope.Item.apellido,
+            Cedula: $scope.Item.cedula, Prioridad: $scope.prioridad, FechaNacimiento: $scope.Item.fechaNacimiento,
+            Residencia: $scope.Item.residencia
+        });
+        $scope.newClient = {
+            Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
+            Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+            Residencia: $scope.Item.Residencia
+        }
+        JsonResource.save($scope.newClient, function () { alert("entro a save"); });
+        alert("Se Registró con éxito")
+        $location.path('/Item/clientLog');
+    }
+
+    $scope.cancel = function () {
+        $location.path('/Item/clientLog');
+    }
+
+}]);
+

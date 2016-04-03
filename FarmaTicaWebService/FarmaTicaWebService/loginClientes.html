@@ -5,13 +5,18 @@
 	<meta charset="utf-8" />
 </head>
 <body>
+    <h1>Cliente</h1>
     <h1>Ingrese su Cédula</h1>
     <div class="form-group">
         <label for="exampleInputCedula">Cédula</label>
         <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Cedula" required>
     </div>
-    <button type="Add" class="btn btn-default" data-ng-click="login()">Ingresar</button>
+    <button type="Add" class="btn btn-default" data-ng-click="login(Cedula)">Ingresar</button>
     <button type="Add" class="btn btn-default" data-ng-click="cancel()">Cancelar</button>
     <button type="Add" class="btn btn-primary" data-ng-click="registro()">Registrarse</button>
+    <div ng-if="go == 1">
+        <div ng-if="dato == 0" ng-init="alerte()"></div>
+        <div ng-if="dato !== 0" ng-init="goClientView()"></div>
+    </div>
 </body>
 </html>

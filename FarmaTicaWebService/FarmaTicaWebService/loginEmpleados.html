@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Empleado</h1>
+    <h1>Ingrese su Cédula y Password</h1>
+    <div class="form-group">
+        <label for="exampleInputCedula">Cédula</label>
+        <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Cedula" required>
+        <label for="exampleInputCedula">Password</label>
+        <input class="form-control" id="exampleInputCedula" placeholder="Password" maxlength="9" data-ng-model="Pass" required>
+    </div>
+    <button type="Add" class="btn btn-default" data-ng-click="login(Cedula,Pass)">Ingresar</button>
+    <button type="Add" class="btn btn-default" data-ng-click="cancel()">Cancelar</button>
+    <div ng-if="go == 1">
+        <div ng-if="dato == null" ng-init="alerte()"></div>
+        <div ng-if="dato !== null" ng-init="goEmpleadoView()">
+            <div ng-if="empleadoType == 'D'" ng-init="goEmpleadoView()"></div>
+            <div ng-if="empleadoType == 'G'" ng-init="goGerenteView()"></div>
+        </div>
+    </div>
+</body>
+</html>

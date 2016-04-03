@@ -95,11 +95,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       .when('/Item/clientLog', {
           templateUrl: 'loginClientes.html',
           controller: 'clientLoginController'
-      }) 
+      })
       .when('/Item/employeeLog', {
           templateUrl: 'loginEmpleados.html',
           controller: 'empleadoLoginController'
-      }) 
+      })
       .when('/Item/registroCliente', {
           templateUrl: 'editClient.html',
           controller: 'registroClienteController'
@@ -427,10 +427,10 @@ var listaMedsActualesPeds = [];
 var listaMedsActualesRecs = [];
 var newRecetas = [];
 
-app.controller("addPedidoController", ["$scope", "$location", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
+app.controller("addPedidoController", ["$scope", "$location", "$window", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
     "JsonResource", "detallePedidoResource", "detalleRecetaResource", "recetasResource", "detalleRecetaResource",
 
-function ($scope, $location, $routeParams, doctorResource, sucursalResource, medResource, pedidoResource, telefonosResource, JsonResource, detallePedidoResource
+function ($scope, $location, $window, $routeParams, doctorResource, sucursalResource, medResource, pedidoResource, telefonosResource, JsonResource, detallePedidoResource
     , detalleRecetaResource, recetasResource, detalleRecetaResource) {
 
     //Este es el nuevo---------------------
@@ -542,7 +542,24 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
         $location.path("/Item/addReceta");
     }
 
-    $scope.addPedido = function (fech, phone) {
+    $scope.alerteTermino = function () {
+        alert("Su pedido se agrego correctamente");
+        listaMedicamentosxPedido = [];
+        listaMedicamentosxReceta = [];
+        listaMedsActualesRecs = [];
+        listaMedsActualesPeds = [];
+        listaMedsActuales = [];
+        listaRecets = [];
+        $location.path('/Item/addPedidosView');
+        $window.location.reload();
+    }
+
+    $scope.addPedido = function (fech, phone, hour) {
+        alert(fech);
+        alert("hora");
+        alert("Fecha Formada: ");
+        alert(fech + " " + hour);
+        $scope.Prueba = "2000-09-30 02:00:11.000"
         pedidoResource.save({
             FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.Empresa,
             TelefonoPreferido: phone
@@ -560,6 +577,8 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
 
         //-----------------------Guardar RECETAS-----------------------------------
         .then(function () {
+            $scope.recetarioLenght = listaRecets.length;
+            $scope.verifique = true;
             values = listaRecets;
             //alert(angular.toJson(values));
             angular.forEach(values, function (value, key) {
@@ -584,6 +603,8 @@ function ($scope, $location, $routeParams, doctorResource, sucursalResource, med
                             alert(angular.toJson({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad }));
                             detalleRecetaResource.save({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad });
                         });
+                    }).then(function () {
+                        $scope.alerteTermino();
                     });
 
             });
@@ -1303,10 +1324,10 @@ function ($scope, $location, $routeParams, clientLoginResource, gerentesResource
     $scope.login = function (numeroCliente) {
         $scope.returnado = clientLoginResource.query({ id: numeroCliente }).$promise.then(function (data) {
             $scope.dato = data.IdCliente;
-            //clienteActual = data.IdCliente;
+            clienteActual = data.IdCliente;
             alert($scope.dato);
             $scope.go = 1;
-        });        
+        });
     };
 
     $scope.goClientView = function () {
@@ -1369,7 +1390,7 @@ function ($scope, $location, $routeParams, clientLoginResource, gerentesResource
     $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: "F" });
 }
 
-]); 
+]);
 
 app.controller("registroClienteController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "telefonosResource",
 

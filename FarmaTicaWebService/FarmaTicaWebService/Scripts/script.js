@@ -94,6 +94,43 @@ app.config(['$routeProvider', function ($routeProvider) {
       })
 }]);
 
+
+app.factory('gerentesResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Reportes/:url/:id', {}, {
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+/*
+app.factory('gerentesResource', [
+    '$resource',
+    function ($resource) {
+        return $resource(
+            'https://:url/:action',
+            {
+                url: 'search.twitter.com',
+                action: 'search.json',
+                q: '#ThingsYouSayToYourBestFriend',
+                callback: 'JSON_CALLBACK'
+            },
+            {
+                get: {
+                    method: 'JSONP'
+                }
+            }
+        );
+    }
+]); */
+
+
 app.factory('URIService', function () {
     var svc = {};
 

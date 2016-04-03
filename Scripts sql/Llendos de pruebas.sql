@@ -98,17 +98,14 @@ INSERT INTO PEDIDO_FISICO  ( NoSucursal , Estado, Empresa)
 VALUES ('11','Facturado','F');
 
 INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ('5', 'CF' ,23);
+VALUES ('1', 'CF' ,23);
 INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ( '7' , 'AC',2 );
+VALUES ( '2' , 'AC',2 );
 INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ( '6' , 'AL',1 );
+VALUES ( '3' , 'AL',1 );
 INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ('8', 'CF' ,23);
-INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ( '8' , 'AC',2 );
-INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO ( NoFactura , CodigoMedicamento , Cantidad) 
-VALUES ( '7' , 'AL',1 );
+VALUES ('4', 'CF' ,23);
+
 
 
 

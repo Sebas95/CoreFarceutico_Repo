@@ -88,26 +88,16 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'addReceta.html',
           controller: 'addPedidoController'
       })
+      .when('/Item/gerente', {
+          templateUrl: 'gerentesView.html',
+          controller: 'gerenteController'
+      })
       .otherwise({
           templateUrl: 'login.html',
           controller: 'loginController'
       })
 }]);
 
-
-app.factory('gerentesResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Reportes/:url/:id', {}, {
-        query: {
-            method: 'GET',
-            transformResponse: function (data) {
-                return angular.fromJson(data);
-            },
-            isArray: true
-        },
-        update: { method: 'PUT' },
-        delete: { method: 'DELETE' }
-    });
-});
 
 /*
 app.factory('gerentesResource', [
@@ -415,6 +405,10 @@ function ($scope, $location, $routeParams, pedidosResource) {
 
     $scope.empleado = function (index) {
         $location.path('/Item/employee');
+    }
+
+    $scope.gerente = function () {
+        $location.path('/Item/gerente');
     }
 
 }]);
@@ -1244,6 +1238,36 @@ function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaRe
     $scope.mantenimiento = function () {
         $location.path('/Item/depend');
     }
+}
+
+]);
+
+app.factory('gerentesResource', function ($resource) {
+    return $resource('http://localhost:8080/api/Reportes/:url/:empresa', {}, {
+        get: {
+            method: 'GET',
+            isArray: false
+        },
+        query: {
+            method: 'GET',
+            transformResponse: function (data) {
+                return angular.fromJson(data);
+            },
+            isArray: true
+        },
+        update: { method: 'PUT' },
+        delete: { method: 'DELETE' }
+    });
+});
+
+
+app.controller("gerenteController", ["$scope", "$location", "$routeParams", "detallePedidoResource", "gerentesResource",
+function ($scope, $location, $routeParams, detallePedidoResource, gerentesResource) {
+    $scope.dataVendidos = gerentesResource.query({ url: "ProductosMasVendidos" });
+    $scope.dataVendidosNuevo = gerentesResource.query({ url: "ProductosMasVendidosPorNuevoSoftware" });
+    $scope.dataVentasEmpresa = gerentesResource.query({ url: "CantidadDeVentasPorEmpresa", empresa: "F" });
+    $scope.dataVendidosEmpresa = gerentesResource.query({ url: "ProductosMasVendidosPorEmpresa", empresa: "F" });
+    $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: "F" });
 }
 
 ]);

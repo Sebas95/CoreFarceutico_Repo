@@ -260,7 +260,7 @@ app.factory('casasResource', function ($resource) {
 
 
 app.factory('medResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Medicamento/:id', {}, {
+    return $resource('http://localhost:8080/api/Medicamento/:presc/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -451,7 +451,8 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     $scope.cantidad = 1;
     $scope.docList = doctorResource.query();
     $scope.recList = sucursalResource.query();
-    $scope.medList = medResource.query();
+    $scope.medListP = medResource.query({ presc: "Prescripcion", id: 0 });
+    $scope.medListR = medResource.query();
     $scope.medListPed = listaMedsActualesPeds;
     $scope.medListRec = listaMedsActualesRecs;
     $scope.plantillaPedido = { NoFactura: "", CodigoMedicamento: "", Cantidad: "" };

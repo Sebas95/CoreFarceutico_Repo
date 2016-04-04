@@ -1,5 +1,4 @@
 
-
 --/*DROP DATABASE FARMATICA;
 
 CREATE DATABASE FARMATICA;
@@ -12,20 +11,22 @@ CREATE TABLE EMPLEADO(
 	IdEmpleado INT IDENTITY(1,1),
 	Nombre CHAR(15),
 	Cedula CHAR(11),
-	Passwrd Char(8),
-	Rol CHAR(1),
-	Empresa CHAR(1)
+	Passwrd Char(8) DEFAULT 12345678,
+	Rol CHAR(1) DEFAULT 'D',
+	Empresa CHAR(1) DEFAULT NULL,
+
 	CONSTRAINT PK_EMPLEADO
 		PRIMARY KEY (IdEmpleado),
 	CONSTRAINT UK_CEDULA_EMPLEADO UNIQUE(Cedula)
 )
+
 -- -------------------------------------------------------
 CREATE TABLE CLIENTE(
 	IdCliente INT IDENTITY(1,1),				 
 	Cedula CHAR(11),
 	Nombre CHAR (15),
 	Apellido CHAR(15),
-	Prioridad CHAR(1),
+	Prioridad CHAR(1) DEFAULT 'B',
 	FechaNacimiento DATE,
 	Residencia CHAR(45),
 
@@ -81,9 +82,6 @@ CREATE TABLE MEDICAMENTO(
 		PRIMARY KEY (Codigo)
 )
 
-
-
-
 CREATE TABLE SUCURSAL (
 	NoSucursal INT,
 	Nombre CHAR (15),
@@ -108,7 +106,7 @@ CREATE TABLE PEDIDO (
 	FechaRecojo DATETIME,
 	NoSucursal INT,
 	IdCliente INT,	
-	Estado CHAR(9),
+	Estado CHAR(9) DEFAULT 'Nuevo',
 	Empresa CHAR(1),
 	TelefonoPreferido CHAR (11),
 
@@ -196,11 +194,13 @@ CREATE TABLE PEDIDO_FISICO (
 
 	CONSTRAINT PK_PEDIDO_FISICO
 		PRIMARY KEY (NoFactura),
+
 	CONSTRAINT FK_PEDIDO_FISICO_SE_RECOGE_EN_SUCURSAL_NoSucursal
 		FOREIGN KEY (NoSucursal) REFERENCES SUCURSAL(NoSucursal) ON DELETE CASCADE ON UPDATE CASCADE ,
 
 	CONSTRAINT FK_Empresa_FISICA
 		FOREIGN KEY (Empresa) REFERENCES EMPRESA(Codigo) ON DELETE SET NULL ON UPDATE NO ACTION,
+
 	CONSTRAINT Check_Estado_FISICO CHECK (Estado = 'Nuevo' OR Estado = 'Preparado' OR Estado = 'Facturado' OR Estado = 'Retirado'),
 	
 )

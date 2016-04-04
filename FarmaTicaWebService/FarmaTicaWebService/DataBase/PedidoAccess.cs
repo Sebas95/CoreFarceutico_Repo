@@ -10,6 +10,10 @@ namespace FarmaTicaWebService.DataBase
 {
     public class PedidoAccess
     {
+        /// <summary>
+        /// Selects all the rows o the table Pedido, maps into objects Pedido and returns a list of it
+        /// </summary>
+        /// <returns>List<Pedido></returns>
         public List<Pedido> getAllPedidos()
         {
             List<Pedido> listPedidos = new List<Pedido>();
@@ -36,6 +40,11 @@ namespace FarmaTicaWebService.DataBase
             return listPedidos;
 
         }
+        /// <summary>
+        /// Adds a new row to the table Pedido, taking the object Pedido and maping it for inserting
+        /// </summary>
+        /// <param name="pedido"> the new pedido object to be inserted </param>
+        /// <returns>  the new pedido object to be inserted  </returns>
         public Pedido addPedido(Pedido pedido)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -52,6 +61,12 @@ namespace FarmaTicaWebService.DataBase
             }
             return pedido;
         }
+        /// <summary>
+        /// Updates a row of the table Pedido
+        /// </summary>
+        /// <param name="NoFactura"> The id of Pedido row </param>
+        /// <param name="pedido"> The object that represents the row that will be updated  </param>
+        /// <returns>The object updated</returns>
         public Pedido updatePedido(string NoFactura, Pedido pedido)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -68,6 +83,10 @@ namespace FarmaTicaWebService.DataBase
             }
             return pedido;
         }
+        /// <summary>
+        /// Deletes arow if the table Pedido
+        /// </summary>
+        /// <param name="NoFactura"> The id of the row </param>
         public void deletePedido(string NoFactura)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -81,6 +100,10 @@ namespace FarmaTicaWebService.DataBase
             }
 
         }
+        /// <summary>
+        /// Selects all the rows o the table Pedido joined with cliente and sucursal , maps into objects VistaPedido and returns a list of it
+        /// </summary>
+        /// <returns>List<VistaPedido></returns>
         public List<VistaPedido> getAllVistasPedidos()
         {
             List<VistaPedido> listPedidos = new List<VistaPedido>();

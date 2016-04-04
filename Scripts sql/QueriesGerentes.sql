@@ -105,19 +105,43 @@ ORDER BY (TOTAL_VENDIDO) DESC
 
 /*cantidad de ventas por compañía,*/
 
-
- Select  COUNT(T.NoFactura) AS CANTIDAD_DE_VENTAS  
+ Select T.NoFactura , SUM(T.Cantidad*t.Costo) AS TOTAL_POR_FACTURA 
 	FROM
 	(
-		SELECT   COUNT(NoFactura) AS CANTIDAD_DE_VENTAS  , Empresa FROM PEDIDO 
-
+		SELECT P.NoFactura ,  Cantidad , M.Costo , Empresa FROM 
+			PEDIDO AS P  JOIN MEDICAMENTOS_POR_PEDIDO AS MP ON MP.NoFactura =  P.NoFactura 
+			JOIN MEDICAMENTO AS M  ON M.Codigo = MP.CodigoMedicamento
 		UNION ALL
-
-		SELECT COUNT(NoFactura) AS CANTIDAD_DE_VENTAS  ,Empresa FROM 	PEDIDO  		
-
+		SELECT P.NoFactura ,  Cantidad ,M.Costo , Empresa	FROM
+			PEDIDO AS P JOIN RECETA AS R ON P.NoFactura = R.NoFactura 
+			JOIN  MEDICAMENTOS_POR_RECETA AS MP ON R.NoReceta = MP.NoReceta
+			JOIN MEDICAMENTO AS M ON M.Codigo = MP.CodigoMedicamento
+		UNION ALL
+		SELECT P.NoFactura ,  Cantidad , Costo ,Empresa FROM 
+			PEDIDO AS P JOIN MEDICAMENTOS_POR_PEDIDO_FISICO AS MPF ON P.NoFactura = MPF.NoFactura  
+			JOIN MEDICAMENTO ON Codigo =CodigoMedicamento
 	) AS T
---	WHERE Empresa = ''
-		
+	WHERE EMPRESA = 'F'
+	GROUP BY (NoFactura)
+
+--suma de totales	 
+ Select SUM(T.Cantidad*t.Costo) AS TOTAL_DE_VENTAS 
+	FROM
+	(
+		SELECT P.NoFactura ,  Cantidad , M.Costo , Empresa FROM 
+			PEDIDO AS P  JOIN MEDICAMENTOS_POR_PEDIDO AS MP ON MP.NoFactura =  P.NoFactura 
+			JOIN MEDICAMENTO AS M  ON M.Codigo = MP.CodigoMedicamento
+		UNION ALL
+		SELECT P.NoFactura ,  Cantidad ,M.Costo , Empresa	FROM
+			PEDIDO AS P JOIN RECETA AS R ON P.NoFactura = R.NoFactura 
+			JOIN  MEDICAMENTOS_POR_RECETA AS MP ON R.NoReceta = MP.NoReceta
+			JOIN MEDICAMENTO AS M ON M.Codigo = MP.CodigoMedicamento
+		UNION ALL
+		SELECT P.NoFactura ,  Cantidad , Costo ,Empresa FROM 
+			PEDIDO AS P JOIN MEDICAMENTOS_POR_PEDIDO_FISICO AS MPF ON P.NoFactura = MPF.NoFactura  
+			JOIN MEDICAMENTO ON Codigo =CodigoMedicamento
+	) AS T
+	WHERE EMPRESA = 'f'
 		
  
 

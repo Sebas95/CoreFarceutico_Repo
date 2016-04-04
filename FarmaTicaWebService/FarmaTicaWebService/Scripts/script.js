@@ -95,11 +95,11 @@ app.config(['$routeProvider', function ($routeProvider) {
       .when('/Item/clientLog', {
           templateUrl: 'loginClientes.html',
           controller: 'clientLoginController'
-      })
+      }) 
       .when('/Item/employeeLog', {
           templateUrl: 'loginEmpleados.html',
           controller: 'empleadoLoginController'
-      })
+      }) 
       .when('/Item/registroCliente', {
           templateUrl: 'editClient.html',
           controller: 'registroClienteController'
@@ -260,7 +260,7 @@ app.factory('casasResource', function ($resource) {
 
 
 app.factory('medResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Medicamento/:presc/:id', {}, {
+    return $resource('http://localhost:8080/api/Medicamento/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -427,10 +427,10 @@ var listaMedsActualesPeds = [];
 var listaMedsActualesRecs = [];
 var newRecetas = [];
 
-app.controller("addPedidoController", ["$scope", "$location", "$window", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
+app.controller("addPedidoController", ["$scope", "$location", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
     "JsonResource", "detallePedidoResource", "detalleRecetaResource", "recetasResource", "detalleRecetaResource",
 
-function ($scope, $location, $window, $routeParams, doctorResource, sucursalResource, medResource, pedidoResource, telefonosResource, JsonResource, detallePedidoResource
+function ($scope, $location, $routeParams, doctorResource, sucursalResource, medResource, pedidoResource, telefonosResource, JsonResource, detallePedidoResource
     , detalleRecetaResource, recetasResource, detalleRecetaResource) {
 
     //Este es el nuevo---------------------
@@ -451,8 +451,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     $scope.cantidad = 1;
     $scope.docList = doctorResource.query();
     $scope.recList = sucursalResource.query();
-    $scope.medListP = medResource.query({ presc: "Prescripcion", id: 0 });
-    $scope.medListR = medResource.query();
+    $scope.medList = medResource.query();
     $scope.medListPed = listaMedsActualesPeds;
     $scope.medListRec = listaMedsActualesRecs;
     $scope.plantillaPedido = { NoFactura: "", CodigoMedicamento: "", Cantidad: "" };
@@ -543,24 +542,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         $location.path("/Item/addReceta");
     }
 
-    $scope.alerteTermino = function () {
-        alert("Su pedido se agrego correctamente");
-        listaMedicamentosxPedido = [];
-        listaMedicamentosxReceta = [];
-        listaMedsActualesRecs = [];
-        listaMedsActualesPeds = [];
-        listaMedsActuales = [];
-        listaRecets = [];
-        $location.path('/Item/addPedidosView');
-        $window.location.reload();
-    }
-
-    $scope.addPedido = function (fech, phone, hour) {
-        alert(fech);
-        alert("hora");
-        alert("Fecha Formada: ");
-        alert(fech + " " + hour);
-        $scope.Prueba = "2000-09-30 02:00:11.000"
+    $scope.addPedido = function (fech, phone) {
         pedidoResource.save({
             FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.Empresa,
             TelefonoPreferido: phone
@@ -578,8 +560,6 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
 
         //-----------------------Guardar RECETAS-----------------------------------
         .then(function () {
-            $scope.recetarioLenght = listaRecets.length;
-            $scope.verifique = true;
             values = listaRecets;
             //alert(angular.toJson(values));
             angular.forEach(values, function (value, key) {
@@ -604,8 +584,6 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
                             alert(angular.toJson({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad }));
                             detalleRecetaResource.save({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad });
                         });
-                    }).then(function () {
-                        $scope.alerteTermino();
                     });
 
             });
@@ -1325,10 +1303,10 @@ function ($scope, $location, $routeParams, clientLoginResource, gerentesResource
     $scope.login = function (numeroCliente) {
         $scope.returnado = clientLoginResource.query({ id: numeroCliente }).$promise.then(function (data) {
             $scope.dato = data.IdCliente;
-            clienteActual = data.IdCliente;
+            //clienteActual = data.IdCliente;
             alert($scope.dato);
             $scope.go = 1;
-        });
+        });        
     };
 
     $scope.goClientView = function () {
@@ -1391,7 +1369,7 @@ function ($scope, $location, $routeParams, clientLoginResource, gerentesResource
     $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: "F" });
 }
 
-]);
+]); 
 
 app.controller("registroClienteController", ["$scope", "$http", "$location", "$routeParams", "clientService", "httpService", "JsonResource", "telefonosResource",
 

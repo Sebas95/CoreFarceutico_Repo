@@ -10,6 +10,10 @@ namespace FarmaTicaWebService.DataBase
 {
     public class RecetasAccess
     {
+        /// <summary>
+        /// Selects a list of all the rows of Receta table 
+        /// </summary>
+        /// <returns> List<VistaReceta></returns>
         public List<VistaReceta> getAllRecetas()
         {
             List<VistaReceta> listRecetas = new List<VistaReceta>();
@@ -40,6 +44,11 @@ namespace FarmaTicaWebService.DataBase
             return listRecetas;
 
         }
+        /// <summary>
+        /// Returns a list of objects VistaReceta
+        /// </summary>
+        /// <param name="NoFactura"></param>
+        /// <returns>List<VistaReceta></returns>
         public List<VistaReceta> getRecetasPorPedido(string NoFactura)
         {
             List<VistaReceta> listRecetas = new List<VistaReceta>();
@@ -71,6 +80,11 @@ namespace FarmaTicaWebService.DataBase
             return listRecetas;
 
         }
+        /// <summary>
+        /// Inserts a new row in the table Receta
+        /// </summary>
+        /// <param name="receta"> The object Receta representing a row </param>
+        /// <returns> The object inserted </returns>  
         public Receta addReceta(Receta receta)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -86,6 +100,12 @@ namespace FarmaTicaWebService.DataBase
             }
             return receta;
         }
+        /// <summary>
+        /// Updates a row in the table Receta
+        /// </summary>
+        /// <param name="NoReceta"> The primary key of the object </param>
+        /// <param name="receta"> The updated object </param>
+        /// <returns> The receta Updated </returns>
         public Receta updateReceta(string NoReceta, Receta receta)
         {
             
@@ -102,6 +122,10 @@ namespace FarmaTicaWebService.DataBase
             }
             return receta;
         }
+        /// <summary>
+        /// Deletes a row of the Table Receta
+        /// </summary>
+        /// <param name="NoReceta"></param>
         public void deleteReceta(string NoReceta)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

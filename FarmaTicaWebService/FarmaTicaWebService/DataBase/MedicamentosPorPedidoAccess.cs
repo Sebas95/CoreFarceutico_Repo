@@ -10,6 +10,10 @@ namespace FarmaTicaWebService.DataBase
 {
     public class MedicamentosPorPedidoAccess
     {
+        /// <summary>
+        /// Selects all the rows of MedicamentoPorpedido, maps into objects and returns it
+        /// </summary>
+        /// <returns> List<MedicamentoPorPedido> </returns>
         public List<MedicamentoPorPedido> getMedicamentosPorPedido()
         {
             List<MedicamentoPorPedido> listMedicamento_por_pedido = new List<MedicamentoPorPedido>();
@@ -32,6 +36,11 @@ namespace FarmaTicaWebService.DataBase
             return listMedicamento_por_pedido;
 
         }
+        /// <summary>
+        ///  Selects all the rows of MedicamentoPorpedido by its NoFactura attribute, maps into objects and returns it
+        /// </summary>
+        /// <param name="NoFactura"> The order number </param>
+        /// <returns> List<VistaMedicamentosPorPedido> </returns>
         public List<VistaMedicamentosPorPedido> getMedicamentosPorPedido(string NoFactura)
         {
             List<VistaMedicamentosPorPedido> listMedicamento_por_pedido = new List<VistaMedicamentosPorPedido>();
@@ -61,6 +70,11 @@ namespace FarmaTicaWebService.DataBase
             return listMedicamento_por_pedido;
 
         }
+        /// <summary>
+        /// Inserts a row in the table MedicamentoPorPedido
+        /// </summary>
+        /// <param name="medicamento_por_pedido"> The new object MedicamentoPorPedido that will be mapped then inserted  </param>
+        /// <returns> The new object MedicamentoPorPedido that will be mapped then inserted</returns>
         public MedicamentoPorPedido addMedicamento_por_pedido(MedicamentoPorPedido medicamento_por_pedido)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -76,7 +90,11 @@ namespace FarmaTicaWebService.DataBase
             }
             return medicamento_por_pedido;
         }
-
+        /// <summary>
+        /// Deletes a row in the table MedicamentoPorPedido 
+        /// </summary>
+        /// <param name="NoFactura"> The order number </param>
+        /// <param name="CodigoMedicamento">the Medicamento object id </param>
         public void Delete_Medicamento_por_pedido(string NoFactura, string CodigoMedicamento)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

@@ -11,6 +11,10 @@ namespace FarmaTicaWebService.DataBase
 {
     public class MedicamentoPorRecetaAccess
     {
+        /// <summary>
+        /// Selects all the MedicamentosPorReceta objects mapping each one
+        /// </summary>
+        /// <returns>  List<MedicamentoPorReceta>  </returns>
         public List<MedicamentoPorReceta> getMedicamentosPorReceta()
         {
             List<MedicamentoPorReceta> listMedicamento_por_receta = new List<MedicamentoPorReceta>();
@@ -33,6 +37,11 @@ namespace FarmaTicaWebService.DataBase
             return listMedicamento_por_receta;
 
         }
+        /// <summary>
+        /// Selects a all The Medicmanento rows related with Single Receta row and maps to VistaMedicmanetosPorReceta objects
+        /// </summary>
+        /// <param name="NoReceta"> The id of an specific Receta row</param>
+        /// <returns> List<VistaMedicamentosPorReceta> </returns>
         public List<VistaMedicamentosPorReceta> getMedicamentosPorReceta(string NoReceta)
         {
             List<VistaMedicamentosPorReceta> listMedicamento_por_receta = new List<VistaMedicamentosPorReceta>();
@@ -61,6 +70,11 @@ namespace FarmaTicaWebService.DataBase
             return listMedicamento_por_receta;
 
         }
+        /// <summary>
+        /// Inserts a row in MedicamnetoPorReceta table, represented as MedicamentoPorReceta object
+        /// </summary>
+        /// <param name="medicamento_por_receta"> The new The MedicamentoPorReceta object </param>
+        /// <returns>The MedicamentoPorReceta object inserted</returns>
         public MedicamentoPorReceta addMedicamento_por_receta(MedicamentoPorReceta medicamento_por_receta)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -78,7 +92,11 @@ namespace FarmaTicaWebService.DataBase
         }
 
 
-
+        /// <summary>
+        /// Deletes a row if MedicamentoPorReceta table
+        /// </summary>
+        /// <param name="CodigoMedicamento"></param>
+        /// <param name="NoReceta"></param>
         public void DeleteMedicamento_por_receta(string CodigoMedicamento, string NoReceta)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

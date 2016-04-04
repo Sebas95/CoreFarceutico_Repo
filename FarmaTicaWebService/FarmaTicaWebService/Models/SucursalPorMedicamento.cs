@@ -6,6 +6,10 @@ using System.Web;
 
 namespace FarmaTicaWebService.Models
 {
+    /// <summary>
+    /// A class that represents a row in the table SucursalPorMedicamento 
+    /// and will be serialized to json representation
+    /// </summary>
     public class SucursalPorMedicamento
     {
         public string Nombre;

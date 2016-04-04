@@ -8,6 +8,10 @@ namespace FarmaTicaWebService.DataBase
 {
     public class DoctorsAccess
     {
+        /// <summary>
+        /// Returns a list containing of the doctors in the database
+        /// </summary>
+        /// <returns> List<Doctor>  </returns>
         public List<Doctor> getAllDoctors()
         {
             List<Doctor> listDoctores = new List<Doctor>();
@@ -33,6 +37,11 @@ namespace FarmaTicaWebService.DataBase
             return listDoctores;
 
         }
+        /// <summary>
+        /// iinserts a row in Doctor table
+        /// </summary>
+        /// <param name="doctor"></param>
+        /// <returns> The Doctor created </returns>
         public Doctor addDoctor(Doctor doctor)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -49,6 +58,13 @@ namespace FarmaTicaWebService.DataBase
             }
             return doctor;
         }
+
+        /// <summary>
+        /// Updates a row if the Doctor table
+        /// </summary>
+        /// <param name="NoDoctor"></param>
+        /// <param name="doctor">The mapped object that reprsents a row of Doctor table</param>
+        /// <returns></returns>
         public Doctor updateDoctor(int NoDoctor, Doctor doctor)
         {
            
@@ -65,6 +81,10 @@ namespace FarmaTicaWebService.DataBase
             }
             return doctor;
         }
+        /// <summary>
+        /// Deletes a row in the table Doctor
+        /// </summary>
+        /// <param name="NoDoctor"></param>
         public void deleteDoctor(int NoDoctor)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

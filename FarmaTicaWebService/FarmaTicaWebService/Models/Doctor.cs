@@ -5,6 +5,10 @@ using System.Web;
 
 namespace FarmaTicaWebService.Models
 {
+    /// <summary>
+    /// A class that represents a row in the table Doctor
+    /// and will be serialized to json representation
+    /// </summary>
     public class Doctor
     {
         public int NoDoctor;

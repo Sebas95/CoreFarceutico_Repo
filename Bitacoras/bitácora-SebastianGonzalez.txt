@@ -15,3 +15,7 @@
 30/03/2016 3hrs Intento de obtener los ids generados en la base de datos.    
 01/04/2016 2hrs Se solucionó obtener los ids generados en la base de datos. 
 01/04/2016 3hrs Se implementó el web service para el módulo de gerentes. 
+02/04/2016 6hrs Se intentó de accesar al web service de manera remota y 
+se hizo la documentación externa.
+02/04/2016 5hrs Se hizo la documentación interna
+ 

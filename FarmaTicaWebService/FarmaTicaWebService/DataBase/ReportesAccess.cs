@@ -9,8 +9,13 @@ namespace FarmaTicaWebService.DataBase
 {
     public class ReportesAccess
     {
+        /// <summary>
+        /// Selects an ordered list of the most sold products.
+        /// </summary>
+        /// <returns>  List<ProductosMasVendidos> </returns>
         public List<ProductosMasVendidos> getAllProductosMasVendidos()
         {
+            
             List<ProductosMasVendidos> listProductos = new List<ProductosMasVendidos>();
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
@@ -44,6 +49,10 @@ namespace FarmaTicaWebService.DataBase
             }
             return listProductos;
         }
+        /// <summary>
+        /// Selects an ordered list of the most sold products by the new Software
+        /// </summary>
+        /// <returns>  List<ProductosMasVendidos> </returns>
         public List<ProductosMasVendidos> getAllProductosMasVendidosPorNuevoSoftware()
         {
             List<ProductosMasVendidos> listProductos = new List<ProductosMasVendidos>();
@@ -76,7 +85,11 @@ namespace FarmaTicaWebService.DataBase
             }
             return listProductos;
         }
-
+        /// <summary>
+        /// Selects the total cost per each Pedido (order) 
+        /// </summary>
+        /// <param name="Empresa"> The company where the orders belongs to  </param>
+        /// <returns>  List<Venta> </returns>
         public List<Venta> getCantidadDeVentasPorEmpresa(string Empresa)
         {
             List<Venta> listventas = new List<Venta>();
@@ -116,6 +129,11 @@ namespace FarmaTicaWebService.DataBase
             }
             return listventas;
         }
+        /// <summary>
+        /// Selects an ordered list of the most sold products by each company
+        /// </summary>
+        /// <param name="Empresa"> The company where ProductosMasMvendidos belongs </param>
+        /// <returns> List<ProductosMasVendidos> </returns>
         public List<ProductosMasVendidos> getProductosMasVendidosPorEmpresa(string Empresa)
         {
             List<ProductosMasVendidos> listProductos = new List<ProductosMasVendidos>();
@@ -156,6 +174,12 @@ namespace FarmaTicaWebService.DataBase
             }
             return listProductos;
         }
+
+        /// <summary>
+        /// Selects the sum of the total cost of every single order (Pedido)
+        /// </summary>
+        /// <param name="Empresa"> The company where the function will query </param>
+        /// <returns> TotalVendido object </returns>
         public TotalVendido getTotalVendidoPorEmpresa(string Empresa)
         {
             TotalVendido total = new TotalVendido();

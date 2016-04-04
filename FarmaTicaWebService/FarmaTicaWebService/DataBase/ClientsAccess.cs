@@ -11,19 +11,29 @@ namespace FarmaTicaWebService.DataBase
         public ClientsAccess()
         {
         }
+        /// <summary>
+        /// Selects all the rows of Client table, maps it into objects Client and returns it as a list
+        /// </summary>
+        /// <returns>List<Client></returns>
         public List<Client> getClients()
         {
-            List<Client> listClientes = new List<Client>();
+            List<Client> listClientes = new List<Client>(); //the list of object Client that will be returned
+            //get the configuration string for SQL server connection
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
+                //the sql command (SELECT)
                 SqlCommand cmd = new SqlCommand(
-                    "select  IdCliente, Cedula, Nombre , Apellido, Prioridad,CONVERT(VARCHAR(10),FechaNacimiento,120) as Fecha , Residencia from CLIENTE; ", con);
+                    "select  IdCliente, Cedula, Nombre , Apellido, Prioridad,CONVERT(VARCHAR(10),FechaNacimiento,120) as Fecha ,"
+                    +" Residencia from CLIENTE; "
+                    , con);
                 con.Open();
+                //the dataset object or resultset
                 SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read()) //si existe en la base de datos
+                while (rdr.Read()) //if there is a row retuned
                 {
-                    Client cliente = new Client();
+                    Client cliente = new Client(); //new model object Client (for each row returned)
+                    //setting of all its attributes from retrieved data from the database
                     cliente.IdCliente = Convert.ToInt32(rdr["IdCliente"]);
                     cliente.Cedula = rdr["Cedula"].ToString();
                     cliente.Nombre = rdr["Nombre"].ToString();
@@ -31,12 +41,17 @@ namespace FarmaTicaWebService.DataBase
                     cliente.Prioridad = rdr["Prioridad"].ToString();
                     cliente.FechaNacimiento =rdr["Fecha"].ToString();
                     cliente.Residencia = rdr["Residencia"].ToString();
-                    listClientes.Add(cliente);
+                    listClientes.Add(cliente); //add the new object to the list
                 }
             }
-            return listClientes;
+            return listClientes;  //returns the list of mapped objects
 
         }
+        /// <summary>
+        /// Selects a client row by cedula attribute and returns a mapped Client object
+        /// </summary>
+        /// <param name="cedula"> Atribute cedula of the table Client</param>
+        /// <returns> Client</returns>
         public Client getClient(string cedula)
         {
             Client cliente = new Client();
@@ -65,6 +80,11 @@ namespace FarmaTicaWebService.DataBase
             return cliente;
 
         }
+        /// <summary>
+        /// inserts a row into the client table, 
+        /// </summary>
+        /// <param name="client"> An mapped object of client row </param>
+        /// <returns>Client</returns>
         public Client addClient(Client client)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -80,6 +100,12 @@ namespace FarmaTicaWebService.DataBase
             }
             return client;
         }
+        /// <summary>
+        /// updates a row into the client table
+        /// </summary>
+        /// <param name="clientId"> the primary key of the row</param>
+        /// <param name="client">An mapped object of client row</param>
+        /// <returns>updated  Client  object</returns>
         public Client updateClient(int clientId, Client client)
         {
            
@@ -97,6 +123,10 @@ namespace FarmaTicaWebService.DataBase
             }
             return client;
         }
+        /// <summary>
+        /// delestes a row in cliente table
+        /// </summary>
+        /// <param name="clientId"> The if of the row that will be deleted  </param>
         public void deleteClient(int clientId)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -110,6 +140,12 @@ namespace FarmaTicaWebService.DataBase
             }
             
         }
+        /// <summary>
+        /// selects the rows of the table PAdecimientos specifiyng the Client id that belongs to, maps into objects Padecimiento and
+        /// returns it as a list
+        /// </summary>
+        /// <param name="idCliente"></param>
+        /// <returns> List<Padecimiento> </returns>
         public List<Padecimiento> getPadecimientos(int idCliente)
         {
             List<Padecimiento> listPadecimiento = new List<Padecimiento>();
@@ -132,6 +168,11 @@ namespace FarmaTicaWebService.DataBase
             }
             return listPadecimiento;
         }
+        /// <summary>
+        /// inserts a row into Padecimiento table
+        /// </summary>
+        /// <param name="padecimiento"> The mapped Padecimiento object that will be use for insertion </param>
+        /// <returns> Padecimiento </returns>
         public Padecimiento addPadecimiento(Padecimiento padecimiento)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
@@ -146,6 +187,12 @@ namespace FarmaTicaWebService.DataBase
             }
             return padecimiento;
         }
+        /// <summary>
+        /// selects the rows of the table Telefonos specifiyng the Client id that belongs to, maps into objects Telefonos and
+        /// returns it as a list
+        /// </summary>
+        /// <param name="idCliente">primary key of cliente</param>
+        /// <returns> List<TelefonoCliente></returns>
         public List<TelefonoCliente> getTelefonos(int idCliente)
         {
             List<TelefonoCliente> listTelefonos = new List<TelefonoCliente>();
@@ -169,6 +216,11 @@ namespace FarmaTicaWebService.DataBase
             }
             return listTelefonos;
         }
+        /// <summary>
+        ///  inserts a row into TelefonosCliente table
+        /// </summary>
+        /// <param name="tel">The mapped Padecimiento object that will be use for insertion </param>
+        /// <returns> The new  TelefonoCliente  </returns>
         public TelefonoCliente addTelefono(TelefonoCliente tel)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

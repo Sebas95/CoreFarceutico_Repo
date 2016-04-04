@@ -39,21 +39,20 @@ namespace FarmaTicaWebService.DataBase
             return listSucursales;
 
         }
-        public SucursalPorMedicamento addSucursalPorMedicamento(string codigoMedicamento, SucursalPorMedicamento sucursal_por_medicamento)
+        public void addSucursalPorMedicamento(string CodigoMedicamento, string NoSucursal, string Cantidad)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlCommand cmd = new SqlCommand(
                     "INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento , NoSucursal, Cantidad) " +
-                    " VALUES('" + codigoMedicamento + "', '" + sucursal_por_medicamento.NoSucursal + "', '" + sucursal_por_medicamento.Cantidad + "'); "
+                    " VALUES('" + CodigoMedicamento + "', '" + NoSucursal + "', '" + Cantidad + "'); "
                     , con);
                 con.Open();
                 cmd.ExecuteNonQuery();
 
             }
-            return sucursal_por_medicamento;
-
+           
 
         }
         //

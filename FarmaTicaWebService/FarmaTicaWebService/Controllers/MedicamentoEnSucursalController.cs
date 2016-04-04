@@ -16,9 +16,10 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getSucursalesPorMedicamento(id);
         }
-        public SucursalPorMedicamento Post (string id, [FromBody]SucursalPorMedicamento sucursal_por_medicamento)
+        [Route("api/MedicamentoEnSucursal/{CodigoMedicamento}/{NoSucursal}/{Cantidad}")]
+        public void Post(string CodigoMedicamento, string NoSucursal, string Cantidad) 
         {
-            return databaseAccess.addSucursalPorMedicamento(id,sucursal_por_medicamento);
+            databaseAccess.addSucursalPorMedicamento(CodigoMedicamento, NoSucursal, Cantidad);
 
         }
         /* public void deleteRemoveSucursalFromMedicamento(string id, string id2)

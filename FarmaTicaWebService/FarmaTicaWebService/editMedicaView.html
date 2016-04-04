@@ -5,28 +5,61 @@
     </div>
     <div class="form-group">
         <label for="exampleInputApellido">Codigo</label>
-        <input type="Apellido" class="form-control" id="Apellido" maxlength="10" placeholder="Apellido" data-ng-model="Item.codigo" required>
+        <input type="Apellido" class="form-control" id="Apellido" maxlength="10" placeholder="Codigo" data-ng-model="Item.codigo" required>
     </div>
     <div class="form-group">
         <label for="exampleInputApellido">Prescripcion</label>
-        <input type="Apellido" class="form-control" id="Apellido" maxlength="1" placeholder="Apellido" data-ng-model="Item.Prescripcion" required>
+        <input type="Apellido" class="form-control" id="Apellido" maxlength="15" placeholder="Prescripcion" data-ng-model="Item.Prescripcion" required>
     </div>
     <div class="form-group">
         <label for="exampleInputPrioridad">Casa Farmaceutica</label>
-        <input class="form-control" id="exampleInputPrioridad" maxlength="15" placeholder="Prioridad" data-ng-model="Item.CasaFarmaceutica">
+        <input class="form-control" id="exampleInputPrioridad" maxlength="1" placeholder="Casa Farmaceutica" data-ng-model="Item.CasaFarmaceutica">
     </div>
     <div class="form-group">
         <label for="exampleInputfNnacimiento">Costo</label>
-        <input class="form-control" id="exampleInputfNnacimiento" data-ng-model="Item.Costo" required>
+        <input class="form-control" id="exampleInputfNnacimiento" placeholder="Costo" data-ng-model="Item.Costo" required>
     </div>
-    <!---<div class="form-group">
-        <label for="sel1">Telefonos: </label>
-        <select class="form-control" id="sel1" ng-model="selectedCar">
-            <option ng-repeat="x in telefonos" value="{{x.Telefono}}" selected="selected">{{x.Telefono}}</option>
+    <!--<div class="form-group">
+        <label for="sel1">Sucursal: </label>
+        <select class="form-control" id="sel1" ng-model="selectedMed">
+            <option ng-repeat="x in data" value="{{x.Nombre}}" selected="selected">{{x.Nombre}}</option>
         </select>
     </div>-->
-    <button type="Add" class="btn btn-secondary" data-ng-click="save()">Guardar Cambios</button>
+    <!--<div class="form-group">
+        <label for="exampleInputTelefono"></label>
+        <input class="form-control" id="exampleInputTelefono" maxlength="45" placeholder="Residencia"  ng-model="selectedCar" >
+    </div>
+    <div class="form-group">
+        <label for="exampleInputDescripcion">Descripcion </label>
+        <input class="form-control" id="exampleInputDescripcion" maxlength="45" placeholder="Telefono" ng-model="descrp">
+        <label for="exampleInputTelefono">New Phone:</label>
+        <input class="form-control" id="exampleInputTelefono" maxlength="45" placeholder="Telefono" ng-model="newPhoneC">
+    </div>-->
+    <h4>Sucursales del Medicamento</h4>
+    <div class="btn-block">
+        <div class="btn-group" ng-class='{open: open}'>
+            <button class="btn" ng-click='open=!open'>Sucursales</button>
+            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="datos in listaSucursalesMed"><a required>{{datos.Nombre}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <h4>Agregar Sucursales del Medicamento</h4>
+    <div class="btn-block">
+        <div class="btn-group" ng-class='{open: open}'>
+            <button class="btn" ng-click='open=!open'>Sucursales</button>
+            <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="datos in listaSucursales"><a  data-ng-click="addNewSuc(datos.NoSucursal, cantidad)" required>{{datos.Nombre}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputfNnacimiento">Cantidad</label>
+        <input class="form-control" id="exampleInputfNnacimiento" placeholder="Costo" data-ng-model="cantidad" required>
+    </div>
+    <button type="Add" class="btn btn-secondary" data-ng-click="save()">Guardar  Cambios</button>
     <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancelar</button>
     <button type="Add" class="btn btn-primary" data-ng-click="delete()">Borrar</button>
-
 </form>

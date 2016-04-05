@@ -619,10 +619,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
                             alert(angular.toJson({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad }));
                             detalleRecetaResource.save({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad });
                         });
-                    }).then(function () {
-                        $scope.alerteTermino();
-                    });
-
+                    })
             });
         })
     }

@@ -3,6 +3,7 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
     <input type="text" class="form-control" id="search" placeholder="Buscar Doctores" data-ng-model="search" />
     <h1>{{search}}</h1>
 </div>
-<table class="table table-striped table-hover">
+<table class="table table-bordered table-hover table-condensed ip">
     <tbody>
         <tr>
             <th>Cedula</th>
@@ -36,7 +37,7 @@
     {{ data }}
 </li>
 <div class="form-group">
-    <button data-ng-click="addClient()" class="btn btn-primary">Agregar Doctor</button>
+    <button data-ng-click="addClient()" class="btn btn-success">Agregar Doctor</button>
     <button data-ng-click="refresh()" class="btn btn-primary">Actualizar</button>
-    <button data-ng-click="back()" class="btn btn-primary">Regresar</button>
+    <button data-ng-click="back()" class="btn btn-default">Regresar</button>
 </div>

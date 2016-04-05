@@ -5,15 +5,27 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <h1>Cliente</h1>
-    <h1>Ingrese su Cédula</h1>
-    <div class="form-group">
-        <label for="exampleInputCedula">Cédula</label>
-        <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Cedula" required>
+    <h1>Ingrese su Cédula</h1><br/>
+    <div class=" container-fluid form-group col-md-3">
+      <input class="form-control" id="exampleInputCedula" placeholder="Cédula" maxlength="9" data-ng-model="Cedula" required> <br/><br/>
+      <button type="Add" class="btn btn-success btn-block" data-ng-click="login(Cedula)">Ingresar</button><br/>
+      <button type="Add" class="btn btn-default btn-block" data-ng-click="cancel()">Cancelar</button><br/>
+      <button type="Add" class="btn btn-primary btn-block" data-ng-click="registro()">Registrarse</button>
     </div>
-    <button type="Add" class="btn btn-default" data-ng-click="login(Cedula)">Ingresar</button>
-    <button type="Add" class="btn btn-default" data-ng-click="cancel()">Cancelar</button>
-    <button type="Add" class="btn btn-primary" data-ng-click="registro()">Registrarse</button>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <img src="img/fij.png">
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
     <div ng-if="go == 1">
         <div ng-if="dato == 0" ng-init="alerte()"></div>
         <div ng-if="dato !== 0" ng-init="goClientView()"></div>

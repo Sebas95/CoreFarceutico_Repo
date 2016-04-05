@@ -3,15 +3,19 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <!--<button type="button" class="btn btn-danger" ng-click="clientes()">Clientes</button>
-    <button type="button" class="btn btn-danger" ng-click="doctores()">Doctores</button>
-    <button type="button" class="btn btn-danger" ng-click="recetas()">Recetas</button>
-    <button type="button" class="btn btn-danger" ng-click="medicamentos()">Medicamentos</button>-->
-    <h1 ng-click="clientes()"><span class="label label-primary">Clientes</span></h1>
-    <h1 ng-click="doctores()"><span class="label label-primary">Doctores</span></h1>
-    <h1 ng-click="recetas()"><span class="label label-primary">Recetas</span></h1>
-    <h1 ng-click="medicamentos()"><span class="label label-primary">Medicamentos</span></h1>
+  <div class="container-fluid col-md-3 col-md-offset-4">
+    <div class="row">
+      <a ng-click="clientes()" class="btn btn-primary btn-lg cli">Clientes</a><br/><br/>
+      <a ng-click="doctores()" class="btn btn-primary btn-lg cli">Doctores</a><br/><br/>
+      <a ng-click="recetas()" class="btn btn-primary btn-lg cli">Recetas</a><br/><br/>
+      <a ng-click="medicamentos()" class="btn btn-primary btn-lg cli">Medicamentos</a>
+    </div>
+
+</div>
+
+
 </body>
 </html>

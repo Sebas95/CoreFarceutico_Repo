@@ -70,8 +70,8 @@ INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUE
 INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('3', '121', 2 );
 INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('2', '111', 1 );
 
-INSERT INTO RECETA (NoFactura,IdCliente,NoDoctor) VALUES ('2', '1', '1');
-INSERT INTO RECETA (NoFactura,IdCliente,NoDoctor) VALUES ('3', '2', '1');
+INSERT INTO RECETA (NoFactura,IdCliente,NoDoctor,Imagen) SELECT '2', '1', '1', bulkcolumn from openrowset(bulk 'C:\Users\Vargam\Desktop\CoreFarceutico_Repo\Scripts sql\receta-WARHAMMER-1.jpg' ,single_blob) as BLOB;
+INSERT INTO RECETA (NoFactura,IdCliente,NoDoctor,Imagen) SELECT '3', '2', '1', bulkcolumn from openrowset(bulk 'C:\Users\Vargam\Desktop\CoreFarceutico_Repo\Scripts sql\receta-WARHAMMER-2.jpg' ,single_blob) as BLOB;
 
 INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento,NoReceta,Cantidad) VALUES('121', '1', 3);
 INSERT INTO MEDICAMENTOS_POR_RECETA (CodigoMedicamento,NoReceta,Cantidad) VALUES('121', '2', 2);

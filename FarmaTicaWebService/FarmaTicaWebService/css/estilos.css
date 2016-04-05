@@ -1,0 +1,60 @@
+/*--Header*/
+.navbar{
+  margin-bottom: 0;
+}
+.jumbotron{
+  background: #45C87E;
+  color: #fff;
+  padding: 20px 0;
+}
+/*--Post--*/
+.main{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.post{
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #999;
+}
+.post .post-title a {
+  color: #333;
+}
+.post .thumb{
+  margin-right: 10px;
+  width: 40%;
+}
+.post .thumb img{
+  width: 100%;
+}
+.post .contenedor-botones{
+  width: 100%;
+}
+/*--Media query--*/
+@media screen and (max-width: 768px){
+  .post .thumb{
+    width: 100%;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+}
+
+aside{
+  background: #45C87E;
+  color: 000;
+}
+
+.lector{
+  color: #000;
+  font-weight:bolder;
+}
+body{
+  background: #ccc;
+}
+
+.cli{
+  font-size: 30px;
+  font-weight: bolder;
+}
+.ip{
+  background:#AFB5B4

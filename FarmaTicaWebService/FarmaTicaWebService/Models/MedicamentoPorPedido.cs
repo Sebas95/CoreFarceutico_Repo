@@ -14,5 +14,6 @@ namespace FarmaTicaWebService.Models
         public string NoFactura;
         public string CodigoMedicamento;
         public string Cantidad;
+        public string NoSucursal;
     }
 }

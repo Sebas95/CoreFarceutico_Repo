@@ -78,16 +78,41 @@ namespace FarmaTicaWebService.DataBase
         public MedicamentoPorPedido addMedicamento_por_pedido(MedicamentoPorPedido medicamento_por_pedido)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento, Cantidad  )"
-                    + " VALUES('" + medicamento_por_pedido.NoFactura + "', '" + medicamento_por_pedido.CodigoMedicamento + "','" + medicamento_por_pedido.Cantidad + "'); "
-                    , con);
-                con.Open();
-                cmd.ExecuteNonQuery();
 
+            MedicamentoEnSucursalAccess medicamentoEnSucursalAccess = new MedicamentoEnSucursalAccess();
+            int cantidad_disponible = medicamentoEnSucursalAccess.getCantidadDisponible(medicamento_por_pedido.CodigoMedicamento, medicamento_por_pedido.NoSucursal);
+            //si hay cantidad disponible
+            if (Convert.ToInt32(medicamento_por_pedido.Cantidad) < cantidad_disponible)
+            {
+                int cantidad_nueva = cantidad_disponible - Convert.ToInt32(medicamento_por_pedido.Cantidad);
+                //update Cantdad of MedicamentoEnSucursal
+                medicamentoEnSucursalAccess.setCantidadDisponible(medicamento_por_pedido.CodigoMedicamento, medicamento_por_pedido.NoSucursal, cantidad_nueva);
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    SqlCommand cmd = new SqlCommand(
+                        "INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento, Cantidad  )"
+                        + " VALUES('" + medicamento_por_pedido.NoFactura + "', '" + medicamento_por_pedido.CodigoMedicamento + "','" + medicamento_por_pedido.Cantidad + "'); "
+                        , con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
+            else
+            { 
+                //update Cantdad of MedicamentoEnSucursal
+                medicamentoEnSucursalAccess.setCantidadDisponible(medicamento_por_pedido.CodigoMedicamento, medicamento_por_pedido.NoSucursal,0);
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    SqlCommand cmd = new SqlCommand(
+                        "INSERT INTO MEDICAMENTOS_POR_PEDIDO ( NoFactura , CodigoMedicamento, Cantidad  )"
+                        + " VALUES('" + medicamento_por_pedido.NoFactura + "', '" + medicamento_por_pedido.CodigoMedicamento + "','" +cantidad_disponible + "'); "
+                        , con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                medicamento_por_pedido.Cantidad = cantidad_disponible.ToString();
+            }
+
             return medicamento_por_pedido;
         }
         /// <summary>

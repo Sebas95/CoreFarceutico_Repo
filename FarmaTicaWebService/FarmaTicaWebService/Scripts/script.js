@@ -7,6 +7,7 @@ var clientesParaReceta = [];
 var jsonList = {};
 var pedidoActual = {};
 var clienteActual = 1;
+var empleadoActual = {};
 var listaRecets = [];
 var docActual = "Doctores"
 var medActual = "Medicamentos"
@@ -572,10 +573,8 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     }
 
     $scope.addPedido = function (fech, phone, hour) {
+        alert("Fecha: ");
         alert(fech);
-        alert("hora");
-        alert("Fecha Formada: ");
-        alert(fech + " " + hour);
         $scope.Prueba = "2000-09-30 02:00:11.000"
         pedidoResource.save({
             FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.Empresa,
@@ -1382,7 +1381,7 @@ function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginRes
         alert("entro");
         $scope.returnado = empleadoLoginResource.query({ cedula: numeroEmpleado, pass: contraseña }).$promise.then(function (data) {
             $scope.dato = data.IdEmpleado;
-            alert($scope.dato);
+            empleadoActual = data;
             $scope.empleadoType = data.Rol;
             $scope.go = 1;
         });
@@ -1408,11 +1407,17 @@ function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginRes
 
 app.controller("gerenteController", ["$scope", "$location", "$routeParams", "clientLoginResource", "gerentesResource",
 function ($scope, $location, $routeParams, clientLoginResource, gerentesResource) {
+    $scope.Empresa = "";
+    $scope.EmpresaDim = empleadoActual.Empresa;
     $scope.dataVendidos = gerentesResource.query({ url: "ProductosMasVendidos" });
     $scope.dataVendidosNuevo = gerentesResource.query({ url: "ProductosMasVendidosPorNuevoSoftware" });
     $scope.dataVentasEmpresa = gerentesResource.query({ url: "CantidadDeVentasPorEmpresa", empresa: "F" });
     $scope.dataVendidosEmpresa = gerentesResource.query({ url: "ProductosMasVendidosPorEmpresa", empresa: "F" });
     $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: "F" });
+
+    $scope.cambieEmpresa = function (empresaNueva) {
+        $scope.Empresa = empresaNueva;
+    }
 }
 
 ]);

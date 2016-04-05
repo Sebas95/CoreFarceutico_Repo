@@ -46,7 +46,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: 'recetasController'
       })
       .when('/Item/pedidos', {
-          templateUrl: 'startPedidos.html',
+          templateUrl: 'startPedido.html',
           controller: 'starPedidosController'
       })
       .when('/Item/medica', {
@@ -61,7 +61,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'editMedicaView.html',
           controller: 'editMedicaController'
       })
-      .when('/Item/pedidos', {
+      .when('/Item/pedidos/depend', {
           templateUrl: 'Pedido.html',
           controller: 'pedidoController'
       })
@@ -400,7 +400,7 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
     $scope.pedido = function () {
         //alert("eentroaqui");
         URIService.setRecetas();
-        $location.path("/Item/pedidos/:index");
+        $location.path("/Item/pedidos/depend");
     };
 
 }]);
@@ -457,11 +457,25 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         $scope.telefonos = telefonosResource.query({ id: clienteActual });
         //$scope.isArray = data instanceof Array;
     });
+    $scope.empSelected = "Empresa";
+    $scope.empList = ["Farmatica", "Phischel"];
+    $scope.boolEmpresa = false;
+    $scope.empresaBool = "Farmatica";
+    $scope.empresaSelec = "F";
+    $scope.empresaCambio = function (nueva) {
+        $scope.empresaBool = nueva;
+        $scope.boolEmpresa = true;
+        $scope.empSelected = nueva;
+    }
+    $scope.cambieEmpresa = function (nueva) {
+        $scope.empresaSelec = nueva;
+        $scope.boolEmpresa = true;
+    }
     $scope.numRec = 3;
     $scope.numRec2 = 4;
     $scope.numFac = 2;
     $scope.Estado = "Nuevo";
-    $scope.Empresa = "F";
+    $scope.Empresa = $scope.empresaSelec;
     $scope.docActual = docActual;
     $scope.medActual = medActual;
     $scope.sucActual = sucActual;
@@ -485,7 +499,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         $scope.newMedxPedido.Cantidad = cant;
         listaMedsActualesPeds.push({ Nombre: nomMed, CodigoMedicamento: codMed, Cantidad: cant, Costo: costo });
         listaMedicamentosxPedido.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant, NoSucursal: "" });
-        alert(angular.toJson(listaMedicamentosxPedido));
+        //alert(angular.toJson(listaMedicamentosxPedido));
         //Prueba que sirvio-----------------
         /* $scope.newMedxPedido = $scope.plantillaPedido;
          $scope.newMedxPedido.codMed = codMed;
@@ -501,8 +515,8 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         listaMedsActualesRecs.push({ Nombre: nomMed, Cantidad: cant, Costo: costo });
         listaMedsActuales.push({ NoFactura: "", CodigoMedicamento: codMed, Cantidad: cant, NoSucursal: "" });
         //listaMedsActualesRecs = [];
-        alert("Medicamentos de esta receta: ");
-        alert(angular.toJson(listaMedsActuales));
+
+        //alert(angular.toJson(listaMedsActuales));
         //Prueba que sirvio-----------------
         /* $scope.newMedxPedido = $scope.plantillaPedido;
          $scope.newMedxPedido.codMed = codMed;
@@ -516,13 +530,9 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
 
     $scope.addReceta = function () {
         listaMedicamentosxReceta.push(listaMedsActuales);
-        alert("Medicamentos de recetas: ");
-        alert(angular.toJson(listaMedicamentosxReceta));
         listaMedsActuales = [];
         listaMedsActualesRecs = [];
         listaRecets.push({ NoFactura: "", IdCliente: clienteActual, NoDoctor: $scope.numeroDoc });
-        alert("Recetas totales:  ");
-        alert(angular.toJson(listaRecets));
         $location.path('/Item/addPedidosView');
     }
 
@@ -561,7 +571,6 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     }
 
     $scope.alerteTermino = function () {
-        alert("Su pedido se agrego correctamente");
         listaMedicamentosxPedido = [];
         listaMedicamentosxReceta = [];
         listaMedsActualesRecs = [];
@@ -573,11 +582,9 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     }
 
     $scope.addPedido = function (fech, phone, hour) {
-        alert("Fecha: ");
-        alert(fech);
-        $scope.Prueba = "2000-09-30 02:00:11.000"
+        $scope.fechaStandar = "2000-09-30 02:00:11.000"
         pedidoResource.save({
-            FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.Empresa,
+            FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.empresaSelec,
             TelefonoPreferido: phone
         }).$promise.then(function (data) {
             $scope.numFac = data.NoFactura;
@@ -606,19 +613,9 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
 
                 }).        //-----------------Guardar MEDICAMENTOS por RECETA-------------------------- aqui quede
                     then(function () {
-                        alert("Recetas: ");
-                        alert(angular.toJson(listaRecets));
-                        alert("medicamentos:")
-                        alert(angular.toJson(listaMedicamentosxReceta));
                         medsdeRec = listaMedicamentosxReceta[key];
                         angular.forEach(medsdeRec, function (medicamento, key2) {
                             medicamento.NoSucursal = $scope.numSuc;
-                            alert("key: ")
-                            alert(key);
-                            alert("Recetas: ");
-                            alert(angular.toJson(listaRecets));
-                            alert("Insertaria: ")
-                            alert(angular.toJson({ CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad }));
                             detalleRecetaResource.save({
                                 CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad, NoSucursal: medicamento.NoSucursal
                             });
@@ -703,10 +700,10 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
 }]);
 
 
-app.controller("editRecetasController", ["$scope", "$location", "$routeParams", "clientService", "medResource", "editRecetasResource",
+app.controller("editRecetasController", ["$scope", "$location", "$routeParams", "$window", "clientService", "medResource", "editRecetasResource",
 
 
-function ($scope, $location, $routeParams, clientService, medResource, editRecetasResource) {
+function ($scope, $location, $routeParams, $window, clientService, medResource, editRecetasResource) {
     // $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
     //alert(angular.toJson(jsonList.NoReceta));
     //quuiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
@@ -715,7 +712,6 @@ function ($scope, $location, $routeParams, clientService, medResource, editRecet
     $scope.dato = medResource.query();
     $scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
     $scope.addPhone = function () {
-        alert($scope.Item.IdCliente);
         $scope.newPhone = {
             idCliente: $scope.Item.IdCliente, Telefono: $scope.newPhoneC, descripcion: $scope.descrp
         };
@@ -744,18 +740,13 @@ function ($scope, $location, $routeParams, clientService, medResource, editRecet
 
     $scope.borrar = function (codigo, cantidad) {
         $scope.medABorrar = { CodigoMedicamento: "D", NoReceta: 3, Cantidad: 8 };
-        alert($scope.medABorrar);
-        //alert(angular.toJson($scope.medABorrar));
-        alert(angular.toJson({ cod: codigo, id: jsonList.NoReceta }));
         editRecetasResource.delete({ cod: codigo, id: jsonList.NoReceta });
-        alert("ya sirve");
+        //$window.location.reload();
     }
 
     $scope.addMed = function (cantidad, codigo) {
-        alert(cantidad + codigo);
         $scope.newMed = { CodigoMedicamento: codigo, NoReceta: jsonList.NoReceta, Cantidad: cantidad }
         editRecetasResource.save($scope.newMed);
-        alert('Se agrego su medicamento');
         $scope.refresh();
         $location.path('/Item/recetas/1');
         //$scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
@@ -776,24 +767,11 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, su
     $scope.data = sucursalResource.query();
     $scope.typeOfHuman = "Clientes";
     $scope.save = function () {
-        /*alert($scope.Item.Nombre);
-        alert($scope.Item.codigo);
-        alert($scope.Item.Prescripcion);
-        alert($scope.Item.CasaFarmaceutica);
-        alert($scope.Item.Costo);*/
         $scope.newMed = {
             Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
             CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
         };
-        /*$scope.newMed = {
-            Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
-            CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
-        };*/
-        alert(angular.toJson($scope.newMed));
-        //clientService.getData();
-        // var postVar = new httpService();
-        medResource.save($scope.newMed, function () { alert("entro a save"); });
-        //$scope.DataList = medicaResource.query();
+        medResource.save($scope.newMed, function () { ; });
         $scope.dato = vm.mydata;
         $location.path(typeOfView);
     }
@@ -856,7 +834,6 @@ function ($scope, $location, $routeParams, $window, clientService, doctorResourc
     }).then(function () {
         medSucResource.query({ id: $scope.Item.codigo }).$promise.then(function (data) {
             $scope.listaSucursalesMed = data;
-            alert(angular.toJson($scope.listaSucursalesMed));
         });
     });
 
@@ -870,17 +847,13 @@ function ($scope, $location, $routeParams, $window, clientService, doctorResourc
 
     $scope.save = function () {
 
-        alert("entro save");
 
         $scope.newClientUpdated = {
             Nombre: $scope.Item.Nombre, codigo: $scope.Item.codigo, Prescripcion: $scope.Item.Prescripcion,
             CasaFarmaceutica: $scope.Item.CasaFarmaceutica, Costo: $scope.Item.Costo
         };
-        alert(angular.toJson($scope.newClientUpdated));
         medResource.update({ id: $scope.Item.codigo }, $scope.newClientUpdated);
-        alert("salió save");
         $location.path(typeOfView);
-        //Notes.update({ id: $id }, note);
     }
 
 
@@ -902,14 +875,8 @@ app.controller("clientController", ["$scope", "$location", "$routeParams", "clie
 
 function ($scope, $location, $routeParams, clientService, httpService, JsonResource, doctorResource) {
 
-
-    //$scope.data = [];
-    // $scope.ldata  = clientService.getData();
-    //alert(clientService.getData());
-    //$scope.data = clientService.getClients();    
+ 
     $scope.data = JsonResource.query();
-    //$scope.data = httpService.query();
-    //alert(URI);
     $scope.addClient = function () {
         $location.path('/Items/add');
     }
@@ -919,9 +886,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     }
 
     $scope.refresh = function () {
-        //$scope.data = httpService.query();
         $scope.data = JsonResource.query();
-        //$location.path(typeOfView + "/" +index);
     }
 
     $scope.back = function () {
@@ -935,13 +900,8 @@ app.controller("doctorController", ["$scope", "$location", "$routeParams", "clie
 
 function ($scope, $location, $routeParams, clientService, httpService, JsonResource, doctorResource) {
 
-
-    //$scope.data = [];
-    // $scope.ldata  = clientService.getData();
-    //alert(clientService.getData());
-    //$scope.data = clientService.getClients();    
+  
     $scope.data = doctorResource.query();
-    //$scope.data = httpService.query();
     //alert(URI);
     $scope.addClient = function () {
         $location.path(typeOfView + "/add");
@@ -1060,9 +1020,6 @@ function ($scope, $location, $routeParams, clientService, JsonResource, telefono
                Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
                Residencia: $scope.Item.Residencia
            };*/
-        alert("entro aquia");
-        alert(angular.toJson({ id: $scope.Item.IdCliente }));
-        alert(angular.toJson($scope.newClientUpdated));
 
 
         JsonResource.update({ id: $scope.Item.IdCliente }, $scope.newClientUpdated);
@@ -1101,7 +1058,7 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, Js
         }
         clientService.getData();
         var postVar = new httpService();
-        JsonResource.save($scope.newClient, function () { alert("entro a save"); });
+        JsonResource.save($scope.newClient, function () {;});
         $scope.DataList = JsonResource.query();
         $scope.dato = vm.mydata;
         $location.path(typeOfView);
@@ -1132,7 +1089,7 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, do
         }
         clientService.getData();
         var postVar = new httpService();
-        doctorResource.save($scope.newClient, function () { alert("entro a save"); });
+        doctorResource.save($scope.newClient, function () { ; });
         $scope.DataList = doctorResource.query();
         $scope.dato = vm.mydata;
         $location.path(typeOfView);
@@ -1163,13 +1120,11 @@ app.factory('pedidoResource', function ($resource) {
 
 app.controller("pedidoController", ["$scope", "$location", "$routeParams", "pedidoResource",
 function ($scope, $location, $routeParams, pedidoResource) {
-    $scope.data = pedidoResource.query();
-    alert(angular.toJson($scope.data));
+    $scope.data = pedidoResource.query();    
 
     $scope.viewPedido = function (index) {
         pedidoActual = $scope.data[index];
         //alert(angular.toJson(pedidoActual));
-        alert(angular.toJson($scope.data[index]));
         $location.path("/Item/DetallePedido/" + $routeParams.index);
     }
 
@@ -1231,9 +1186,7 @@ app.controller("detallePedidoController", ["$scope", "$location", "$routeParams"
 function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaResource, pedidoResource, recetasResource) {
     $scope.data = recetasResource.query();
     $scope.state = pedidoActual.Estado;
-    alert(angular.toJson(pedidoActual.NoFactura));
     $scope.listaRecetas = pedidoRecetaResource.query({ id: pedidoActual.NoFactura });
-    alert(angular.toJson($scope.listaRecetas));
     $scope.data = detallePedidoResource.query({ id: pedidoActual.NoFactura });
 
     $scope.changeState = function (newState) {
@@ -1242,17 +1195,12 @@ function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaRe
             NoFactura: pedidoActual.NoFactura, FechaRecojo: pedidoActual.FechaRecojo, NoSucursal: pedidoActual.NoSucursal, IdCliente: pedidoActual.IdCliente,
             Estado: newState, Empresa: pedidoActual.Empresa, TelefonoPreferido: pedidoActual.TelefonoPreferido
         }
-        alert("Viejo Pedido");
-        alert(angular.toJson(pedidoActual));
         //alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
         $scope.nuevaFactura = pedidoActual.NoFactura;
-        alert($scope.pedidoActual);
         pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
     }
-    $scope.verMedRec = function (index) {
-        //alert("pasó1");                
+    $scope.verMedRec = function (index) {   
         jsonList = $scope.data;
-        //alert("pasó");
         $location.path("/Item/RecMod");
     };
 
@@ -1350,7 +1298,6 @@ function ($scope, $location, $routeParams, clientLoginResource, gerentesResource
         $scope.returnado = clientLoginResource.query({ id: numeroCliente }).$promise.then(function (data) {
             $scope.dato = data.IdCliente;
             clienteActual = data.IdCliente;
-            alert($scope.dato);
             $scope.go = 1;
         });
     };
@@ -1379,7 +1326,6 @@ function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginRes
     $scope.D = "D";
     $scope.G = "G";
     $scope.login = function (numeroEmpleado, contraseña) {
-        alert("entro");
         $scope.returnado = empleadoLoginResource.query({ cedula: numeroEmpleado, pass: contraseña }).$promise.then(function (data) {
             $scope.dato = data.IdEmpleado;
             empleadoActual = data;
@@ -1408,13 +1354,14 @@ function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginRes
 
 app.controller("gerenteController", ["$scope", "$location", "$routeParams", "clientLoginResource", "gerentesResource",
 function ($scope, $location, $routeParams, clientLoginResource, gerentesResource) {
+
     $scope.Empresa = "";
     $scope.EmpresaDim = empleadoActual.Empresa;
     $scope.dataVendidos = gerentesResource.query({ url: "ProductosMasVendidos" });
     $scope.dataVendidosNuevo = gerentesResource.query({ url: "ProductosMasVendidosPorNuevoSoftware" });
-    $scope.dataVentasEmpresa = gerentesResource.query({ url: "CantidadDeVentasPorEmpresa", empresa: "F" });
-    $scope.dataVendidosEmpresa = gerentesResource.query({ url: "ProductosMasVendidosPorEmpresa", empresa: "F" });
-    $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: "F" });
+    $scope.dataVentasEmpresa = gerentesResource.query({ url: "CantidadDeVentasPorEmpresa", empresa: empleadoActual.Empresa });
+    $scope.dataVendidosEmpresa = gerentesResource.query({ url: "ProductosMasVendidosPorEmpresa", empresa: empleadoActual.Empresa });
+    $scope.dataTotalVendidosEmpresa = gerentesResource.get({ url: "TotalVendidoPorEmpresa", empresa: empleadoActual.Empresa });
 
     $scope.cambieEmpresa = function (empresaNueva) {
         $scope.Empresa = empresaNueva;

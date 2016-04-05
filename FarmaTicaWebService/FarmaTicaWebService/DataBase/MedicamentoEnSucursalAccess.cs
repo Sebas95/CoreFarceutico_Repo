@@ -52,8 +52,42 @@ namespace FarmaTicaWebService.DataBase
                 cmd.ExecuteNonQuery();
 
             }
-           
+    
+        }
+        public int getCantidadDisponible(string CodigoMedicamento, string NoSucursal)
+        {
+            int cantidad = 0;
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT   Cantidad FROM MEDICAMENTO_EN_SUCURSAL "
+                    + " WHERE CodigoMedicamento = '" + CodigoMedicamento + "'   AND NoSucursal = '"+NoSucursal+"'    ; "
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.Read()) //si existe en la base de datos
+                {
+                    cantidad = Convert.ToInt32(rdr["Cantidad"]);
+                }
+               
+            }
+            return cantidad;
+        }
+        public int setCantidadDisponible(string CodigoMedicamento, string NoSucursal, int cantidad)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "UPDATE MEDICAMENTO_EN_SUCURSAL SET Cantidad = '"+cantidad+"' "
+                    + " WHERE CodigoMedicamento = '" + CodigoMedicamento + "'   AND NoSucursal = '" + NoSucursal + "'    ; "
+                    , con);
+                con.Open();
+                cmd.ExecuteNonQuery();
 
+            }
+            return cantidad;
         }
         //
         public void deleteRemoveSucursalFromMedicamento(string codigoMedicamento, string NoSucursal)

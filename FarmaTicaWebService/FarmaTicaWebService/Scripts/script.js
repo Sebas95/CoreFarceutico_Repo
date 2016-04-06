@@ -105,10 +105,13 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'editClient.html',
           controller: 'registroClienteController'
       })
-
-      .otherwise({
+      .when('/Item/logn', {
           templateUrl: 'login.html',
           controller: 'loginController'
+      })
+      .otherwise({
+          templateUrl: 'portada.html',
+          controller: 'portadaController'
       })
 }]);
 
@@ -375,6 +378,18 @@ app.factory('loginResource', function ($resource) {
         delete: { method: 'DELETE' }
     });
 });
+
+app.controller("portadaController", ["$scope", "$location", "$routeParams", "pedidosResource",
+
+function ($scope, $location, $routeParams, pedidosResource) {
+
+
+    $scope.pedidos = function () {
+
+        $location.path('/Item/logn');
+    }
+
+}]);
 
 app.controller('menuMantenimientoController', ["$scope", "$location", "$routeParams", "clientService", "httpService", "URIService",
 

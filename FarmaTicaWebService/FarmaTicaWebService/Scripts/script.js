@@ -713,7 +713,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     }
 
     $scope.back = function () {
-        $location.path("regrese");
+        $location.path('/Item/depend');
     }
 
     $scope.cancel = function () {
@@ -836,7 +836,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     }
 
     $scope.back = function () {
-        $location.path("regrese");
+        $location.path('/Item/depend');
     }
 
 }]);
@@ -913,7 +913,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     }
 
     $scope.back = function () {
-        $location.path("regrese");
+        $location.path('/Item/depend');
     }
 
 }]);
@@ -941,7 +941,7 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     }
 
     $scope.back = function () {
-        $location.path("regrese");
+        $location.path('/Item/depend');
     }
 
 }]);
@@ -986,9 +986,8 @@ function ($scope, $location, $routeParams, clientService, doctorResource, telefo
 
 
 
-    $scope.cancel = function () {
-        editController
-        $location.path(typeOfView);
+    $scope.cancel = function () {       
+        $location.path('/Item/doctores');
     }
 
     $scope.delete = function () {
@@ -1071,12 +1070,12 @@ function ($scope, $http, $location, $routeParams, clientService, httpService, Js
     $scope.save = function () {
         clientService.addClient({
             Nombre: $scope.Item.Nombre, Apellido: $scope.Item.apellido,
-            Cedula: $scope.Item.cedula, Prioridad: $scope.prioridad, FechaNacimiento: $scope.Item.fechaNacimiento,
+            Cedula: $scope.Item.cedula, Prioridad: "", FechaNacimiento: $scope.Item.fechaNacimiento,
             Residencia: $scope.Item.residencia
         });
         $scope.newClient = {
             Cedula: $scope.Item.Cedula, Nombre: $scope.Item.Nombre, Apellido: $scope.Item.Apellido,
-            Prioridad: $scope.Item.Prioridad, FechaNacimiento: $scope.Item.FechaNacimiento,
+            Prioridad: "", FechaNacimiento: $scope.Item.FechaNacimiento,
             Residencia: $scope.Item.Residencia
         }
         clientService.getData();
@@ -1151,6 +1150,10 @@ function ($scope, $location, $routeParams, pedidoResource) {
         $location.path("/Item/DetallePedido/" + $routeParams.index);
     }
 
+    $scope.cancel = function () {
+        $location.path('/Item/depend');
+    }
+
 }]);
 
 
@@ -1221,6 +1224,7 @@ function ($scope, $location, $routeParams, detallePedidoResource, pedidoRecetaRe
         //alert(angular.toJson($scope.pedidoUpdated.FechaRecojo));
         $scope.nuevaFactura = pedidoActual.NoFactura;
         pedidoResource.update({ id: pedidoActual.NoFactura }, $scope.pedidoUpdated);
+        alert("Usted actualizó el Estado de este Pedido!");
     }
     $scope.verMedRec = function (index) {   
         jsonList = $scope.data;
@@ -1236,17 +1240,14 @@ app.controller("verRecModController", ["$scope", "$location", "$routeParams", "c
 
 
 function ($scope, $location, $routeParams, clientService, editRecetasResource, editRecetasResource, recetasResource) {
-    // $scope.Item = clientService.getClients()[parseInt($routeParams.index)];
-    //alert(angular.toJson(jsonList.NoReceta));
-    //quuiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-    //$scope.isArray = data instanceof Array;    
+   
     $scope.Item = jsonList;
     //alert(angular.toJson($scope.Item));
 
-    $scope.refresh = function () {
+    $scope.regresar = function () {
         //$scope.data = httpService.query();
-        $scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
-        //$location.path(typeOfView + "/" +index);
+        //$scope.Item = editRecetasResource.query({ id: jsonList.NoReceta });
+        //$location.path();
     }
 }]);
 
@@ -1336,7 +1337,7 @@ function ($scope, $location, $routeParams, clientLoginResource, gerentesResource
         $location.path('/Item/registroCliente');
     }
     $scope.cancel = function () {
-        $location.path('/Item/eerfgmployeeLog');
+        $location.path('/Item/logn');
     }
 }
 
@@ -1367,7 +1368,7 @@ function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginRes
         alert("No es un empleado registrado")
     }
     $scope.cancel = function () {
-        $location.path('/Item/eerfgmployeeLog');
+        $location.path('/Item/logn');
     }
 }
 

@@ -11,10 +11,10 @@
         <label for="exampleInputApellido">Apellido</label>
         <input type="Apellido" class="form-control" id="Apellido" maxlength="15" placeholder="Apellido" data-ng-model="Item.Apellido" required>
     </div>
-    <div class="form-group">
+    <!--<div class="form-group">
         <label for="exampleInputPrioridad">Prioridad</label>
         <input class="form-control" id="exampleInputPrioridad" maxlength="1" placeholder="Prioridad" data-ng-model="Item.Prioridad">
-    </div>
+    </div>-->
     <div class="form-group">
         <label for="exampleInputfNnacimiento">Fecha de Nacimiento</label>
         <input class="form-control" id="exampleInputfNnacimiento" data type="date" data-ng-model="Item.FechaNacimiento" required>
@@ -25,5 +25,4 @@
     </div><br/>
     <button type="Add" class="btn btn-success" data-ng-click="save()">Guardar Cambios</button>
     <button type="Add" class="btn btn-secondary" data-ng-click="cancel()">Cancelar</button>
-    <button type="Add" class="btn btn-danger" data-ng-click="delete()">Borrar</button>
   </form>

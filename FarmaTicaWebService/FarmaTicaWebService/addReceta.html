@@ -9,7 +9,7 @@
                             <button class="btn">{{docActual}}</button>
                             <button class="btn dropdown-toggle" data-toggle="dropdown" ng-click='open=!open'><span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="datos in docList"><a data-ng-click="addDoc(datos.NoDoctor)">{{datos.Nombre}}</a></li>
+                                <li ng-repeat="datos in docList"><a data-ng-click="addDoc(datos.NoDoctor,datos.Nombre)">{{datos.Nombre}}</a></li>
                                 <!-- <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>

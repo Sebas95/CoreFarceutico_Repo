@@ -265,7 +265,7 @@ app.factory('casasResource', function ($resource) {
 });
 
 app.factory('medResource', function ($resource) {
-    return $resource('http://localhost:8080/api/Medicamento/:presc/:id', {}, {
+    return $resource('http://localhost:8080/api/Medicamento/:presc/:nosuc/:id', {}, {
         query: {
             method: 'GET',
             transformResponse: function (data) {
@@ -458,6 +458,8 @@ var listaMedsActuales = [];
 var listaMedsActualesPeds = [];
 var listaMedsActualesRecs = [];
 var newRecetas = [];
+var numSuc = 0;
+var empSelected = "Empresa";
 
 app.controller("addPedidoController", ["$scope", "$location", "$window", "$routeParams", "doctorResource", "sucursalResource", "medResource", "pedidoResource", "telefonosResource",
     "JsonResource", "detallePedidoResource", "detalleRecetaResource", "recetasResource", "detalleRecetaResource",
@@ -472,7 +474,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         $scope.telefonos = telefonosResource.query({ id: clienteActual });
         //$scope.isArray = data instanceof Array;
     });
-    $scope.empSelected = "Empresa";
+    $scope.empSelected = empSelected;
     $scope.empList = ["Farmatica", "Phischel"];
     $scope.boolEmpresa = false;
     $scope.empresaBool = "Farmatica";
@@ -480,7 +482,8 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     $scope.empresaCambio = function (nueva) {
         $scope.empresaBool = nueva;
         $scope.boolEmpresa = true;
-        $scope.empSelected = nueva;
+        empSelected = nueva;
+        $scope.empSelected = empSelected;
     }
     $scope.cambieEmpresa = function (nueva) {
         $scope.empresaSelec = nueva;
@@ -497,15 +500,19 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     $scope.cantidad = 1;
     $scope.docList = doctorResource.query();
     $scope.recList = sucursalResource.query();
-    $scope.medListP = medResource.query({ presc: "Prescripcion", id: 0 });
-    $scope.medListR = medResource.query();
+    $scope.medListP = medResource.query({ presc: 0, nosuc: numSuc });
+    $scope.medListR = medResource.query({presc: "Sucursal", nosuc: numSuc });
     $scope.medListPed = listaMedsActualesPeds;
     $scope.medListRec = listaMedsActualesRecs;
     $scope.plantillaPedido = { NoFactura: "", CodigoMedicamento: "", Cantidad: "" };
 
     $scope.addNoSuc = function (numeroS, nombre) {
-        $scope.sucActual = nombre;
-        $scope.numSuc = numeroS;
+        sucActual = nombre;
+        $scope.sucActual = sucActual;
+        numSuc = numeroS;
+        $scope.medListP = medResource.query({ presc: 0, nosuc: numSuc });
+        $scope.medListR = medResource.query({ presc: "Sucursal", nosuc: numSuc });
+        //$window.location.reload();
     }
     $scope.addMedPed = function (cant, codMed, nomMed, costo) {
         $scope.medActual = nomMed;
@@ -555,7 +562,8 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         $location.path('/Item/addReceta');
     }
 
-    $scope.addDoc = function (numeroDoc) {
+    $scope.addDoc = function (numeroDoc,nombreDoc) {
+        $scope.docActual = nombreDoc;
         $scope.numeroDoc = numeroDoc;
         //$scope.data = httpService.query();
         //$scope.Item = pedidosResource.query();
@@ -599,7 +607,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
     $scope.addPedido = function (fech, phone, hour) {
         $scope.fechaStandar = "2000-09-30 02:00:11.000"
         pedidoResource.save({
-            FechaRecojo: fech, NoSucursal: $scope.numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.empresaSelec,
+            FechaRecojo: fech, NoSucursal: numSuc, IdCliente: clienteActual, Estado: $scope.Estado, Empresa: $scope.empresaSelec,
             TelefonoPreferido: phone
         }).$promise.then(function (data) {
             $scope.numFac = data.NoFactura;
@@ -608,7 +616,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
             var values = listaMedicamentosxPedido;
             angular.forEach(values, function (value, key) {
                 value.NoFactura = $scope.numFac;
-                value.NoSucursal = $scope.numSuc;
+                value.NoSucursal = numSuc;
                 //alert(angular.toJson(value));
                 detallePedidoResource.save(value);
             });
@@ -630,7 +638,7 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
                     then(function () {
                         medsdeRec = listaMedicamentosxReceta[key];
                         angular.forEach(medsdeRec, function (medicamento, key2) {
-                            medicamento.NoSucursal = $scope.numSuc;
+                            medicamento.NoSucursal = numSuc;
                             detalleRecetaResource.save({
                                 CodigoMedicamento: medicamento.CodigoMedicamento, NoReceta: listaRecets[key].NoReceta, Cantidad: medicamento.Cantidad, NoSucursal: medicamento.NoSucursal
                             });

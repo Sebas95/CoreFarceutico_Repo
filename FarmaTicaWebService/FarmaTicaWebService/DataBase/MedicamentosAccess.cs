@@ -99,6 +99,34 @@ namespace FarmaTicaWebService.DataBase
             }
             return listMedicamentos;
         }
+        public List<Medicamento> getAllMedicamentosPorSucursal( string Nosucursal)
+        {
+            List<Medicamento> listMedicamentos = new List<Medicamento>();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT M.Nombre, M.Codigo , M.Prescripcion , M.CasaFarmaceutica , M.Costo  FROM MEDICAMENTO AS M JOIN MEDICAMENTO_EN_SUCURSAL AS MS"
+                    + " ON M.Codigo = MS.CodigoMedicamento "
+                    + " WHERE MS.NoSucursal = '" + Nosucursal + "' AND MS.Cantidad > 0  ; "
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read()) //si existe en la base de datos
+                {
+                    Medicamento medicamento = new Medicamento();
+                    medicamento.Nombre = rdr["Nombre"].ToString();
+                    medicamento.codigo = rdr["Codigo"].ToString();
+                    medicamento.Prescripcion = rdr["Prescripcion"].ToString();
+                    if (medicamento.Prescripcion == "True") { medicamento.Prescripcion = "1"; }
+                    if (medicamento.Prescripcion == "False") { medicamento.Prescripcion = "0"; }
+                    medicamento.CasaFarmaceutica = rdr["CasaFarmaceutica"].ToString();
+                    medicamento.Costo = rdr["Costo"].ToString();
+                    listMedicamentos.Add(medicamento);
+                }
+            }
+            return listMedicamentos;
+        }
         /// <summary>
         /// Selects a specific row of Medicamento table and maps into an object Medicamento 
         /// </summary>

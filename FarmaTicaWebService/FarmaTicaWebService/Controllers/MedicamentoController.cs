@@ -39,6 +39,11 @@ namespace FarmaTicaWebService.Controllers
         {
             return databaseAccess.getAllMedicamentosPorSucursal(Prescripcion, NoSucursal);
         }
+        [Route("api/Medicamento/Sucursal/{NoSucursal}")]
+        public List<Medicamento> GetPorSucursal( string NoSucursal)
+        {
+            return databaseAccess.getAllMedicamentosPorSucursal( NoSucursal);
+        }
         /// <summary>
         /// Returns all the Medicamentos filtered by the attribute Prescripcion
         /// </summary>

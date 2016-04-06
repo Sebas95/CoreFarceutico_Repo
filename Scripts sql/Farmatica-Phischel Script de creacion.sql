@@ -1,5 +1,5 @@
 CREATE DATABASE FARMATICA;
-GO
+
 
 USE FARMATICA;
 
@@ -21,7 +21,7 @@ CREATE TABLE CLIENTE(
 	Cedula CHAR(11),
 	Nombre CHAR (15),
 	Apellido CHAR(15),
-	Prioridad CHAR(1) DEFAULT 'B',
+	Prioridad CHAR(1) DEFAULT 'A',
 	FechaNacimiento DATE,
 	Residencia CHAR(45),
 

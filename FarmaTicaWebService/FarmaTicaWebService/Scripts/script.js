@@ -417,6 +417,11 @@ function ($scope, $location, $routeParams, clientService, httpService, URIServic
         URIService.setRecetas();
         $location.path("/Item/pedidos/depend");
     };
+    $scope.back = function () {
+        //alert("eentroaqui");
+        URIService.setRecetas();
+        $location.path("/Item/employeeLog");
+    };
 
 }]);
 
@@ -574,8 +579,12 @@ function ($scope, $location, $window, $routeParams, doctorResource, sucursalReso
         //$scope.Item = pedidosResource.query();
         //$location.path(typeOfView + "/" +index);
     }
-    $scope.back = function () {
-        $location.path("regrese");
+    $scope.cancelar = function () {
+        $location.path("/Item/clientLog");
+    }
+
+    $scope.refreshsss = function () {
+        $window.location.reload();
     }
 
     $scope.backPed = function () {
@@ -882,7 +891,7 @@ function ($scope, $location, $routeParams, $window, clientService, doctorResourc
 
 
     $scope.cancel = function () {
-        $location.path(typeOfView);
+        $location.path('/Item/medica');
     }
 
     $scope.delete = function () {
@@ -1378,7 +1387,6 @@ function ($scope, $location, $routeParams, clientLoginResource, empleadoLoginRes
 
 app.controller("gerenteController", ["$scope", "$location", "$routeParams", "clientLoginResource", "gerentesResource",
 function ($scope, $location, $routeParams, clientLoginResource, gerentesResource) {
-
     $scope.Empresa = "";
     $scope.EmpresaDim = empleadoActual.Empresa;
     $scope.dataVendidos = gerentesResource.query({ url: "ProductosMasVendidos" });

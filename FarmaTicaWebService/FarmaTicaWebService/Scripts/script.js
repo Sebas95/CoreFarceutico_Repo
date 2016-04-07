@@ -45,6 +45,10 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'startRecetas.html',
           controller: 'recetasController'
       })
+      .when('/Item/recetas/recetasView', {
+          templateUrl: 'recetasView.html',
+          controller: 'recetasViewController'
+      })
       .when('/Item/pedidos', {
           templateUrl: 'startPedido.html',
           controller: 'starPedidosController'
@@ -715,7 +719,9 @@ function ($scope, $location, $routeParams, clientService, httpService, JsonResou
     $scope.back = function () {
         $location.path('/Item/depend');
     }
-
+    $scope.recetasView = function () {
+        $location.path("Item/recetas/recetasView");
+    }
     $scope.cancel = function () {
         $location.path('/Item/recetas');
     }

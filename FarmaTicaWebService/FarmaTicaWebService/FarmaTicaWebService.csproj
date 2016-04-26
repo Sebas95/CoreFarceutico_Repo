@@ -257,6 +257,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Properties\PublishProfiles\PhischelWebServer.pubxml" />
     <None Include="Properties\PublishProfiles\PhischelWebSite.pubxml" />
+    <None Include="Properties\PublishProfiles\WebService-Prueba.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -269,7 +270,9 @@
     <Content Include="subModuloMantenimiento.html" />
     <Content Include="DetallePedidoModSucursal.html" />
     <Content Include="verRecetasModSuc.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

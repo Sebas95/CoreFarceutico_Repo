@@ -45,21 +45,46 @@ INSERT INTO SUCURSAL (NoSucursal , Nombre , Direccion , Telefono) VALUES (22,'Sa
 INSERT INTO SUCURSAL (NoSucursal , Nombre , Direccion , Telefono) VALUES (33,'Alajuela', 'Poas' ,'9894774');
 
 INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Halothano', 1, '111', 'AbbottLabs', 500);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Ketamina', 1, '112', 'AbbottLabs', 500);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Bupivicaína', 0, '121', 'Pfizer', 200);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Lidocaína', 0, '122', 'Bayer', 750);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Ibuprofeno', 0, '212', 'Bayer', 500);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Paracetamol', 0, '213', 'Bayer', 750);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Codeína', 1, '221', 'Pfizer', 1250);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Morfina', 1, '222', 'Pfizer', 2150);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Alopurinol', 0, '231', 'AbbottLabs', 500);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Clorfenamina', 0, '311', 'Bayer', 300);
-INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Dexametasona', 0, '312', 'Bayer', 200);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Ketamina', 1, '222', 'AbbottLabs', 500);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Bupivicaína', 0, '333', 'Pfizer', 200);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Lidocaína', 0, '444', 'Bayer', 750);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Ibuprofeno', 0, '555', 'Bayer', 500);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Paracetamol', 0, '666', 'Bayer', 750);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Codeína', 1, '777', 'Pfizer', 1250);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Morfina', 1, '888', 'Pfizer', 2150);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Alopurinol', 0, '999', 'AbbottLabs', 500);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Clorfenamina', 0, '000', 'Bayer', 300);
+INSERT INTO MEDICAMENTO (Nombre,Prescripcion,Codigo,CasaFarmaceutica,Costo) VALUES ('Dexametasona', 0, '010', 'Bayer', 200);
 
 INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('111', 11 , 34); 
-INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('111', 22 , 100); 
-INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('112', 11 , 100);
-INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('121', 22 , 300); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('222', 11 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('333', 11 , 100);
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('444', 11 , 300); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('555', 11 , 34); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('777', 11 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('888', 11 , 100);
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('999', 11 , 300); 
+
+
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('111', 22 , 34); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('222', 22 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('444', 22 , 100);
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('555', 22 , 300); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('666', 22 , 34); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('333', 22 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('010', 22 , 300); 
+
+
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('777', 33 , 34); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('666', 33 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('555', 33 , 100);
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('444', 33 , 300); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('333', 33 , 34); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('222', 33 , 100); 
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('111', 33 , 100);
+INSERT INTO MEDICAMENTO_EN_SUCURSAL (CodigoMedicamento,NoSucursal,Cantidad) VALUES ('010', 33 , 300); 
+
+
 
 INSERT INTO PEDIDO (FechaRecojo,NoSucursal,IdCliente,Estado,Empresa,TelefonoPreferido) VALUES ('2009-09-25 02:47:00.000' ,'22','2','Retirado','F','89985104');
 INSERT INTO PEDIDO (FechaRecojo,NoSucursal,IdCliente,Estado,Empresa,TelefonoPreferido) VALUES ('2017-09-25 01:47:00.000','22','2','Nuevo','P','89985104');
@@ -67,8 +92,8 @@ INSERT INTO PEDIDO (FechaRecojo,NoSucursal,IdCliente,Estado,Empresa,TelefonoPref
 INSERT INTO PEDIDO (FechaRecojo,NoSucursal,IdCliente,Estado,Empresa,TelefonoPreferido) VALUES ('2013-09-25 21:47:00.000','11','1','Facturado','F','324434234');
 
 INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('1', '111', 23);
-INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('3', '121', 2 );
-INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('2', '111', 1 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('3', '888', 2 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('2', '333', 1 );
 
 --INSERT INTO RECETA (NoFactura,IdCliente,NoDoctor,Imagen) SELECT '2', '1', '1', bulkcolumn from openrowset(bulk 'C:\Users\Vargam\Desktop\CoreFarceutico_Repo\Scripts sql\receta-WARHAMMER-1.jpg' ,single_blob) as BLOB;
 --INSERT INTO RECETA (NoFactura,IdCliente,NoDoctor,Imagen) SELECT '3', '2', '1', bulkcolumn from openrowset(bulk 'C:\Users\Vargam\Desktop\CoreFarceutico_Repo\Scripts sql\receta-WARHAMMER-2.jpg' ,single_blob) as BLOB;
@@ -94,6 +119,6 @@ INSERT INTO PEDIDO_FISICO (NoSucursal,Estado,Empresa) VALUES ('22', 'Nuevo', 'P'
 INSERT INTO PEDIDO_FISICO (NoSucursal,Estado,Empresa) VALUES ('11', 'Preparado', 'F');
 INSERT INTO PEDIDO_FISICO (NoSucursal,Estado,Empresa) VALUES ('11', 'Facturado', 'F');
 
-INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('1', '121', 23);
-INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('2', '111', 2 );
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('1', '444', 23);
+INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('2', '555', 2 );
 INSERT INTO MEDICAMENTOS_POR_PEDIDO_FISICO (NoFactura,CodigoMedicamento,Cantidad) VALUES ('3', '222', 1 );

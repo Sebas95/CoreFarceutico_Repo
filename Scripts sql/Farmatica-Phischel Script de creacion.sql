@@ -1,4 +1,13 @@
+USE master
+IF EXISTS(select * from sys.databases where name = 'FARMATICA')
+DROP DATABASE FARMATICA
 
+GO
+
+CREATE DATABASE FARMATICA;
+GO
+
+use FARMATICA;
 CREATE TABLE EMPRESA(
 	Codigo CHAR(1),
 	Descrpcion VARCHAR(15),

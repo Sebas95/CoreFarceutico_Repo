@@ -52,6 +52,11 @@ namespace FarmaTicaWebService.Controllers
         {
             databaseAccess.DeleteMedicamento_por_receta(codigoMedicamento, NoReceta);
         }
+
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
+        }
     }
 }
 

@@ -51,5 +51,11 @@ namespace FarmaTicaWebService.Controllers
         {
             databaseAccess.deleteReceta(id);
         }
+
+
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
+        }
     }
 }

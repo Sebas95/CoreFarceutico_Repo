@@ -255,6 +255,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <None Include="Properties\PublishProfiles\FarmaTicaWebService.pubxml" />
     <None Include="Properties\PublishProfiles\PhischelWebServer.pubxml" />
     <None Include="Properties\PublishProfiles\PhischelWebSite.pubxml" />
     <None Include="Properties\PublishProfiles\WebService-Prueba.pubxml" />

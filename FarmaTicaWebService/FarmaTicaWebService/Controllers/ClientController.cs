@@ -46,7 +46,11 @@ namespace FarmaTicaWebService.Controllers
             return DataBaseAccess.getClient(cedula);
         }
 
-        
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
+        }
+
 
 
     }

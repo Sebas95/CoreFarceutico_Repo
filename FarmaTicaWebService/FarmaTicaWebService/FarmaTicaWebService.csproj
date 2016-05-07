@@ -192,6 +192,7 @@
     <Compile Include="Models\Medicamento.cs" />
     <Compile Include="Models\MedicamentoPorReceta.cs" />
     <Compile Include="Models\MedicamentoPorPedido.cs" />
+    <Compile Include="Models\MedicamentoPorSucursal.cs" />
     <Compile Include="Models\Padecimiento.cs" />
     <Compile Include="Models\Pedido.cs" />
     <Compile Include="Models\ProductosMasVendidos.cs" />

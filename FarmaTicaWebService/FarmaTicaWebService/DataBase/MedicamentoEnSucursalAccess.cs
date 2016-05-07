@@ -39,6 +39,30 @@ namespace FarmaTicaWebService.DataBase
             return listSucursales;
 
         }
+        public List<MedicamentoPorSucursal> getMedicamentoPorSucursal()
+        {
+            List<MedicamentoPorSucursal> listMS = new List<MedicamentoPorSucursal>();
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT  NoSucursal, CodigoMedicamento , Cantidad FROM MEDICAMENTO_EN_SUCURSAL"
+                
+                    , con);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read()) //si existe en la base de datos
+                {
+                    MedicamentoPorSucursal MS = new MedicamentoPorSucursal();
+                    MS.NoSucursal = rdr["NoSucursal"].ToString();
+                    MS.CodigoMedicamento = rdr["CodigoMedicamento"].ToString();
+                    MS.Cantidad = rdr["Cantidad"].ToString();
+                    listMS.Add(MS);
+                }
+            }
+            return listMS;
+
+        }
         public void addSucursalPorMedicamento(string CodigoMedicamento, string NoSucursal, string Cantidad)
         {
             string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;

@@ -31,6 +31,12 @@ namespace FarmaTicaWebService.Controllers
         {
             databaseAccess.deleteRemoveSucursalFromMedicamento(codigoMedicamento,NoSucursal);
         }
+        [HttpGet]
+        [Route("api/MedicamentoPorSucursal")]
+        public List<MedicamentoPorSucursal> get()
+        {
+            return databaseAccess.getMedicamentoPorSucursal();
+        }
         
 
     }

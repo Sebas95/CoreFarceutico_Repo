@@ -45,6 +45,11 @@ namespace FarmaTicaWebService.Controllers
         {
             return DataBaseAccess.getClient(cedula);
         }
+        [Route("api/Client/{cedula}")]
+        public Client GetClientByCedula(string cedula)
+        {
+            return DataBaseAccess.getClient(cedula);
+        }
 
         public HttpResponseMessage Options()
         {

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using FarmaTicaWebService.Models;
+using System.Net.Http;
+using System.Web.Http;
+using System.Net;
 
 namespace FarmaTicaWebService.DataBase
 { 
@@ -234,6 +237,10 @@ namespace FarmaTicaWebService.DataBase
 
             }
             return tel;
+        }
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
     }
 }
